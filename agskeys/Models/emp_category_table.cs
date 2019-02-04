@@ -11,13 +11,27 @@ namespace agskeys.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class emp_category_table
     {
         public int id { get; set; }
+
+        [Display(Name = "Category Id")]
+        public string emp_category_id { get; set; }
+
+        [Display(Name = "Employee Category")]
+        [Required(ErrorMessage = "Proof name cannot be empty.")]
         public string emp_category { get; set; }
+
+        [Display(Name = "Status")]
+        [Required(ErrorMessage = "You must choose status")]
         public string status { get; set; }
+
+        [Display(Name = "Added Date")]
         public string datex { get; set; }
+
+        [Display(Name = "Added By")]
         public string addedby { get; set; }
     }
 }

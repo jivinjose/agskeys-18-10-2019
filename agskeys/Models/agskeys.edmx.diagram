@@ -6,11 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="662299ccda434fdfa07c8b1970932434" Name="Diagram1">
         <EntityTypeShape EntityType="agsfinancialsModel.admin_table" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="agsfinancialsModel.customer_table" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="agsfinancialsModel.vendor_table" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="agsfinancialsModel.emp_category_table" Width="1.5" PointX="5.375" PointY="4.75" />
-        <EntityTypeShape EntityType="agsfinancialsModel.proof_table" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="agsfinancialsModel.bank_table" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="agsfinancialsModel.vendor_table" Width="1.5" PointX="2.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="agsfinancialsModel.emp_category_table" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="agsfinancialsModel.proof_table" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="agsfinancialsModel.bank_table" Width="1.5" PointX="4.125" PointY="0.75" />
+        <EntityTypeShape EntityType="agsfinancialsModel.customer_profile_table" Width="1.5" PointX="4.25" PointY="2.875" />
+        <EntityTypeShape EntityType="agsfinancialsModel.loan_table" Width="1.5" PointX="6.125" PointY="3.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,16 +15,25 @@ namespace agskeys.Models
     using System.Web.Mvc;
     public partial class proof_table
     {
-        [Key]
-        public int id { get; set; }
+        //[Key]
+        public int id { get; set; }      
 
-        [Required(ErrorMessage = "Proofname is Required")]       
-       // [Remote("UsernameExists", "Proofs", HttpMethod = "POST", ErrorMessage = "User name already registered.")]
+        [Display(Name = "Proof Name")]
+        [Required(ErrorMessage = "Proof name cannot be empty.")]
         public string proofname { get; set; }
 
+        [Display(Name = "Proof Order")]
+        [Required(ErrorMessage = "You must choose proof order")]
         public string porder { get; set; }
+
+        [Display(Name = "Status")]
+        [Required(ErrorMessage = "This field cannot be empty.")]
         public string status { get; set; }
+
+        [Display(Name = "Added Date")]
         public string datex { get; set; }
+
+        [Display(Name = "Added By")]
         public string addedby { get; set; }
     }
 }

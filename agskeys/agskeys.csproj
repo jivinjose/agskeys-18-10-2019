@@ -164,10 +164,13 @@
     <Compile Include="Models\bank_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\customer_table.cs">
+    <Compile Include="Models\customer_profile_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\emp_category_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\loan_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MultipleEmpClass.cs" />

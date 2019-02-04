@@ -33,28 +33,22 @@
           <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="customer_table">
+        <EntityType Name="customer_profile_table">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
-          <Property Name="phoneno" Type="varchar" MaxLength="50" />
-          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="customerid" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
           <Property Name="address" Type="varchar(max)" />
+          <Property Name="phoneno" Type="varchar" MaxLength="50" />
           <Property Name="dob" Type="varchar" MaxLength="50" />
-          <Property Name="photo" Type="varchar(max)" />
-          <Property Name="partnerid" Type="varchar" MaxLength="50" />
-          <Property Name="loantype" Type="varchar" MaxLength="50" />
-          <Property Name="bankname" Type="varchar" MaxLength="50" />
-          <Property Name="loanamount" Type="varchar" MaxLength="50" />
-          <Property Name="disbursementamount" Type="varchar" MaxLength="50" />
-          <Property Name="rateofintrest" Type="varchar" MaxLength="50" />
-          <Property Name="sanctioncopy" Type="varchar(max)" />
-          <Property Name="idcopy" Type="varchar(max)" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="alterphoneno" Type="varchar" MaxLength="50" />
+          <Property Name="profileimg" Type="varchar" MaxLength="50" />
           <Property Name="username" Type="varchar" MaxLength="50" />
-          <Property Name="password" Type="varchar(max)" />
-          <Property Name="addedby" Type="varchar(max)" />
+          <Property Name="password" Type="varchar" MaxLength="200" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="emp_category_table">
@@ -62,10 +56,28 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_category_id" Type="varchar" MaxLength="50" />
           <Property Name="emp_category" Type="varchar" MaxLength="50" />
           <Property Name="status" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
           <Property Name="addedby" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="loan_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customerid" Type="varchar" MaxLength="50" />
+          <Property Name="partnerid" Type="varchar" MaxLength="50" />
+          <Property Name="bankid" Type="varchar" MaxLength="50" />
+          <Property Name="loantype" Type="varchar" MaxLength="50" />
+          <Property Name="loanamt" Type="varchar" MaxLength="50" />
+          <Property Name="disbursementamt" Type="varchar" MaxLength="50" />
+          <Property Name="rateofinterest" Type="varchar" MaxLength="50" />
+          <Property Name="sactionedcopy" Type="varchar" MaxLength="50" />
+          <Property Name="idcopy" Type="varchar" MaxLength="50" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="proof_table">
           <Key>
@@ -96,8 +108,9 @@
         <EntityContainer Name="agsfinancialsModelStoreContainer">
           <EntitySet Name="admin_table" EntityType="Self.admin_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bank_table" EntityType="Self.bank_table" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="customer_table" EntityType="Self.customer_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_profile_table" EntityType="Self.customer_profile_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_category_table" EntityType="Self.emp_category_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loan_table" EntityType="Self.loan_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="proof_table" EntityType="Self.proof_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendor_table" EntityType="Self.vendor_table" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -124,30 +137,6 @@
           <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="customer_table">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="phoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dob" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="partnerid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="loantype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="bankname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="loanamount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="disbursementamount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="rateofintrest" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sanctioncopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idcopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="addedby" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="vendor_table">
           <Key>
             <PropertyRef Name="id" />
@@ -165,11 +154,12 @@
         </EntityType>
         <EntityContainer Name="agsfinancialsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admin_table" EntityType="Self.admin_table" />
-          <EntitySet Name="customer_table" EntityType="Self.customer_table" />
           <EntitySet Name="vendor_table" EntityType="Self.vendor_table" />
           <EntitySet Name="emp_category_table" EntityType="agsfinancialsModel.emp_category_table" />
           <EntitySet Name="proof_table" EntityType="agsfinancialsModel.proof_table" />
           <EntitySet Name="bank_table" EntityType="agsfinancialsModel.bank_table" />
+          <EntitySet Name="customer_profile_table" EntityType="agsfinancialsModel.customer_profile_table" />
+          <EntitySet Name="loan_table" EntityType="agsfinancialsModel.loan_table" />
         </EntityContainer>
         <EntityType Name="emp_category_table">
           <Key>
@@ -180,6 +170,7 @@
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_category_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="proof_table">
           <Key>
@@ -198,6 +189,41 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="bankname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="customer_profile_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="alterphoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="profileimg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="loan_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="partnerid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bankid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="loantype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="loanamt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="disbursementamt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rateofinterest" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sactionedcopy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idcopy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -227,31 +253,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="customer_table">
-            <EntityTypeMapping TypeName="agsfinancialsModel.customer_table">
-              <MappingFragment StoreEntitySet="customer_table">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="dob" ColumnName="dob" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="partnerid" ColumnName="partnerid" />
-                <ScalarProperty Name="loantype" ColumnName="loantype" />
-                <ScalarProperty Name="bankname" ColumnName="bankname" />
-                <ScalarProperty Name="loanamount" ColumnName="loanamount" />
-                <ScalarProperty Name="disbursementamount" ColumnName="disbursementamount" />
-                <ScalarProperty Name="rateofintrest" ColumnName="rateofintrest" />
-                <ScalarProperty Name="sanctioncopy" ColumnName="sanctioncopy" />
-                <ScalarProperty Name="idcopy" ColumnName="idcopy" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="addedby" ColumnName="addedby" />
-                <ScalarProperty Name="datex" ColumnName="datex" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vendor_table">
             <EntityTypeMapping TypeName="agsfinancialsModel.vendor_table">
               <MappingFragment StoreEntitySet="vendor_table">
@@ -271,6 +272,7 @@
           <EntitySetMapping Name="emp_category_table">
             <EntityTypeMapping TypeName="agsfinancialsModel.emp_category_table">
               <MappingFragment StoreEntitySet="emp_category_table">
+                <ScalarProperty Name="emp_category_id" ColumnName="emp_category_id" />
                 <ScalarProperty Name="addedby" ColumnName="addedby" />
                 <ScalarProperty Name="datex" ColumnName="datex" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -297,6 +299,43 @@
                 <ScalarProperty Name="datex" ColumnName="datex" />
                 <ScalarProperty Name="addedby" ColumnName="addedby" />
                 <ScalarProperty Name="bankname" ColumnName="bankname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer_profile_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.customer_profile_table">
+              <MappingFragment StoreEntitySet="customer_profile_table">
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="profileimg" ColumnName="profileimg" />
+                <ScalarProperty Name="alterphoneno" ColumnName="alterphoneno" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loan_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.loan_table">
+              <MappingFragment StoreEntitySet="loan_table">
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="idcopy" ColumnName="idcopy" />
+                <ScalarProperty Name="sactionedcopy" ColumnName="sactionedcopy" />
+                <ScalarProperty Name="rateofinterest" ColumnName="rateofinterest" />
+                <ScalarProperty Name="disbursementamt" ColumnName="disbursementamt" />
+                <ScalarProperty Name="loanamt" ColumnName="loanamt" />
+                <ScalarProperty Name="loantype" ColumnName="loantype" />
+                <ScalarProperty Name="bankid" ColumnName="bankid" />
+                <ScalarProperty Name="partnerid" ColumnName="partnerid" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
