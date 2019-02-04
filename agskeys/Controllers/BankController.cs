@@ -14,9 +14,9 @@ namespace agskeys.Controllers
         agsfinancialsEntities ags = new agsfinancialsEntities();
         public ActionResult Bank()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var banks = (from bank in ags.bank_table orderby bank.id descending select bank).ToList();
 
@@ -25,9 +25,9 @@ namespace agskeys.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var model = new agskeys.Models.bank_table();
             return PartialView(model);
@@ -36,9 +36,9 @@ namespace agskeys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(bank_table obj)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (ModelState.IsValid)
             {
@@ -64,9 +64,9 @@ namespace agskeys.Controllers
         }
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (Id == null)
             {
@@ -124,6 +124,10 @@ namespace agskeys.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="form-group  row">
                                                 <label class="col-sm-12 col-form-label">
-                                                    @{if (Model.userrole == "ab1d92aaed90828a0fc1c95ecd5fda1f")
+                                                    @*@{if (Model.userrole == "ab1d92aaed90828a0fc1c95ecd5fda1f")
                                                         {
                                                             Model.userrole = "Super Admin";
                                                         }
@@ -64,7 +64,7 @@
                                                         {
                                                             Model.userrole = "Undefined";
                                                         }
-                                                    }
+                                                    }*@
                                                     @{  var status = "";}
                                                     @{if (Model.isActive == false)
                                                         {

@@ -18,7 +18,7 @@ namespace agskeys.Controllers.Admin
         
         public ActionResult Index()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout","Account");
             }
@@ -27,7 +27,7 @@ namespace agskeys.Controllers.Admin
      
         public ActionResult Admin()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -61,12 +61,12 @@ namespace agskeys.Controllers.Admin
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
             var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish").ToList();
-            SelectList list = new SelectList(getEmployeeCategoty, "id", "emp_category");
+            SelectList list = new SelectList(getEmployeeCategoty, "emp_category_id", "emp_category");
             ViewBag.categoryList = list;
             var model = new agskeys.Models.admin_table();
             return PartialView("~/Views/Admin_Mangement/Admin/Create.cshtml",model);
@@ -76,7 +76,7 @@ namespace agskeys.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create(admin_table obj)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477" )
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin" )
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -111,7 +111,7 @@ namespace agskeys.Controllers.Admin
                     //}
                     //else if (obj.userrole == "2")
                     //{
-                    //    obj.userrole = "079e946e1272938b097a0baab6a36477";
+                    //    obj.userrole = "admin";
                     //}
                     //else
                     //{
@@ -148,7 +148,7 @@ namespace agskeys.Controllers.Admin
 
         public ActionResult Details(int Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -156,7 +156,7 @@ namespace agskeys.Controllers.Admin
             var user = ags.admin_table.Where(x => x.id == Id).FirstOrDefault();
             foreach (var items in getEmployeeCategoty)
             {
-                if (items.id.ToString() == user.userrole)
+                if (items.emp_category_id.ToString() == user.userrole)
                 {
                     user.userrole = items.emp_category;
 
@@ -172,7 +172,7 @@ namespace agskeys.Controllers.Admin
 
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -181,7 +181,7 @@ namespace agskeys.Controllers.Admin
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish").ToList();
-            SelectList list = new SelectList(getEmployeeCategoty, "id", "emp_category");
+            SelectList list = new SelectList(getEmployeeCategoty, "emp_category_id", "emp_category");
             ViewBag.categoryList = list;
             admin_table admin_table = ags.admin_table.Find(Id);
 
@@ -329,7 +329,7 @@ namespace agskeys.Controllers.Admin
             var user = ags.admin_table.Where(x => x.id == id).FirstOrDefault();
             foreach (var items in getEmployeeCategoty)
             {
-                if (items.id.ToString() == user.userrole)
+                if (items.emp_category_id.ToString() == user.userrole)
                 {
                     user.userrole = items.emp_category;
 

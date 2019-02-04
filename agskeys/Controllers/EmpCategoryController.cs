@@ -15,9 +15,9 @@ namespace agskeys.Controllers
 
         public ActionResult Index()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var empcategory = (from sub in ags.emp_category_table orderby sub.id descending select sub).ToList();
 
@@ -25,9 +25,9 @@ namespace agskeys.Controllers
         }
         public ActionResult Emp()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var empcategory = (from sub in ags.emp_category_table orderby sub.id descending select sub).ToList();
 
@@ -36,9 +36,9 @@ namespace agskeys.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var model = new agskeys.Models.emp_category_table();//load data from database by RestaurantId
             return PartialView(model);
@@ -47,9 +47,9 @@ namespace agskeys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(emp_category_table obj)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (ModelState.IsValid)
             {
@@ -78,9 +78,9 @@ namespace agskeys.Controllers
 
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (Id == null)
             {
@@ -99,9 +99,9 @@ namespace agskeys.Controllers
         public ActionResult Edit(emp_category_table empCategory)
 
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (ModelState.IsValid)
             {
@@ -151,6 +151,10 @@ namespace agskeys.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

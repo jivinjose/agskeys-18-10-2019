@@ -15,9 +15,9 @@ namespace agskeys.Controllers
         agsfinancialsEntities ags = new agsfinancialsEntities();
         public ActionResult Vendor()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var vendors = (from vendor in ags.vendor_table orderby vendor.id descending select vendor).ToList();
 
@@ -26,9 +26,9 @@ namespace agskeys.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var model = new agskeys.Models.vendor_table();
             return PartialView(model);
@@ -37,9 +37,9 @@ namespace agskeys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(vendor_table obj)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (ModelState.IsValid)
             {
@@ -73,18 +73,18 @@ namespace agskeys.Controllers
         }
         public ActionResult Details(int Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var vendor = ags.vendor_table.Where(x => x.id == Id).FirstOrDefault();
             return PartialView(vendor);
         }
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (Id == null)
             {
@@ -157,6 +157,10 @@ namespace agskeys.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

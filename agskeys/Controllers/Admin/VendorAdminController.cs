@@ -13,7 +13,7 @@ namespace agskeys.Controllers.Admin
         agsfinancialsEntities ags = new agsfinancialsEntities();
         public ActionResult VendorAdmin()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -22,7 +22,7 @@ namespace agskeys.Controllers.Admin
         }
         public ActionResult Details(int Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "079e946e1272938b097a0baab6a36477")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
