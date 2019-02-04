@@ -28,5 +28,8 @@ namespace agskeys.Models
         public virtual DbSet<admin_table> admin_table { get; set; }
         public virtual DbSet<customer_table> customer_table { get; set; }
         public virtual DbSet<vendor_table> vendor_table { get; set; }
+        public virtual DbSet<emp_category_table> emp_category_table { get; set; }
+        public virtual DbSet<proof_table> proof_table { get; set; }
+        public virtual DbSet<bank_table> bank_table { get; set; }
     }
 }

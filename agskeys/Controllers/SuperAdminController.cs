@@ -2,6 +2,7 @@
 using agskeys.Models;
 using PasswordSecurity;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,44 +16,110 @@ namespace agskeys.Controllers
     public class SuperAdminController : Controller
     {
         agsfinancialsEntities ags = new agsfinancialsEntities();
-       
+
         public ActionResult Index()
-        {            
-            if (Session["username"] == null)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             var name = Session["username"].ToString();
             return View();
         }
+
+
+
+
+
+        public ActionResult Super()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+
+            List<admin_table> admin_table = ags.admin_table.ToList();
+            List<emp_category_table> emp_category_table = ags.emp_category_table.ToList();
+
+            var subAdmin = from sub in admin_table join emp in emp_category_table on sub.userrole equals emp.emp_category orderby sub.id descending select new MultipleEmpClass { admin_table = sub, emp_category_table = emp };
+
+            return View(subAdmin);
+        }
+
+        [HttpGet]
+        public ActionResult CreateSuper()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f" )
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            List<admin_table> admin_table = ags.admin_table.ToList();
+            List<emp_category_table> emp_category_table = ags.emp_category_table.ToList();
+
+            var model = from sub in admin_table join emp in emp_category_table on sub.userrole equals emp.emp_category orderby sub.id descending select new MultipleEmpClass { admin_table = sub, emp_category_table = emp };
+
+            //return View(subAdmin);
+            //var model = new agskeys.Models.admin_table();//load data from database by RestaurantId
+            return PartialView(model);
+        }
+
+
+
+
+
+
         public ActionResult Admin()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
+            var getEmployeeCategoty = ags.emp_category_table.ToList();
             var subAdmin = (from sub in ags.admin_table orderby sub.id descending select sub).ToList();
+            var userrole = "";
+            foreach (var item in subAdmin)
+            {                
+                foreach(var items in getEmployeeCategoty)
+                {
+                    if (items.id.ToString() == item.userrole)
+                    {
+                        userrole = items.emp_category +" ("+ items.status + ")";
+                        break;
+                    }
+                    else if (items.id.ToString() != item.userrole)
+                    {
+                        userrole = "Not Updated";
+                        continue;
+                    }
+                }
+                item.userrole = userrole;
+            }
 
+           
             return PartialView(subAdmin);
 
         }
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
-            var model = new agskeys.Models.admin_table();//load data from database by RestaurantId
+            var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish").ToList();
+            SelectList list = new SelectList(getEmployeeCategoty, "id", "emp_category");
+            ViewBag.categoryList = list;
+            var model = new agskeys.Models.admin_table();
             return PartialView(model);
         }
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(admin_table obj)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (ModelState.IsValid)
             {
@@ -64,7 +131,7 @@ namespace agskeys.Controllers
                 if (usr == null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 5);
+                    string fileName = BigfileName.Substring(0, 1);
                     string extension = Path.GetExtension(obj.ImageFile.FileName);
                     if (allowedExtensions.Contains(extension))
                     {
@@ -79,18 +146,18 @@ namespace agskeys.Controllers
                         return View();
                     }
 
-                    if (obj.userrole == "1")
-                    {
-                        obj.userrole = "ab1d92aaed90828a0fc1c95ecd5fda1f";
-                    }
-                    else if (obj.userrole == "2")
-                    {
-                        obj.userrole = "079e946e1272938b097a0baab6a36477";
-                    }
-                    else
-                    {
-                        obj.userrole = "Undefined";
-                    }
+                    //if (obj.userrole == "1")
+                    //{
+                    //    obj.userrole = "ab1d92aaed90828a0fc1c95ecd5fda1f";
+                    //}
+                    //else if (obj.userrole == "2")
+                    //{
+                    //    obj.userrole = "079e946e1272938b097a0baab6a36477";
+                    //}
+                    //else
+                    //{
+                    //    obj.userrole = "Undefined";
+                    //}
                     obj.password = PasswordStorage.CreateHash(obj.password);
                     ags.admin_table.Add(new admin_table
                     {
@@ -120,21 +187,61 @@ namespace agskeys.Controllers
             return View(obj);
         }
 
+
+        //public JsonResult UsernameExists(string username)
+        //{
+        //    //var model = new agskeys.Models.proof_table();
+        //    var admin_table = ags.admin_table.ToList();
+        //    var userdata = "";
+        //    foreach (var items in admin_table)
+        //    {
+        //        if (username == items.username)
+        //        {
+        //            userdata = items.username;
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            userdata = items.username;
+        //            continue;
+        //        }
+            
+
+        //    }
+        //    return Json(!String.Equals(username, userdata, StringComparison.OrdinalIgnoreCase));
+
+        //}
+
+
+
+
         public ActionResult Details(int Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f" )
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
+            var getEmployeeCategoty = ags.emp_category_table.ToList();
             var user = ags.admin_table.Where(x => x.id == Id).FirstOrDefault();
+            foreach (var items in getEmployeeCategoty)
+            {
+                if (items.id.ToString() == user.userrole)
+                {
+                    user.userrole = items.emp_category;
+                    
+                }
+                
+            }
+        
+
             return PartialView(user);
         }
 
         public ActionResult UserProfile()
         {
-            if (Session["username"] == null && Session["userid"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             else
             {
@@ -144,20 +251,24 @@ namespace agskeys.Controllers
                 return PartialView(user);
             }
             return View();
-           
+
         }
 
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null)
+            if (Session["username"] == null || Session["userlevel"].ToString() != "ab1d92aaed90828a0fc1c95ecd5fda1f")
             {
-                RedirectToAction("Login");
+                return this.RedirectToAction("Logout", "Account");
             }
             if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish").ToList();
+            SelectList list = new SelectList(getEmployeeCategoty, "id", "emp_category");
+            ViewBag.categoryList = list;
             admin_table admin_table = ags.admin_table.Find(Id);
+    
             if (admin_table == null)
             {
                 return HttpNotFound();
@@ -173,28 +284,15 @@ namespace agskeys.Controllers
                 var allowedExtensions = new[] {
                     ".Jpg", ".png", ".jpg", "jpeg"
                 };
-                var userCount = (from u in ags.admin_table where u.username == admin_table.username select u).Count();
-
                 admin_table existing = ags.admin_table.Find(admin_table.id);
                 var password = existing.password.ToString();
                 var newPassword = admin_table.password.ToString();
 
-                if (admin_table.userrole == "1")
-                {
-                    admin_table.userrole = "ab1d92aaed90828a0fc1c95ecd5fda1f";
-                }
-                else if (admin_table.userrole == "2")
-                {
-                    admin_table.userrole = "079e946e1272938b097a0baab6a36477";
-                }
-                else
-                {
-                    admin_table.userrole = "Undefined";
-                }
+     
                 if (existing.photo == null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(admin_table.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 5);
+                    string fileName = BigfileName.Substring(0, 1);
                     string extension = Path.GetExtension(admin_table.ImageFile.FileName);
                     if (allowedExtensions.Contains(extension))
                     {
@@ -222,7 +320,7 @@ namespace agskeys.Controllers
                             file.Delete();
                         }
                         string BigfileName = Path.GetFileNameWithoutExtension(admin_table.ImageFile.FileName);
-                        string fileName = BigfileName.Substring(0, 5);
+                        string fileName = BigfileName.Substring(0, 1);
                         string extension = Path.GetExtension(admin_table.ImageFile.FileName);
                         if (allowedExtensions.Contains(extension))
                         {
@@ -253,17 +351,23 @@ namespace agskeys.Controllers
                 existing.alternatephone = admin_table.alternatephone;
                 existing.dob = admin_table.dob;
                 existing.address = admin_table.address;
-                existing.username = admin_table.username;
+                existing.userrole = admin_table.userrole;
+                if (existing.username != admin_table.username)
+                {
+                    var userCount = (from u in ags.admin_table where u.username == admin_table.username select u).Count();
+                    if (userCount == 0)
+                    {
+                        existing.username = admin_table.username;
+                    }
+                    else
+                    {
+                        //existing.username = admin_table.username;
+                        TempData["AE"] = "This user name is already exist";
+                        //return PartialView("Edit", "SuperAdmin");
+                        return RedirectToAction("Edit", "SuperAdmin");
+                    }
+                }
 
-                if (userCount == '1')
-                {
-                    existing.username = admin_table.username;
-                }
-                else
-                {
-                    TempData["AE"] = "This user name is already exist";
-                    return RedirectToAction("Edit", "SuperAdmin");
-                }
 
                 existing.isActive = admin_table.isActive;
                 existing.photo = admin_table.photo;
@@ -293,7 +397,7 @@ namespace agskeys.Controllers
                     existing.password = PasswordStorage.CreateHash(admin_table.password);
                 }
                 ags.SaveChanges();
-                return RedirectToAction("SuperAdmin");
+                return RedirectToAction("Admin", "SuperAdmin");
             }
             return PartialView(admin_table);
         }
@@ -305,12 +409,23 @@ namespace agskeys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            admin_table admin_table = ags.admin_table.Find(id);
-            if (admin_table == null)
+            var getEmployeeCategoty = ags.emp_category_table.ToList();
+            var user = ags.admin_table.Where(x => x.id == id).FirstOrDefault();
+            foreach (var items in getEmployeeCategoty)
+            {
+                if (items.id.ToString() == user.userrole)
+                {
+                    user.userrole = items.emp_category;
+
+                }
+
+            }
+            
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(admin_table);
+            return PartialView(user);
         }
 
         // POST: vendor_table/Delete/5
@@ -327,7 +442,7 @@ namespace agskeys.Controllers
             }
             ags.admin_table.Remove(admin_table);
             ags.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Admin");
         }
 
         protected override void Dispose(bool disposing)
@@ -337,7 +452,7 @@ namespace agskeys.Controllers
                 ags.Dispose();
             }
             base.Dispose(disposing);
-        }        
+        }
 
     }
 

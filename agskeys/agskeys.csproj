@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -129,7 +130,15 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\VendorAdminController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\EmpCategoryController.cs" />
+    <Compile Include="Controllers\Manager\ManagerController.cs" />
+    <Compile Include="Controllers\ProofsController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
+    <Compile Include="Controllers\userprofileController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,7 +161,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>agskeys.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\bank_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\customer_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\emp_category_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MultipleEmpClass.cs" />
+    <Compile Include="Models\proof_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vendor_table.cs">
@@ -183,6 +202,39 @@
     <Content Include="Views\SuperAdmin\Details.cshtml" />
     <Content Include="Views\SuperAdmin\Delete.cshtml" />
     <Content Include="Views\SuperAdmin\UserProfile.cshtml" />
+    <Content Include="Views\EmpCategory\Index.cshtml" />
+    <Content Include="Views\EmpCategory\Create.cshtml" />
+    <Content Include="Views\EmpCategory\Edit.cshtml" />
+    <Content Include="Views\EmpCategory\Delete.cshtml" />
+    <Content Include="Views\Proofs\Index.cshtml" />
+    <Content Include="Views\Proofs\Create.cshtml" />
+    <Content Include="Views\Proofs\Edit.cshtml" />
+    <Content Include="Views\Proofs\Delete.cshtml" />
+    <Content Include="Views\Proofs\Proof.cshtml" />
+    <Content Include="Views\EmpCategory\Emp.cshtml" />
+    <Content Include="Views\Bank\Bank.cshtml" />
+    <Content Include="Views\Bank\Create.cshtml" />
+    <Content Include="Views\Bank\Delete.cshtml" />
+    <Content Include="Views\Bank\Edit.cshtml" />
+    <Content Include="Views\Vendor\Create.cshtml" />
+    <Content Include="Views\Vendor\Details.cshtml" />
+    <Content Include="Views\Vendor\Edit.cshtml" />
+    <Content Include="Views\Vendor\Delete.cshtml" />
+    <Content Include="Views\Vendor\Vendor.cshtml" />
+    <Content Include="Views\SuperAdmin\Super.cshtml" />
+    <Content Include="Views\SuperAdmin\CreateSuper.cshtml" />
+    <Content Include="Views\userprofile\UserProfile.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Create.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Details.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin_Mangement\Admin\Index.cshtml" />
+    <Content Include="Views\Admin_Mangement\VendorAdmin\VendorAdmin.cshtml" />
+    <Content Include="Views\Admin_Mangement\VendorAdmin\Details.cshtml" />
+    <Content Include="Views\Shared\_ManagerLayout.cshtml" />
+    <Content Include="Views\Manager\Manager\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

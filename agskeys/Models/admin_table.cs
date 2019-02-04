@@ -13,6 +13,7 @@ namespace agskeys.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using System.Web.Mvc;
     using System.Web.Security;
 
     public partial class admin_table
@@ -55,6 +56,7 @@ namespace agskeys.Models
         [Required(ErrorMessage = "You must provide a user name")]
         [Display(Name = "User Name")]
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
+        //[Remote("UsernameExists", "SuperAdmin", HttpMethod = "POST", ErrorMessage = "User name already registered.")]
         public string username { get; set; }
 
         [Required(ErrorMessage = "You must enter a password")]

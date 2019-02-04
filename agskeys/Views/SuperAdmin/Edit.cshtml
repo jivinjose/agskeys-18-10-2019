@@ -128,10 +128,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.userrole, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.userrole, new List<SelectListItem>
-
-                               { new SelectListItem{Text="Super Admin", Value="1"},
-                                 new SelectListItem{Text="Admin", Value="2"}}, "Please select", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.userrole, ViewBag.categorylist as SelectList, "Please select user category", new { @class = "form-control" })
                                                         @Html.ValidationMessageFor(model => model.userrole, "", new { @class = "text-danger" })
 
 
@@ -142,7 +139,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>

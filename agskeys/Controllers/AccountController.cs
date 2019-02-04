@@ -91,9 +91,11 @@ namespace agskeys.Controllers
         //    }
         //    return View();
         //}
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Login");
         }
     }

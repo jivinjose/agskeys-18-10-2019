@@ -1,5 +1,6 @@
 ﻿@model agskeys.Models.admin_table
 
+
 <div class="modal-body">
     <!-- [ breadcrumb ] start -->
     <div class="page-header card">
@@ -32,7 +33,7 @@
                         <div class="card">
                             <div class="card-block">
 
-                                @if (TempData["AE"] != null)
+                                @*@if (TempData["AE"] != null)
                                 {
 
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -40,7 +41,7 @@
                                         @TempData["AE"].ToString()
                                     </div>
 
-                                }
+                                }*@
 
                                 @using (Html.BeginForm("Create", "SuperAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
@@ -109,10 +110,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.userrole, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.userrole, new List<SelectListItem>
-
-                               { new SelectListItem{Text="Super Admin", Value="1"},
-                                 new SelectListItem{Text="Admin", Value="2"}}, "Please select", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.userrole, ViewBag.categorylist as SelectList, "Please select user category", new { @class = "form-control" })
                                                         @Html.ValidationMessageFor(model => model.userrole, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>

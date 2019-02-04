@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admindek | Admin Template</title>
+    <title>AGS Financial | Super Admin Template</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html" />
@@ -146,7 +146,7 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-toggle="dropdown">
                                         <img src="~/files/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                        <span>John Doe</span>
+                                        <span>@User.Identity.Name</span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -157,7 +157,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a onclick="createModal('@Url.Action("UserProfile")')">
+                                            <a onclick="createModal('@Url.Action("userprofile","UserProfile")')">
                                            
                                                 <i class="feather icon-user"></i> Profile
 
@@ -170,7 +170,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="auth-sign-in-social.html">
+                                            <a href="@Url.Content("/Account/Logout/")">
                                                 <i class="feather icon-log-out"></i> Logout
 
                                             </a>
@@ -314,7 +314,7 @@
                             <div class="pcoded-inner-navbar main-menu">
                                 <div class="pcoded-navigation-label">Navigation</div>
                                 <ul class="pcoded-item pcoded-left-item">
-                                    <li class="">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                                         <a href="~/SuperAdmin/Index" class=" waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-home"></i>
@@ -322,7 +322,7 @@
                                             <span class="pcoded-mtext">Dashboard</span>
                                         </a>
                                     </li>
-                                    <li class="active">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Admin" ? "active" : "")">
                                         <a href="~/SuperAdmin/Admin" class=" waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-users"></i>
@@ -330,14 +330,39 @@
                                             <span class="pcoded-mtext">Users</span>
                                         </a>
                                     </li>
-                                    <li class="">
-                                        <a href="employee.html" class=" waves-dark">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Emp" ? "active" : "")">
+                                        <a href="~/EmpCategory/Emp" class=" waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-user"></i>
                                             </span>
-                                            <span class="pcoded-mtext">Employee</span>
+                                            <span class="pcoded-mtext">Employee Category</span>
                                         </a>
                                     </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Vendor" ? "active" : "")">
+                                        <a href="~/Vendor/Vendor" class=" waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-user"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Vendor</span>
+                                        </a>
+                                    </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Proof" ? "active" : "")">
+                                        <a href="~/Proofs/Proof" class=" waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-user"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Proofs</span>
+                                        </a>
+                                    </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Bank" ? "active" : "")">
+                                        <a href="~/Bank/Bank" class=" waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-user"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Bank</span>
+                                        </a>
+                                    </li>
+       
 
                                 </ul>
 
@@ -354,20 +379,23 @@
             </div>
         </div>
     </div>
-    @*<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="modelContent">
             </div>
         </div>
     </div>
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
 
+    </script>
     <script>
-        function createModal(url) {
-            $('#modelContent').load(url);
-            $('.modal').modal('show');
-        }
-    </script>*@
+    function createModal(url){
+          $('#modelContent').load(url);
+          $('.modal').modal('show');
+    }
+    </script>
+
+
 
 
 

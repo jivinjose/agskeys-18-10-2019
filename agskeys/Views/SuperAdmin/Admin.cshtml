@@ -17,7 +17,7 @@
         </div>
         <div class="col-lg-4">
             <div class="page-header-breadcrumb">
-                <ul class=" breadcrumb breadcrumb-title">
+                <ul class="breadcrumb breadcrumb-title">
                     <li class="breadcrumb-item">
                         <a href="#"><i class="feather icon-home"></i></a>
                     </li>
@@ -89,7 +89,7 @@
                                                 @Html.DisplayFor(modelItem => item.name)
                                             </td>
                                             <td>
-                                                @{if (item.userrole == "ab1d92aaed90828a0fc1c95ecd5fda1f")
+                                                @*@{if (item.userrole == "ab1d92aaed90828a0fc1c95ecd5fda1f")
                                                     {
                                                         item.userrole = "Super Admin";
                                                     }
@@ -101,7 +101,7 @@
                                                     {
                                                         item.userrole = "Undefined";
                                                     }
-                                                }
+                                                }*@
                                                 @Html.DisplayFor(modelItem => item.userrole)
                                             </td>
                                             <td>
@@ -147,7 +147,7 @@
     <div id="styleSelector">
     </div>
 </div>
-<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+@*<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" id="modelContent">
         </div>
@@ -161,7 +161,7 @@
           $('#modelContent').load(url);
           $('.modal').modal('show');
     }
-</script>
+</script>*@
 
 
 

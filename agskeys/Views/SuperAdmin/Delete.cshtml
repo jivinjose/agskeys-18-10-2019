@@ -53,19 +53,7 @@
                                             </div>
                                             <div class="form-group  row">
                                                 <label class="col-sm-12 col-form-label">
-                                                    @{if (Model.userrole == "ab1d92aaed90828a0fc1c95ecd5fda1f")
-                                                    {
-                                                        Model.userrole = "Super Admin";
-                                                    }
-                                                    else if (Model.userrole == "079e946e1272938b097a0baab6a36477")
-                                                    {
-                                                        Model.userrole = "Admin";
-                                                    }
-                                                    else
-                                                    {
-                                                        Model.userrole = "Undefined";
-                                                    }
-                                                }
+                                                   
                                                 @{  var status = "";}
                                                 @{if (Model.isActive == false)
                                                     {
@@ -80,7 +68,7 @@
                                                         status = "Undefined";
                                                     }
                                                 }
-                                                @Html.DisplayFor(model => model.userrole)<span style="color:#808080">( @status )</span>
+                                                @Html.DisplayFor(model => model.userrole) <span style="color:#808080">( @status )</span>
                                             </label>
                                         </div>
                                         <div class="form-group  row">

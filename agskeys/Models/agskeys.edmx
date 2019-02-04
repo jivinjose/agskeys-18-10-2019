@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="agsfinancialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="agsfinancialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin_table">
           <Key>
             <PropertyRef Name="id" />
@@ -22,6 +22,15 @@
           <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="photo" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="bank_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bankname" Type="varchar" MaxLength="100" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="customer_table">
@@ -48,6 +57,27 @@
           <Property Name="addedby" Type="varchar(max)" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="emp_category_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_category" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="proof_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proofname" Type="varchar" MaxLength="50" />
+          <Property Name="porder" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="vendor_table">
           <Key>
             <PropertyRef Name="id" />
@@ -65,11 +95,13 @@
         </EntityType>
         <EntityContainer Name="agsfinancialsModelStoreContainer">
           <EntitySet Name="admin_table" EntityType="Self.admin_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bank_table" EntityType="Self.bank_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer_table" EntityType="Self.customer_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp_category_table" EntityType="Self.emp_category_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proof_table" EntityType="Self.proof_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendor_table" EntityType="Self.vendor_table" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="agsfinancialsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -135,7 +167,40 @@
           <EntitySet Name="admin_table" EntityType="Self.admin_table" />
           <EntitySet Name="customer_table" EntityType="Self.customer_table" />
           <EntitySet Name="vendor_table" EntityType="Self.vendor_table" />
+          <EntitySet Name="emp_category_table" EntityType="agsfinancialsModel.emp_category_table" />
+          <EntitySet Name="proof_table" EntityType="agsfinancialsModel.proof_table" />
+          <EntitySet Name="bank_table" EntityType="agsfinancialsModel.bank_table" />
         </EntityContainer>
+        <EntityType Name="emp_category_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="proof_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proofname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="porder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="bank_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bankname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -200,6 +265,39 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="addedby" ColumnName="addedby" />
                 <ScalarProperty Name="datex" ColumnName="datex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp_category_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.emp_category_table">
+              <MappingFragment StoreEntitySet="emp_category_table">
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="emp_category" ColumnName="emp_category" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proof_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.proof_table">
+              <MappingFragment StoreEntitySet="proof_table">
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="porder" ColumnName="porder" />
+                <ScalarProperty Name="proofname" ColumnName="proofname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bank_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.bank_table">
+              <MappingFragment StoreEntitySet="bank_table">
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="bankname" ColumnName="bankname" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
