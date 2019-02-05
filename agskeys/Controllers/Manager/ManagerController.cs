@@ -14,6 +14,11 @@ namespace agskeys.Controllers.Manager
         agsfinancialsEntities ags = new agsfinancialsEntities();
         public ActionResult Index()
         {
+
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
             return View("~/Views/Manager/Manager/Index.cshtml");
         }
     }

@@ -137,6 +137,7 @@
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
+    <Compile Include="Controllers\TeleMarketing\TeleMarketingController.cs" />
     <Compile Include="Controllers\userprofileController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +239,8 @@
     <Content Include="Views\Admin_Mangement\VendorAdmin\Details.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
     <Content Include="Views\Manager\Manager\Index.cshtml" />
+    <Content Include="Views\Shared\_TeleMarketingLayout.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
