@@ -76,7 +76,7 @@ namespace agskeys.Controllers
                     else if (emp.emp_category_id == "process_team" && emp.emp_category_id == model.userrole)
                     {
                         Session["userlevel"] = obj.userrole.ToString();
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Index", "ProcessTeam");
                     }
                     else if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
                     {

@@ -135,6 +135,7 @@
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\EmpCategoryController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
+    <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TeleMarketing\TeleMarketingController.cs" />
@@ -241,6 +242,8 @@
     <Content Include="Views\Manager\Manager\Index.cshtml" />
     <Content Include="Views\Shared\_TeleMarketingLayout.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketing\Index.cshtml" />
+    <Content Include="Views\Shared\_ProcessTeam.cshtml" />
+    <Content Include="Views\ProcessTeam\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -251,6 +254,7 @@
   <ItemGroup>
     <Folder Include="adminimage\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ProcessTeam\ProcessTeam\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

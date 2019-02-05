@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace agskeys.Controllers.TeleMarketing
 {
+    [Authorize]
     public class TeleMarketingController : Controller
     {
         // GET: TeleMarketing
