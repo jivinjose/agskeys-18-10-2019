@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\CustomerController.cs" />
     <Compile Include="Controllers\Admin\VendorAdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -253,6 +254,19 @@
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Manager\Manager\Customer.cshtml" />
+    <Content Include="Views\Manager\Manager\Details.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessTeam\Customer.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessTeam\Details.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesExecutive\Customer.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesExecutive\Details.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Details.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Customer.cshtml" />
+    <Content Include="Views\Admin_Mangement\Customer\Customer.cshtml" />
+    <Content Include="Views\Admin_Mangement\Customer\Create.cshtml" />
+    <Content Include="Views\Admin_Mangement\Customer\Details.cshtml" />
+    <Content Include="Views\Admin_Mangement\Customer\Edit.cshtml" />
+    <Content Include="Views\Admin_Mangement\Customer\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
