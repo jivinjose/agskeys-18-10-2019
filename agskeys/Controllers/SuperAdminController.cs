@@ -25,6 +25,7 @@ namespace agskeys.Controllers
                 return this.RedirectToAction("Logout", "Account");
             }
             var name = Session["username"].ToString();
+            var getEmployeeCategoty = ags.emp_category_table.ToList();
             return View();
         }
 
@@ -104,14 +105,15 @@ namespace agskeys.Controllers
             {
                 var usr = (from u in ags.admin_table where u.username == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".png", ".jpg", "jpeg"
                 };
 
                 if (usr == null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
-                    string extension = Path.GetExtension(obj.ImageFile.FileName);
+                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                    string extension = extension1.ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
                         fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -272,7 +274,8 @@ namespace agskeys.Controllers
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(admin_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
-                    string extension = Path.GetExtension(admin_table.ImageFile.FileName);
+                    string extension1 = Path.GetExtension(admin_table.ImageFile.FileName);
+                    string extension = extension1.ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
                         fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -283,7 +286,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
+                        //return RedirectToAction("Edit", "SuperAdmin");
                     }
                 }
 
@@ -300,7 +303,8 @@ namespace agskeys.Controllers
                         }
                         string BigfileName = Path.GetFileNameWithoutExtension(admin_table.ImageFile.FileName);
                         string fileName = BigfileName.Substring(0, 1);
-                        string extension = Path.GetExtension(admin_table.ImageFile.FileName);
+                        string extension1 = Path.GetExtension(admin_table.ImageFile.FileName);
+                        string extension = extension1.ToLower();
                         if (allowedExtensions.Contains(extension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -311,7 +315,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Edit", "SuperAdmin");
                         }
 
                     }
@@ -378,7 +382,7 @@ namespace agskeys.Controllers
                 ags.SaveChanges();
                 return RedirectToAction("Admin", "SuperAdmin");
             }
-            return PartialView(admin_table);
+            return RedirectToAction("Edit", "SuperAdmin");
         }
 
         // GET: vendor_table/Delete/5
@@ -436,3 +440,27 @@ namespace agskeys.Controllers
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (Session["username"] == null)
+//            {
+//                RedirectToAction("Login");
+//            }            
+//            var user = ags.loan_table.Where(x => x.id == Id).FirstOrDefault();
+//var getCustomerProfile = ags.customer_profile_table.Where(x => x.id.ToString() == user.customerid.ToString()).ToList();
+//SelectList customers = new SelectList(getCustomerProfile, "id", "customerid", "name", "phoneno", "profileimg");
+//ViewBag.customerList = customers;
+           
+//            return PartialView(user);

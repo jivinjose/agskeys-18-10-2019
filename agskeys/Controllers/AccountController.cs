@@ -62,11 +62,11 @@ namespace agskeys.Controllers
                     {
                         Session["userlevel"] = obj.userrole.ToString();
                         return RedirectToAction("Index", "Admin");
-                    }
+                    }    
                     else if (emp.emp_category_id == "sales_executive" && emp.emp_category_id == model.userrole)
                     {
                         Session["userlevel"] = obj.userrole.ToString();
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Index", "SalesExecutive");
                     }
                     else if (emp.emp_category_id == "tele_marketing" && emp.emp_category_id == model.userrole)
                     {

@@ -1,4 +1,4 @@
-﻿@model agskeys.Models.admin_table
+﻿@model agskeys.Models.customer_profile_table
 
 <div class="modal-body">
     <!-- [ breadcrumb ] start -->
@@ -8,12 +8,12 @@
                 <div class="page-header-title">
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Edit User</h5>
+                        <h5>Edit Customer</h5>
                         <span>Aggressive Sales and Services</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">               
+            <div class="col-lg-4">
                 <button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,14 +61,13 @@
                                     }
                                 </script>
 
-                                @using (Html.BeginForm("Edit", "SuperAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("Edit", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
                                         @if (TempData["Message"] != null)
                                         {
-                                            <div id="edit" onload="createModal('@Url.Action("Edit", "SuperAdmin" , new {id=Model.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></div>
 
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -79,6 +78,15 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.id)
                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -108,10 +116,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.alternatephone, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.alterphoneno, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.alternatephone, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.alternatephone, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model => model.alterphoneno, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.alterphoneno, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,18 +129,6 @@
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.userrole, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.userrole, ViewBag.categorylist as SelectList, "Please select user category", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.userrole, "", new { @class = "text-danger" })
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -168,12 +164,12 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.profileimg, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @{if (Model.photo != null || Model.photo == "")
+                                                        @{if (Model.profileimg != null || Model.profileimg == "")
                                                             {
-                                                                @Html.HiddenFor(model => model.photo)
-                                                                <img id="oldPhoto" src="@Url.Content(Model.photo)" width="150" height="150" />
+                                                                @Html.HiddenFor(model => model.profileimg)
+                                                                <img id="oldPhoto" src="@Url.Content(Model.profileimg)" width="150" height="150" />
                                                                 <img id="blah" src="#" alt="Your Photo" hidden />
                                                                 <input type="file" name="ImageFile" onchange="readURL(this);" />
 
@@ -189,18 +185,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        <div class="checkbox">
-                                                            @Html.EditorFor(model => model.isActive)
-                                                            @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
@@ -212,33 +196,10 @@
                                     </div>
 
 
-                                    @*<a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "SuperAdmin" , new {id=Model.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>*@
-
-                                    @*<div class="modal fade" id="alert_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Ready to Delete?</h5>
-                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">Are you sure want to delete these rows?</div>
-                                                    <div class="modal-footer">
-                                                        <input type="hidden" id="label0" name="label0" class="label0" value="">
-                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                        <input type="submit" class="btn btn-primary" value="Delete" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-
-
-
                                                             }
 
                                 <div>
-                                    @Html.ActionLink("Back to List", "Admin")
+                                    @Html.ActionLink("Back to List", "Customer")
                                 </div>
                             </div>
                         </div>
@@ -251,14 +212,7 @@
 </div>
 
 
-                           
+
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-@*<script>
-    $(document).ready(function () {
-        var success = @((TempData["Message"] != null).ToString().ToLower());
 
-    if (success == true) {
-        $('#edit').click();
-    }
-});</script>*@
