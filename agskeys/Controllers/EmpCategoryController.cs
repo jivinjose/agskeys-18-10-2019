@@ -74,6 +74,23 @@ namespace agskeys.Controllers
             }
             return View(obj);
         }
+        //[HttpPost]
+        //public JsonResult UsernameExists(string proofname, int id)
+        //{
+        //    return Json(IsUnique(proofname, id));
+        //}
+
+        //private bool IsUnique(string proofname, int id)
+        //{
+        //    if (id == 0) // its a new object
+        //    {
+        //        return !ags.proof_table.Any(x => x.proofname == proofname);
+        //    }
+        //    else // its an existing object so exclude existing objects with the id
+        //    {
+        //        return !ags.proof_table.Any(x => x.proofname == proofname && x.id != id);
+        //    }
+        //}
 
 
         public ActionResult Edit(int? Id)
@@ -118,8 +135,8 @@ namespace agskeys.Controllers
                 }
 
                 //existing.emp_category = emp_category_table.emp_category;
-    
-                if(existing.emp_category != empCategory.emp_category)
+
+                if (existing.emp_category != empCategory.emp_category)
                 {
                     var userCount = (from u in ags.emp_category_table where u.emp_category == empCategory.emp_category select u).Count();
                     if (userCount == 0)
@@ -132,7 +149,7 @@ namespace agskeys.Controllers
                         return RedirectToAction("Edit", "EmpCategory");
                     }
                 }
-               
+
                 if (existing.addedby == null)
                 {
                     existing.addedby = Session["username"].ToString();
@@ -141,9 +158,9 @@ namespace agskeys.Controllers
                 {
                     existing.datex = DateTime.Now.ToString();
                 }
-             
+
                 ags.SaveChanges();
-                return RedirectToAction("Emp","EmpCategory");
+                return RedirectToAction("Emp", "EmpCategory");
             }
             return PartialView(empCategory);
 
@@ -151,10 +168,6 @@ namespace agskeys.Controllers
 
         public ActionResult Delete(int? id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
-            {
-                return this.RedirectToAction("Logout", "Account");
-            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -175,8 +188,8 @@ namespace agskeys.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             emp_category_table emp_category_table = ags.emp_category_table.Find(id);
-            
-           
+
+
             ags.emp_category_table.Remove(emp_category_table);
             ags.SaveChanges();
             return RedirectToAction("Emp");
@@ -194,4 +207,5 @@ namespace agskeys.Controllers
 
 
     }
+
 }

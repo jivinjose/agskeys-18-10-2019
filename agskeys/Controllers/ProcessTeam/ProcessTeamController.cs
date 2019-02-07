@@ -28,7 +28,7 @@ namespace agskeys.Controllers.ProcessTeam
             }
             var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
 
-            return PartialView("~/Views/ProcessTeam/ProcessTeam/Customer.cshtml");
+            return PartialView("~/Views/ProcessTeam/ProcessTeam/Customer.cshtml", customers);
         }
         public ActionResult Details(int Id)
         {
@@ -41,7 +41,7 @@ namespace agskeys.Controllers.ProcessTeam
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/ProcessTeam/ProcessTeam/Details.cshtml");
+            return PartialView("~/Views/ProcessTeam/ProcessTeam/Details.cshtml", user);
         }
     }
 }

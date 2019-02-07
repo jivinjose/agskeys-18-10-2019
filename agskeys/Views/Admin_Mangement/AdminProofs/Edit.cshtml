@@ -1,4 +1,4 @@
-﻿@model agskeys.Models.emp_category_table
+﻿@model agskeys.Models.proof_table
 
 
 <div class="modal-body">
@@ -9,7 +9,7 @@
                 <div class="page-header-title">
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Edit Employee Category</h5>
+                        <h5>Edit Proofs</h5>
                         <span>Aggressive Sales and Services</span>
                     </div>
                 </div>
@@ -42,9 +42,9 @@
                                     </div>
 
                                 }
-                                
 
-                                @using (Html.BeginForm("Edit", "EmpCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+                                @using (Html.BeginForm("Edit", "AdminProofs", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
@@ -61,21 +61,30 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.id)
                                         <div class="row">
-                                            <div class="col-md-6" >
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="control-label col-md-12">
-                                                        Employee Category
+                                                        Proof Name
                                                     </div><br />
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.emp_category, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.emp_category, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model => model.proofname, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.proofname, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                          
-                                     
-                                          
-                                          
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="control-label col-md-12">
+                                                        Order
+                                                    </div><br />
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.porder, new { htmlAttributes = new { @type = "number", @min = "0", @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.porder, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -93,10 +102,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                      
 
 
-                                            
+
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
@@ -108,15 +117,10 @@
                                     </div>
 
 
-
-
-
-
-
-                                                            }
+                                }
 
                                 <div>
-                                    @Html.ActionLink("Back to List", "Emp")
+                                    @Html.ActionLink("Back to List", "Proof")
                                 </div>
                             </div>
                         </div>
@@ -129,21 +133,8 @@
 </div>
 
 
-
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

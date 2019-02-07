@@ -55,7 +55,9 @@ namespace agskeys.Controllers
                 {
                     //string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
                     string fileName = obj.customerid + "_";
-                    string extension = Path.GetExtension(obj.ImageFile.FileName);
+                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                  
+                    string extension = extension1.ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
                         fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -142,7 +144,8 @@ namespace agskeys.Controllers
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
-                    string extension = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                    string extension1 = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                    string extension = extension1.ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
                         fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -170,7 +173,8 @@ namespace agskeys.Controllers
                         }
                         string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                         string fileName = BigfileName.Substring(0, 1);
-                        string extension = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                        string extension1 = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                        string extension = extension1.ToLower();
                         if (allowedExtensions.Contains(extension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;

@@ -28,7 +28,7 @@ namespace agskeys.Controllers.SaleExecutive
             }
             var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
 
-            return PartialView("~/Views/SalesExecutive/SalesExecutive/Customer.cshtml");
+            return PartialView("~/Views/SalesExecutive/SalesExecutive/Customer.cshtml", customers);
         }
         public ActionResult Details(int Id)
         {
@@ -41,7 +41,7 @@ namespace agskeys.Controllers.SaleExecutive
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/SalesExecutive/SalesExecutive/Details.cshtml");
+            return PartialView("~/Views/SalesExecutive/SalesExecutive/Details.cshtml", user);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace agskeys.Controllers.Admin
 {
         [Authorize]
-        public class CustomerController : Controller
+        public class AdminCustomerController : Controller
         {
             agsfinancialsEntities ags = new agsfinancialsEntities();
             public ActionResult Customer()
@@ -22,7 +22,7 @@ namespace agskeys.Controllers.Admin
                 }
                 var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
 
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml", customers);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Customer.cshtml", customers);
             }
             [HttpGet]
             public ActionResult Create()
@@ -32,7 +32,7 @@ namespace agskeys.Controllers.Admin
                     return this.RedirectToAction("Logout", "Account");
                 }
                 var model = new agskeys.Models.customer_profile_table();
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml", model);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Create.cshtml", model);
             }
             [HttpPost]
             [ValidateAntiForgeryToken]
@@ -55,7 +55,8 @@ namespace agskeys.Controllers.Admin
                     {
                         //string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
                         string fileName = obj.customerid + "_";
-                        string extension = Path.GetExtension(obj.ImageFile.FileName);
+                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                        string extension = extension1.ToLower();
                         if (allowedExtensions.Contains(extension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -66,7 +67,7 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                            return View();
                         }
                         obj.password = PasswordStorage.CreateHash(obj.password);
                         ags.customer_profile_table.Add(new customer_profile_table
@@ -85,14 +86,14 @@ namespace agskeys.Controllers.Admin
                             addedby = Session["username"].ToString()
                         });
                         ags.SaveChanges();
-                        return RedirectToAction("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                        return RedirectToAction("Customer");
                     }
                     else
                     {
                         TempData["AE"] = "This customer user name is already exist";
                     }
                 }
-                return View(obj);
+                return View("~/Views/Admin_Mangement/AdminCustomer/Details.cshtml",obj);
             }
             public ActionResult Details(int Id)
             {
@@ -105,7 +106,7 @@ namespace agskeys.Controllers.Admin
                 {
                     return HttpNotFound();
                 }
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml", user);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Details.cshtml", user);
             }
 
             public ActionResult Edit(int? Id)
@@ -124,7 +125,7 @@ namespace agskeys.Controllers.Admin
                 {
                     return HttpNotFound();
                 }
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml",customer_profile_table);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Edit.cshtml",customer_profile_table);
             }
             [HttpPost]
             [ValidateAntiForgeryToken]
@@ -142,7 +143,8 @@ namespace agskeys.Controllers.Admin
                     {
                         string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                         string fileName = BigfileName.Substring(0, 1);
-                        string extension = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                        string extension1 = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                        string extension = extension1.ToLower();
                         if (allowedExtensions.Contains(extension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -153,7 +155,7 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                            return View("~/Views/Admin_Mangement/AdminCustomer/Edit.cshtml");
                         }
                     }
 
@@ -170,7 +172,8 @@ namespace agskeys.Controllers.Admin
                             }
                             string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                             string fileName = BigfileName.Substring(0, 1);
-                            string extension = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                            string extension1 = Path.GetExtension(customer_profile_table.ImageFile.FileName);
+                            string extension = extension1.ToLower();
                             if (allowedExtensions.Contains(extension))
                             {
                                 fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
@@ -181,8 +184,8 @@ namespace agskeys.Controllers.Admin
                             else
                             {
                                 TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                                return View("~/Views/Admin_Mangement/Customer/Customer.cshtml");
-                            }
+                                 return View("~/Views/Admin_Mangement/AdminCustomer/Edit.cshtml");
+                        }
 
                         }
                         else
@@ -213,7 +216,7 @@ namespace agskeys.Controllers.Admin
                             //existing.username = customer_profile_table.username;
                             TempData["AE"] = "This user name is already exist";
                             //return PartialView("Edit", "SuperAdmin");
-                            return RedirectToAction("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                            return RedirectToAction("Customer");
                         }
                     }
 
@@ -244,9 +247,9 @@ namespace agskeys.Controllers.Admin
                         existing.password = PasswordStorage.CreateHash(customer_profile_table.password);
                     }
                     ags.SaveChanges();
-                    return RedirectToAction("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                    return RedirectToAction("Customer");
                 }
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml",customer_profile_table);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Customer.cshtml",customer_profile_table);
             }
 
             // GET: vendor_table/Delete/5
@@ -261,7 +264,7 @@ namespace agskeys.Controllers.Admin
                 {
                     return HttpNotFound();
                 }
-                return PartialView("~/Views/Admin_Mangement/Customer/Customer.cshtml", customer_profile_table);
+                return PartialView("~/Views/Admin_Mangement/AdminCustomer/Delete.cshtml", customer_profile_table);
             }
 
             // POST: vendor_table/Delete/5
@@ -278,7 +281,7 @@ namespace agskeys.Controllers.Admin
                 }
                 ags.customer_profile_table.Remove(customer_profile_table);
                 ags.SaveChanges();
-                return RedirectToAction("~/Views/Admin_Mangement/Customer/Customer.cshtml");
+                return RedirectToAction("Customer");
             }
             protected override void Dispose(bool disposing)
             {

@@ -28,7 +28,7 @@ namespace agskeys.Controllers.TeleMarketing
             }
             var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
 
-            return PartialView("~/Views/TeleMarketing/TeleMarketing/Customer.cshtml");
+            return PartialView("~/Views/TeleMarketing/TeleMarketing/Customer.cshtml", customers);
         }
         public ActionResult Details(int Id)
         {
@@ -41,7 +41,7 @@ namespace agskeys.Controllers.TeleMarketing
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/TeleMarketing/TeleMarketing/Details.cshtml");
+            return PartialView("~/Views/TeleMarketing/TeleMarketing/Details.cshtml", user);
         }
     }
 }

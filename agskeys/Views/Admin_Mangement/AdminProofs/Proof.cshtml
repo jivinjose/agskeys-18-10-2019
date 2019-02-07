@@ -1,21 +1,22 @@
-﻿@model IEnumerable<agskeys.Models.customer_profile_table>
+﻿@model IEnumerable<agskeys.Models.proof_table>
 
 @{
-    ViewBag.Title = "Customer";
+    ViewBag.Title = "Proof";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div class="page-header card">
     <div class="row align-items-end">
-        <div class="col-lg-7">
+        <div class="col-lg-8">
             <div class="page-header-title">
                 <i class="feather icon-users bg-c-blue"></i>
                 <div class="d-inline">
-                    <h5>Customer Management</h5>
+                    <h5>Proofs</h5>
                     <span>Aggressive Sales and Services</span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <div class="page-header-breadcrumb">
                 <ul class=" breadcrumb breadcrumb-title">
                     <li class="breadcrumb-item">
@@ -25,7 +26,7 @@
                         <a href="#">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#!">Customer Management</a>
+                        <a href="#!">Proofs</a>
                     </li>
                 </ul>
             </div>
@@ -40,18 +41,22 @@
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <p>
-                                <button onclick="createModal('@Url.Action("Create", "Customer")')" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-user-plus"></i>Create</button>
+                                <button onclick="createModal('@Url.Action("Create", "AdminProofs")')" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-user-plus"></i>Create</button>
                             </p>
                             <table id="alt-pg-dt" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>
-                                            Customer Name
+                                            Proofs Name
                                         </th>
                                         <th>
-                                            Customer Id
+                                            Order
                                         </th>
+                                        <th>
+                                            Status
+                                        </th>
+
                                         <th>
                                             Added By
                                         </th>
@@ -68,35 +73,42 @@
                                         <tr>
                                             <td>@i</td>
 
+
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.name)
+                                                @Html.DisplayFor(modelItem => item.proofname)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.customerid)
+                                                @Html.DisplayFor(modelItem => item.porder)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.status)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.addedby)
                                             </td>
                                             <td>
-                                                <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "Customer" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
-                                                <a href="#" id="details" onclick="createModal('@Url.Action("Details", "Customer" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
-                                                <a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "Customer" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>
+                                                <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "AdminProofs" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
+                                                @*<a href="#" id="details" onclick="createModal('@Url.Action("Details", "SuperAdmin" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>*@
+                                                <a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "AdminProofs" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                                 <tfoot>
                                     <tr>
-
                                         <th>#</th>
                                         <th>
-                                            Name
+                                            Proofs Name
                                         </th>
                                         <th>
-                                            User Name
+                                            Order
                                         </th>
                                         <th>
-                                            Company Name
+                                            Status
+                                        </th>
+
+                                        <th>
+                                            Added By
                                         </th>
                                         <th>Actions</th>
                                     </tr>
@@ -111,4 +123,37 @@
     <div id="styleSelector">
     </div>
 </div>
+@*<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modelContent">
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
+
+    </script>
+    <script>
+        function createModal(url){
+              $('#modelContent').load(url);
+              $('.modal').modal('show');
+        }
+    </script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

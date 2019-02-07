@@ -2,9 +2,8 @@
 
 @{
     ViewBag.Title = "Customer";
-    Layout = "~/Views/Shared/_SalesExecutiveLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <div class="page-header card">
     <div class="row align-items-end">
         <div class="col-lg-7">
@@ -40,7 +39,9 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
-
+                            <p>
+                                <button onclick="createModal('@Url.Action("Create", "AdminCustomer")')" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-user-plus"></i>Create</button>
+                            </p>
                             <table id="alt-pg-dt" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
@@ -77,9 +78,9 @@
                                                 @Html.DisplayFor(modelItem => item.addedby)
                                             </td>
                                             <td>
-
-                                                <a href="#" id="details" onclick="createModal('@Url.Action("Details", "SalesExecutive" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
-
+                                                <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "AdminCustomer" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
+                                                <a href="#" id="details" onclick="createModal('@Url.Action("Details", "AdminCustomer" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
+                                                <a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "AdminCustomer" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -110,3 +111,4 @@
     <div id="styleSelector">
     </div>
 </div>
+

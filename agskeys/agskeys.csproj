@@ -131,7 +131,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\Admin\CustomerController.cs" />
+    <Compile Include="Controllers\Admin\AdminCustomerController.cs" />
+    <Compile Include="Controllers\Admin\AdminProofsController.cs" />
     <Compile Include="Controllers\Admin\VendorAdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -245,7 +246,7 @@
     <Content Include="Views\Manager\Manager\Index.cshtml" />
     <Content Include="Views\Shared\_TeleMarketingLayout.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketing\Index.cshtml" />
-    <Content Include="Views\Shared\_ProcessTeam.cshtml" />
+    <Content Include="Views\Shared\_ProcessTeamLayout.cshtml" />
     <Content Include="Views\ProcessTeam\ProcessTeam\Index.cshtml" />
     <Content Include="Views\Shared\_SalesExecutiveLayout.cshtml" />
     <Content Include="Views\SalesExecutive\SalesExecutive\Index.cshtml" />
@@ -262,11 +263,15 @@
     <Content Include="Views\SalesExecutive\SalesExecutive\Details.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketing\Details.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketing\Customer.cshtml" />
-    <Content Include="Views\Admin_Mangement\Customer\Customer.cshtml" />
-    <Content Include="Views\Admin_Mangement\Customer\Create.cshtml" />
-    <Content Include="Views\Admin_Mangement\Customer\Details.cshtml" />
-    <Content Include="Views\Admin_Mangement\Customer\Edit.cshtml" />
-    <Content Include="Views\Admin_Mangement\Customer\Delete.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminCustomer\Customer.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminCustomer\Create.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminCustomer\Details.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminCustomer\Edit.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminCustomer\Delete.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminProofs\Create.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminProofs\Edit.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminProofs\Delete.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminProofs\Proof.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -277,6 +282,8 @@
   <ItemGroup>
     <Folder Include="adminimage\" />
     <Folder Include="App_Data\" />
+    <Folder Include="customerImage\" />
+    <Folder Include="Views\AdminEmployeeCategory\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
