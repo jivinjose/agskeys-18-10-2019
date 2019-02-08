@@ -178,6 +178,9 @@
     <Compile Include="Models\emp_category_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\loantype_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\loan_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>

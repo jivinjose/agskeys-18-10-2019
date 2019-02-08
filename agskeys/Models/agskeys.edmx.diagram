@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="agsfinancialsModel.bank_table" Width="1.5" PointX="4.125" PointY="0.75" />
         <EntityTypeShape EntityType="agsfinancialsModel.customer_profile_table" Width="1.5" PointX="4.25" PointY="2.875" />
         <EntityTypeShape EntityType="agsfinancialsModel.loan_table" Width="1.5" PointX="6.125" PointY="3.125" />
+        <EntityTypeShape EntityType="agsfinancialsModel.loantype_table" Width="1.5" PointX="2.625" PointY="4.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
