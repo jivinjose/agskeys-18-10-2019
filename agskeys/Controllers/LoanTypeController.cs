@@ -9,18 +9,19 @@ using System.Web.Mvc;
 namespace agskeys.Controllers
 {
     [Authorize]
-    public class BankController : Controller
+    public class LoanTypeController : Controller
     {
+        // GET: LoanType
         agsfinancialsEntities ags = new agsfinancialsEntities();
-        public ActionResult Bank()
+        public ActionResult loantype()
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
-            var banks = (from bank in ags.bank_table orderby bank.id descending select bank).ToList();
+            var loantype = (from sub in ags.loantype_table orderby sub.id descending select sub).ToList();
 
-            return View(banks);
+            return View(loantype);
         }
         [HttpGet]
         public ActionResult Create()
@@ -29,12 +30,12 @@ namespace agskeys.Controllers
             {
                 return this.RedirectToAction("Logout", "Account");
             }
-            var model = new agskeys.Models.bank_table();
+            var model = new agskeys.Models.loantype_table();
             return PartialView(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(bank_table obj)
+        public ActionResult Create(loantype_table obj)
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
@@ -42,22 +43,22 @@ namespace agskeys.Controllers
             }
             if (ModelState.IsValid)
             {
-                var vendor = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();
+                var loantype = (from u in ags.loantype_table where u.loan_type == obj.loan_type select u).FirstOrDefault();
 
-                if (vendor == null)
+                if (loantype == null)
                 {
-                    ags.bank_table.Add(new bank_table
+                    ags.loantype_table.Add(new loantype_table
                     {
-                        bankname = obj.bankname,
+                        loan_type= obj.loan_type,
                         datex = DateTime.Now.ToString(),
                         addedby = Session["username"].ToString()
                     });
                     ags.SaveChanges();
-                    return RedirectToAction("Bank", "Bank");
+                    return RedirectToAction("loantype");
                 }
                 else
                 {
-                    TempData["AE"] = "This bank name is already exist";
+                    TempData["AE"] = "This Loan Type is already exist";
                 }
             }
             return View(obj);
@@ -72,31 +73,31 @@ namespace agskeys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            bank_table bank_table = ags.bank_table.Find(Id);
-            if (bank_table == null)
+            loantype_table loantype_table = ags.loantype_table.Find(Id);
+            if (loantype_table == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(bank_table);
+            return PartialView(loantype_table);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(bank_table bank_table)
+        public ActionResult Edit(loantype_table loantype_table)
         {
             if (ModelState.IsValid)
             {
-                bank_table existing = ags.bank_table.Find(bank_table.id);
-                if (existing.bankname != bank_table.bankname)
+                loantype_table existing = ags.loantype_table.Find(loantype_table.id);
+                if (existing.loan_type != loantype_table.loan_type)
                 {
-                    var count = (from u in ags.bank_table where u.bankname == bank_table.bankname select u).Count();
+                    var count = (from u in ags.loantype_table where u.loan_type == loantype_table.loan_type select u).Count();
                     if (count == 0)
                     {
-                        existing.bankname = bank_table.bankname;
+                        existing.loan_type = loantype_table.loan_type;
                     }
                     else
                     {
-                        TempData["AE"] = "This bank name is already exist";
-                        return RedirectToAction("Edit", "Bank");
+                        TempData["AE"] = "This Loan Type is already exist";
+                        return RedirectToAction("loantype");
                     }
                 }
 
@@ -117,11 +118,10 @@ namespace agskeys.Controllers
                     existing.datex = existing.datex;
                 }
                 ags.SaveChanges();
-                return RedirectToAction("Bank", "Bank");
+                return RedirectToAction("loantype");
             }
-            return PartialView(bank_table);
+            return PartialView(loantype_table);
         }
-
         public ActionResult Delete(int? id)
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
@@ -132,22 +132,22 @@ namespace agskeys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            bank_table bank_table = ags.bank_table.Find(id);
-            if (bank_table == null)
+            loantype_table loantype_table = ags.loantype_table.Find(id);
+            if (loantype_table == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(bank_table);
+            return PartialView(loantype_table);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            bank_table bank_table = ags.bank_table.Find(id);
-            ags.bank_table.Remove(bank_table);
+            loantype_table loantype_table = ags.loantype_table.Find(id);
+            ags.loantype_table.Remove(loantype_table);
             ags.SaveChanges();
-            return RedirectToAction("Bank", "Bank");
+            return RedirectToAction("loantype");
         }
 
         protected override void Dispose(bool disposing)

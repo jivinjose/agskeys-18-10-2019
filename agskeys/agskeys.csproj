@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmpCategoryController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\LoanTypeController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
@@ -287,6 +288,10 @@
     <Content Include="Views\Admin_Mangement\AdminLoan\Details.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminLoan\Edit.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminLoan\Delete.cshtml" />
+    <Content Include="Views\LoanType\loantype.cshtml" />
+    <Content Include="Views\LoanType\Create.cshtml" />
+    <Content Include="Views\LoanType\Edit.cshtml" />
+    <Content Include="Views\LoanType\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

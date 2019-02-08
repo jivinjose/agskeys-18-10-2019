@@ -90,7 +90,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loantype, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
                                                         @Html.ValidationMessageFor(model => model.loantype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>

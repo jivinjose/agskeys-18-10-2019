@@ -55,6 +55,24 @@ namespace agskeys.Controllers
                     }
                 }
             }
+
+            var getloantype = ags.loantype_table.ToList();
+            foreach (var item in customer_loans)
+            {
+                foreach (var items in getloantype)
+                {
+                    if (item.loantype == items.id.ToString())
+                    {
+                        item.loantype = items.loan_type;
+                        break;
+                    }
+                    else if (!ags.loan_table.Any(s => s.loantype.ToString() == items.id.ToString()))
+                    {
+                        item.loantype = "Not Updated";
+                    }
+                }
+            }
+            
             return PartialView(customer_loans);
         }
 
@@ -76,6 +94,10 @@ namespace agskeys.Controllers
             var getBank = ags.bank_table.ToList();
             SelectList banks = new SelectList(getBank, "id", "bankname");
             ViewBag.bankList = banks;
+
+            var getloantype = ags.loantype_table.ToList();
+            SelectList loantp = new SelectList(getloantype, "id", "loan_type");
+            ViewBag.loantypeList = loantp;
 
             var model = new agskeys.Models.loan_table();
             return PartialView(model);
@@ -103,6 +125,10 @@ namespace agskeys.Controllers
                 var getBank = ags.bank_table.ToList();
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
+
+                var getloantype = ags.loantype_table.ToList();
+                SelectList loantp = new SelectList(getloantype, "id", "loan_type");
+                ViewBag.loantypeList = loantp;
                 // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
                     ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
@@ -228,10 +254,20 @@ namespace agskeys.Controllers
                 }
             }
 
-
-
-
-
+            var getloantype = ags.loantype_table.ToList();
+            foreach (var loantp in getloantype)
+            {
+                if (user.loantype == loantp.id.ToString())
+                {
+                    user.loantype = loantp.loan_type;
+                    break;
+                }
+                else if (!ags.loan_table.Any(s => s.loantype.ToString() == loantp.id.ToString()))
+                {
+                    user.loantype = "Not Updated";
+                }
+            }
+            
             return PartialView(user);
         }
 
@@ -259,6 +295,10 @@ namespace agskeys.Controllers
             SelectList banks = new SelectList(getBank, "id", "bankname");
             ViewBag.bankList = banks;
 
+            var getloantype = ags.loantype_table.ToList();
+            SelectList loantp = new SelectList(getloantype, "id", "loan_type");
+            ViewBag.loantypeList = loantp;
+
             loan_table loan_table = ags.loan_table.Find(Id);
             if (loan_table == null)
             {
@@ -284,6 +324,11 @@ namespace agskeys.Controllers
                 var getBank = ags.bank_table.ToList();
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
+
+                var getloantype = ags.loantype_table.ToList();
+                SelectList loantp = new SelectList(getloantype, "id", "loan_type");
+                ViewBag.loantypeList = loantp;
+
                 var allowedExtensions = new[] {
                     ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
                 };
@@ -504,6 +549,21 @@ namespace agskeys.Controllers
                     user.bankid = "Not Updated";
                 }
             }
+
+            var getloantype = ags.loantype_table.ToList();
+            foreach (var loantp in getloantype)
+            {
+                if (user.loantype == loantp.id.ToString())
+                {
+                    user.loantype = loantp.loan_type;
+                    break;
+                }
+                else if (!ags.loan_table.Any(s => s.loantype.ToString() == loantp.id.ToString()))
+                {
+                    user.loantype = "Not Updated";
+                }
+            }
+
             return PartialView(user);
         }
         // POST: vendor_table/Delete/5
