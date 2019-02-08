@@ -1,6 +1,7 @@
 ﻿using agskeys.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -42,10 +43,29 @@ namespace agskeys.Controllers
             }
             if (ModelState.IsValid)
             {
-                var vendor = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();
-
+                var vendor = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();              
+                var allowedExtensions = new[] {
+                    ".Jpg", ".png", ".jpg", "jpeg"
+                };
+              
                 if (vendor == null)
                 {
+                    //string fileName = obj.customerid + "_";
+                    //string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+
+                    //string extension = extension1.ToLower();
+                    //if (allowedExtensions.Contains(extension))
+                    //{
+                    //    fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                    //    obj.profileimg = "~/bankImage/" + fileName;
+                    //    fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
+                    //    obj.ImageFile.SaveAs(fileName);
+                    //}
+                    //else
+                    //{
+                    //    TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                    //    return View();
+                    //}
                     ags.bank_table.Add(new bank_table
                     {
                         bankname = obj.bankname,
