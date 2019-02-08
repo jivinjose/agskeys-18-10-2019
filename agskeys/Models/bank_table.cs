@@ -12,13 +12,14 @@ namespace agskeys.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class bank_table
     {
         public int id { get; set; }
-
-        [Display(Name = "Name")]
-        [Required(ErrorMessage = "This field cannot be empty.")]
+                
+        [Display(Name = "Bank")]
+        [Required(ErrorMessage = "This field can not be empty.")]
         public string bankname { get; set; }
 
         [Display(Name = "Added By")]
@@ -26,5 +27,10 @@ namespace agskeys.Models
 
         [Display(Name = "Added Date")]
         public string datex { get; set; }
+        
+        [Display(Name = "Photo")]
+        public string photo { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }
