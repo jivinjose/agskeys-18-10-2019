@@ -74,24 +74,7 @@ namespace agskeys.Controllers
             }
             return View(obj);
         }
-        //[HttpPost]
-        //public JsonResult UsernameExists(string proofname, int id)
-        //{
-        //    return Json(IsUnique(proofname, id));
-        //}
-
-        //private bool IsUnique(string proofname, int id)
-        //{
-        //    if (id == 0) // its a new object
-        //    {
-        //        return !ags.proof_table.Any(x => x.proofname == proofname);
-        //    }
-        //    else // its an existing object so exclude existing objects with the id
-        //    {
-        //        return !ags.proof_table.Any(x => x.proofname == proofname && x.id != id);
-        //    }
-        //}
-
+    
 
         public ActionResult Edit(int? Id)
         {

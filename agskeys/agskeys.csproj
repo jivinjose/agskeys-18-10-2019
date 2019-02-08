@@ -132,11 +132,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomerController.cs" />
+    <Compile Include="Controllers\Admin\AdminLoanController.cs" />
     <Compile Include="Controllers\Admin\AdminProofsController.cs" />
     <Compile Include="Controllers\Admin\VendorAdminController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmpCategoryController.cs" />
+    <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
@@ -272,6 +274,16 @@
     <Content Include="Views\Admin_Mangement\AdminProofs\Edit.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminProofs\Delete.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminProofs\Proof.cshtml" />
+    <Content Include="Views\Loan\Create.cshtml" />
+    <Content Include="Views\Loan\Loan.cshtml" />
+    <Content Include="Views\Loan\Details.cshtml" />
+    <Content Include="Views\Loan\Edit.cshtml" />
+    <Content Include="Views\Loan\Delete.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminLoan\Loan.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminLoan\Create.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminLoan\Details.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminLoan\Edit.cshtml" />
+    <Content Include="Views\Admin_Mangement\AdminLoan\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -283,7 +295,8 @@
     <Folder Include="adminimage\" />
     <Folder Include="App_Data\" />
     <Folder Include="customerImage\" />
-    <Folder Include="Views\AdminEmployeeCategory\" />
+    <Folder Include="idcopyfile\" />
+    <Folder Include="sactionedcopyfile\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

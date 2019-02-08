@@ -370,6 +370,14 @@
                                             <span class="pcoded-mtext">Customer</span>
                                         </a>
                                     </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")">
+                                        <a href="~/Loan/Loan" class=" waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-user"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Loan</span>
+                                        </a>
+                                    </li>
        
 
                                 </ul>
