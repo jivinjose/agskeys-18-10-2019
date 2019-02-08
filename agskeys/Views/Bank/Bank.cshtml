@@ -47,6 +47,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>
+                                            Photo
+                                        </th>
+                                        <th>
                                             Bank Name
                                         </th>
                                         <th>Actions</th>
@@ -61,7 +64,18 @@
                                         i++;
                                         <tr>
                                             <td>@i</td>
-
+                                            <td>
+                                                @{if (item.photo != null)
+                                                    {
+                                                        <img src="@Url.Content(item.photo)" width="100" height="100" />
+                                                    }
+                                                    else
+                                                    {
+                                                        @*<img src="@Url.Content(item.photo)" width="50" height="50" />*@
+                                                        @Html.DisplayFor(modelItem => item.photo)
+                                                    }
+                                                }
+                                            </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.bankname)
                                             </td>
@@ -77,6 +91,9 @@
                                     <tr>
 
                                         <th>#</th>
+                                        <th>
+                                          Photo
+                                        </th>
                                         <th>
                                             Bank Name
                                         </th>

@@ -50,25 +50,26 @@ namespace agskeys.Controllers
               
                 if (vendor == null)
                 {
-                    //string fileName = obj.customerid + "_";
-                    //string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                    string fileName = obj.bankname + "_";
+                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
 
-                    //string extension = extension1.ToLower();
-                    //if (allowedExtensions.Contains(extension))
-                    //{
-                    //    fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                    //    obj.profileimg = "~/bankImage/" + fileName;
-                    //    fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
-                    //    obj.ImageFile.SaveAs(fileName);
-                    //}
-                    //else
-                    //{
-                    //    TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                    //    return View();
-                    //}
+                    string extension = extension1.ToLower();
+                    if (allowedExtensions.Contains(extension))
+                    {
+                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                        obj.photo = "~/bankImage/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
+                        obj.ImageFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                        return View();
+                    }
                     ags.bank_table.Add(new bank_table
                     {
                         bankname = obj.bankname,
+                        photo = obj.photo,
                         datex = DateTime.Now.ToString(),
                         addedby = Session["username"].ToString()
                     });
@@ -78,6 +79,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This bank name is already exist";
+                    return View();
                 }
             }
             return View(obj);
@@ -106,6 +108,70 @@ namespace agskeys.Controllers
             if (ModelState.IsValid)
             {
                 bank_table existing = ags.bank_table.Find(bank_table.id);
+                var allowedExtensions = new[] {
+                    ".Jpg", ".png", ".jpg", "jpeg"
+                };
+                
+
+                if (existing.photo == null)
+                {
+                    string BigfileName = Path.GetFileNameWithoutExtension(bank_table.ImageFile.FileName);
+                    string fileName = BigfileName.Substring(0, 1);
+                    string extension1 = Path.GetExtension(bank_table.ImageFile.FileName);
+                    string extension = extension1.ToLower();
+                    if (allowedExtensions.Contains(extension))
+                    {
+                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                        bank_table.photo = "~/bankImage/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
+                        bank_table.ImageFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                        return RedirectToAction("Bank");
+                    }
+                }
+
+
+                else if (existing.photo != null && bank_table.photo != null)
+                {
+                    if (bank_table.ImageFile != null)
+                    {
+                        string path = Server.MapPath(existing.photo);
+                        FileInfo file = new FileInfo(path);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                        string BigfileName = Path.GetFileNameWithoutExtension(bank_table.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension1 = Path.GetExtension(bank_table.ImageFile.FileName);
+                        string extension = extension1.ToLower();
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            bank_table.photo = "~/bankImage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
+                            bank_table.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Bank");
+                        }
+
+                    }
+                    else
+                    {
+                        existing.photo = existing.photo;
+                    }
+                }
+                else
+                {
+                    existing.photo = existing.photo;
+                }
+                
                 if (existing.bankname != bank_table.bankname)
                 {
                     var count = (from u in ags.bank_table where u.bankname == bank_table.bankname select u).Count();

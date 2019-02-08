@@ -28,7 +28,23 @@
             <!-- Page body start -->
             <div class="page-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12">
+                    <div class="col-sm-6 col-md-6">
+                        <center style="padding-bottom:30px;">
+                            @{if (Model.photo != null)
+                                {
+                                    <img class="rounded" width="150" height="150" src="@Url.Content(Model.photo)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                                }
+                                else
+                                {
+                                    @*<img src="@Url.Content(item.photo)" width="50" height="50" />*@
+                                    @Html.DisplayFor(model => model.photo)
+                                }
+
+                            }
+                        </center>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6">
                         <!-- Basic Form Inputs card start -->
                         <div class="card">
                             <h4 style="margin:20px;">Main Information</h4>

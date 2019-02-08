@@ -40,26 +40,26 @@
 
                                 }
                                 <script>
-                                    function readURL(input) {
-                                        $('#oldPhoto').hide();
-                                        $('#blah').removeAttr('hidden');
+                                   function readURL(input) {
+                                       $('#oldPhoto').hide();
+                                       $('#blah').removeAttr('hidden');
 
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
+                                       if (input.files && input.files[0]) {
+                                           var reader = new FileReader();
 
-                                            reader.onload = function (e) {
-                                                $('#blah')
-                                                    .attr('src', e.target.result)
-                                                    .width(150)
-                                                    .height(150);
-                                            };
+                                           reader.onload = function (e) {
+                                               $('#blah')
+                                                   .attr('src', e.target.result)
+                                                   .width(150)
+                                                   .height(150);
+                                           };
 
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
+                                           reader.readAsDataURL(input.files[0]);
+                                       }
+                                   }
                                 </script>
 
-                                @using (Html.BeginForm("Edit", "Bank", FormMethod.Post))
+                                @using (Html.BeginForm("Edit", "Bank", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
@@ -82,6 +82,28 @@
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.bankname, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.ValidationMessageFor(model => model.bankname, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @{if (Model.photo != null || Model.photo == "")
+                                                            {
+                                                                @Html.HiddenFor(model => model.photo)
+                                                                <img id="oldPhoto" src="@Url.Content(Model.photo)" width="150" height="150" />
+                                                                <img id="blah" src="#" alt="Your Photo" hidden />
+                                                                <input type="file" name="ImageFile" onchange="readURL(this);" />
+
+                                                                @*<button name="delete" class="btn btn-danger" OnClick="btnDelete_Click()"> Delete </button>*@
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="file" name="ImageFile" required />
+                                                            }
+
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>

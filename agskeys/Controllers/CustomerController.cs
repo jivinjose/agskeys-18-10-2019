@@ -162,7 +162,7 @@ namespace agskeys.Controllers
 
 
                 else if (existing.profileimg != null && customer_profile_table.profileimg != null)
-                {
+                { 
                     if (customer_profile_table.ImageFile != null)
                     {
                         string path = Server.MapPath(existing.profileimg);
