@@ -53,9 +53,9 @@ namespace agskeys.Controllers.Admin
 
                     if (customer == null)
                     {
-                        //string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                        string fileName = obj.customerid + "_";
-                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                    string fileName = BigfileName.Substring(0, 1);
+                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
                         string extension = extension1.ToLower();
                         if (allowedExtensions.Contains(extension))
                         {

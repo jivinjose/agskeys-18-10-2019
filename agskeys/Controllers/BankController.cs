@@ -43,16 +43,16 @@ namespace agskeys.Controllers
             }
             if (ModelState.IsValid)
             {
-                var vendor = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();              
+                var bank = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();
                 var allowedExtensions = new[] {
                     ".Jpg", ".png", ".jpg", "jpeg"
                 };
-              
-                if (vendor == null)
-                {
-                    string fileName = obj.bankname + "_";
-                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
 
+                if (bank == null)
+                {
+                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                    string fileName = BigfileName.Substring(0, 1);
+                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
                     string extension = extension1.ToLower();
                     if (allowedExtensions.Contains(extension))
                     {
@@ -109,9 +109,9 @@ namespace agskeys.Controllers
             {
                 bank_table existing = ags.bank_table.Find(bank_table.id);
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".png", ".jpg", ".jpeg"
                 };
-                
+
 
                 if (existing.photo == null)
                 {
@@ -125,6 +125,7 @@ namespace agskeys.Controllers
                         bank_table.photo = "~/bankImage/" + fileName;
                         fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
                         bank_table.ImageFile.SaveAs(fileName);
+                        existing.photo = bank_table.photo;
                     }
                     else
                     {
@@ -154,6 +155,7 @@ namespace agskeys.Controllers
                             bank_table.photo = "~/bankImage/" + fileName;
                             fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
                             bank_table.ImageFile.SaveAs(fileName);
+                            existing.photo = bank_table.photo;
                         }
                         else
                         {
@@ -171,7 +173,7 @@ namespace agskeys.Controllers
                 {
                     existing.photo = existing.photo;
                 }
-                
+
                 if (existing.bankname != bank_table.bankname)
                 {
                     var count = (from u in ags.bank_table where u.bankname == bank_table.bankname select u).Count();
@@ -231,6 +233,12 @@ namespace agskeys.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             bank_table bank_table = ags.bank_table.Find(id);
+            string path = Server.MapPath(bank_table.photo);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
             ags.bank_table.Remove(bank_table);
             ags.SaveChanges();
             return RedirectToAction("Bank", "Bank");
