@@ -37,12 +37,23 @@
                                         <center style="padding-bottom:30px;">
                                             @{if (Model.photo != null)
                                                 {
-                                                    <img class="rounded" width="150" height="150" src="@Url.Content(Model.photo)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                                                    if (System.IO.File.Exists(Server.MapPath(Model.photo)) == true)
+                                                    {
+
+                                                        <img class="rounded" width="150" height="150" src="@Url.Content(Model.photo)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <img class="rounded" width="150" height="150" src="@Url.Content("~/adminimage/dummy.jpg")" alt="This is Default Image" title="This is Default Image Title" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                                                    }
+                                                  
                                                 }
                                                 else
                                                 {
                                                     @*<img src="@Url.Content(item.photo)" width="50" height="50" />*@
                                                     @Html.DisplayFor(model => model.photo)
+                                                    <img class="rounded" width="150" height="150" src="@Url.Content("~/adminimage/dummy.jpg")" alt="This is Default Image" title="This is Default Image Title" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
                                                 }
 
                                             }

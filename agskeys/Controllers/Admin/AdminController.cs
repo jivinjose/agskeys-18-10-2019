@@ -32,18 +32,18 @@ namespace agskeys.Controllers.Admin
                 return this.RedirectToAction("Logout", "Account");
             }
             var getEmployeeCategoty = ags.emp_category_table.ToList();
-            var Admin = ags.admin_table.Where(x => x.userrole != "3").ToList();
+            var Admin = ags.admin_table.Where(x => x.userrole != "super_admin").ToList();
             var userrole = "";
             foreach (var item in Admin)
             {
                 foreach (var items in getEmployeeCategoty)
                 {
-                    if (items.id.ToString() == item.userrole)
+                    if (items.emp_category_id.ToString() == item.userrole)
                     {
                         userrole = items.emp_category + " (" + items.status + ")";
                         break;
                     }
-                    else if (items.id.ToString() != item.userrole)
+                    else if (items.emp_category_id.ToString() != item.userrole)
                     {
                         userrole = "Not Updated";
                         continue;
