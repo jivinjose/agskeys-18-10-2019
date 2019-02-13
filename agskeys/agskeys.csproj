@@ -146,6 +146,7 @@
     <Compile Include="Controllers\SaleExecutive\SalesExecutiveController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TeleMarketing\TeleMarketingController.cs" />
+    <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\userprofileController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -292,6 +293,7 @@
     <Content Include="Views\LoanType\Create.cshtml" />
     <Content Include="Views\LoanType\Edit.cshtml" />
     <Content Include="Views\LoanType\Delete.cshtml" />
+    <Content Include="Views\Track\Track.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

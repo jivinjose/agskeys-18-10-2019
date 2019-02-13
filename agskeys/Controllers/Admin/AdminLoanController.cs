@@ -104,7 +104,7 @@ namespace agskeys.Controllers.Admin
                 ViewBag.bankList = banks;
                 // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
+                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
                 string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
                 string fileName = sactionedFileName.Substring(0, 1);
@@ -120,7 +120,7 @@ namespace agskeys.Controllers.Admin
                 else
                 {
                     TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
-                    return View("~/Views/Admin_Mangement/AdminLoan/Create.cshtml");
+                    return RedirectToAction("Loan");
                 }
 
                 string idCopyFileName = Path.GetFileNameWithoutExtension(obj.idCopyFile.FileName);
@@ -137,7 +137,7 @@ namespace agskeys.Controllers.Admin
                 else
                 {
                     TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                    return View("~/Views/Admin_Mangement/AdminLoan/Create.cshtml");
+                    return RedirectToAction("Loan");
                 }
                 ags.loan_table.Add(new loan_table
                 {
@@ -284,7 +284,7 @@ namespace agskeys.Controllers.Admin
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
+                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 if (existing.sactionedcopy == null)
@@ -303,7 +303,7 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View("~/Views/Admin_Mangement/AdminLoan/Edit.cshtml");
+                        return RedirectToAction("Loan");
                     }
                 }
 
@@ -332,7 +332,7 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View("~/Views/Admin_Mangement/AdminLoan/Edit.cshtml");
+                            return RedirectToAction("Loan");
                         }
 
                     }
@@ -364,7 +364,7 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View("~/Views/Admin_Mangement/AdminLoan/Edit.cshtml");
+                        return RedirectToAction("Loan");
                     }
                 }
 
@@ -393,7 +393,7 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View("~/Views/Admin_Mangement/AdminLoan/Edit.cshtml");
+                            return RedirectToAction("Loan");
                         }
 
                     }

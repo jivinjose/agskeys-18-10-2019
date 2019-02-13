@@ -59,6 +59,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This Loan Type is already exist";
+                    return View();
                 }
             }
             return View(obj);
@@ -97,7 +98,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This Loan Type is already exist";
-                        return RedirectToAction("loantype");
+                        return View();
                     }
                 }
 

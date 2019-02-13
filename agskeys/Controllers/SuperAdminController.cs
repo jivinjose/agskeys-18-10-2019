@@ -105,7 +105,7 @@ namespace agskeys.Controllers
             {
                 var usr = (from u in ags.admin_table where u.username == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", "jpeg"
+                    ".png", ".jpg", ".jpeg"
                 };
 
                 if (usr == null)
@@ -263,7 +263,7 @@ namespace agskeys.Controllers
             if (ModelState.IsValid)
             {
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
                 admin_table existing = ags.admin_table.Find(admin_table.id);
                 var password = existing.password.ToString();
@@ -286,7 +286,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        //return RedirectToAction("Edit", "SuperAdmin");
+                        return RedirectToAction("SuperAdmin");
                     }
                 }
 
@@ -315,7 +315,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Edit", "SuperAdmin");
+                            return RedirectToAction("SuperAdmin");
                         }
 
                     }
@@ -347,7 +347,7 @@ namespace agskeys.Controllers
                         //existing.username = admin_table.username;
                         TempData["AE"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Edit", "SuperAdmin");
+                        return RedirectToAction("SuperAdmin");
                     }
                 }
 

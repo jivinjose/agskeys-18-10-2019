@@ -131,7 +131,7 @@ namespace agskeys.Controllers
                 ViewBag.loantypeList = loantp;
                 // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
+                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
                 string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
                 string fileName = sactionedFileName.Substring(0, 1);
@@ -330,7 +330,7 @@ namespace agskeys.Controllers
                 ViewBag.loantypeList = loantp;
 
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", "jpeg",".doc",".docx",".pdf"
+                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 if (existing.sactionedcopy == null)
@@ -349,7 +349,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Loan");
                     }
                 }
 
@@ -378,7 +378,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Loan");
                         }
 
                     }
@@ -410,7 +410,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Loan");
                     }
                 }
 
@@ -439,7 +439,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Loan");
                         }
 
                     }

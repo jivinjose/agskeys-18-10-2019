@@ -45,7 +45,7 @@ namespace agskeys.Controllers
             {
                 var bank = (from u in ags.bank_table where u.bankname == obj.bankname select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
 
                 if (bank == null)
@@ -109,7 +109,7 @@ namespace agskeys.Controllers
             {
                 bank_table existing = ags.bank_table.Find(bank_table.id);
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", ".jpeg"
+                   ".Jpg", ".png", ".jpg", ".jpeg"
                 };
 
 
@@ -184,7 +184,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This bank name is already exist";
-                        return RedirectToAction("Edit", "Bank");
+                        return RedirectToAction("Bank");
                     }
                 }
 
@@ -205,7 +205,7 @@ namespace agskeys.Controllers
                     existing.datex = existing.datex;
                 }
                 ags.SaveChanges();
-                return RedirectToAction("Bank", "Bank");
+                return RedirectToAction("Bank");
             }
             return PartialView(bank_table);
         }

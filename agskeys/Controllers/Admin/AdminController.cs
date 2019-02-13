@@ -84,7 +84,7 @@ namespace agskeys.Controllers.Admin
             {
                 var usr = (from u in ags.admin_table where u.username == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
 
                 if (usr == null)
@@ -102,7 +102,7 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Admin");
                     }
 
                     //if (obj.userrole == "1")
@@ -140,6 +140,7 @@ namespace agskeys.Controllers.Admin
                 else
                 {
                     TempData["AE"] = "This user name is already exist";
+                    return View();
                     //return RedirectToAction("Admin");
                 }
             }
@@ -198,7 +199,7 @@ namespace agskeys.Controllers.Admin
             if (ModelState.IsValid)
             {
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
                 admin_table existing = ags.admin_table.Find(admin_table.id);
                 var password = existing.password.ToString();
@@ -220,7 +221,7 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Admin");
                     }
                 }
 
@@ -248,7 +249,7 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Admin");
                         }
 
                     }
@@ -280,7 +281,7 @@ namespace agskeys.Controllers.Admin
                         //existing.username = admin_table.username;
                         TempData["AE"] = "This user name is already exist";
                         //return PartialView("Edit", "Admin");
-                        return RedirectToAction("~/Views/Admin_Mangement/Admin/Edit.cshtml");
+                        return RedirectToAction("Admin");
                     }
                 }
 

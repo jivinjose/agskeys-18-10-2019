@@ -67,8 +67,8 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
-                        }
+                        return RedirectToAction("Customer");
+                    }
                         obj.password = PasswordStorage.CreateHash(obj.password);
                         ags.customer_profile_table.Add(new customer_profile_table
                         {
@@ -91,7 +91,8 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["AE"] = "This customer user name is already exist";
-                    }
+                    return RedirectToAction("Customer");
+                }
                 }
                 return View("~/Views/Admin_Mangement/AdminCustomer/Details.cshtml",obj);
             }
@@ -155,8 +156,8 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View("~/Views/Admin_Mangement/AdminCustomer/Edit.cshtml");
-                        }
+                        return RedirectToAction("Customer");
+                    }
                     }
 
 
@@ -184,7 +185,7 @@ namespace agskeys.Controllers.Admin
                             else
                             {
                                 TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                                 return View("~/Views/Admin_Mangement/AdminCustomer/Edit.cshtml");
+                            return RedirectToAction("Customer");
                         }
 
                         }
@@ -215,9 +216,9 @@ namespace agskeys.Controllers.Admin
                         {
                             //existing.username = customer_profile_table.username;
                             TempData["AE"] = "This user name is already exist";
-                            //return PartialView("Edit", "SuperAdmin");
-                            return RedirectToAction("Customer");
-                        }
+                        //return PartialView("Edit", "SuperAdmin");
+                        return RedirectToAction("Customer");
+                    }
                     }
 
                     existing.profileimg = customer_profile_table.profileimg;

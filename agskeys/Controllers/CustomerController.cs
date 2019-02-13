@@ -46,7 +46,7 @@ namespace agskeys.Controllers
             {
                 var usr = (from u in ags.customer_profile_table where u.username == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
                 var customer = (from u in ags.customer_profile_table where u.username == obj.username select u).FirstOrDefault();
 
@@ -92,6 +92,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This customer user name is already exist";
+                    return View();
                 }
             }
             return View(obj);
@@ -135,7 +136,7 @@ namespace agskeys.Controllers
             if (ModelState.IsValid)
             {
                 var allowedExtensions = new[] {
-                    ".Jpg", ".png", ".jpg", "jpeg"
+                    ".Jpg", ".png", ".jpg", ".jpeg"
                 };
                 customer_profile_table existing = ags.customer_profile_table.Find(customer_profile_table.id);
                 var password = existing.password.ToString();
@@ -156,7 +157,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Customer");
                     }
                 }
 
@@ -185,7 +186,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Customer");
                         }
 
                     }
@@ -217,7 +218,7 @@ namespace agskeys.Controllers
                         //existing.username = customer_profile_table.username;
                         TempData["AE"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Edit", "SuperAdmin");
+                        return RedirectToAction("Customer");
                     }
                 }
 

@@ -73,7 +73,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This Proof is already exist";
-                    return PartialView();
+                    return View();
                   //  return Json(new { success = true, responseText = TempData["AE"] }, JsonRequestBehavior.AllowGet);
 
                 }
@@ -182,7 +182,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This Proof is already exist";
-                        return RedirectToAction("Edit", "Proofs");
+                        return View();
                     }
                 }
 
@@ -197,7 +197,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This Order Number is already exist";
-                        return RedirectToAction("Edit", "Proofs");
+                        return View();
                     }
                 }
 
@@ -213,7 +213,7 @@ namespace agskeys.Controllers
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Proof", "Proofs");
+                return RedirectToAction("Proofs");
             }
             return PartialView(proof);
 
