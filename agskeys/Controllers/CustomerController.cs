@@ -44,11 +44,11 @@ namespace agskeys.Controllers
             }
             if (ModelState.IsValid)
             {
-                var usr = (from u in ags.customer_profile_table where u.username == obj.username select u).FirstOrDefault();
+                var usr = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
                 var allowedExtensions = new[] {
                     ".Jpg", ".png", ".jpg", ".jpeg"
                 };
-                var customer = (from u in ags.customer_profile_table where u.username == obj.username select u).FirstOrDefault();
+                var customer = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
 
 
                 if (customer == null)
@@ -79,7 +79,7 @@ namespace agskeys.Controllers
                         phoneno = obj.phoneno,
                         alterphoneno = obj.alterphoneno,
                         dob = obj.dob,
-                        username = obj.username,
+                        
                         profileimg = obj.profileimg,
                         password = obj.password,
                         address = obj.address,
@@ -206,12 +206,12 @@ namespace agskeys.Controllers
                 existing.alterphoneno = customer_profile_table.alterphoneno;
                 existing.dob = customer_profile_table.dob;
                 existing.address = customer_profile_table.address;
-                if (existing.username != customer_profile_table.username)
+                if (existing.customerid != customer_profile_table.customerid)
                 {
-                    var userCount = (from u in ags.customer_profile_table where u.username == customer_profile_table.username select u).Count();
+                    var userCount = (from u in ags.customer_profile_table where u.customerid == customer_profile_table.customerid select u).Count();
                     if (userCount == 0)
                     {
-                        existing.username = customer_profile_table.username;
+                        existing.customerid = customer_profile_table.customerid;
                     }
                     else
                     {

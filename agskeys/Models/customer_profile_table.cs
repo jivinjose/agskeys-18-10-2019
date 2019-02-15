@@ -19,7 +19,7 @@ namespace agskeys.Models
     {
         public int id { get; set; }
 
-        [Display(Name = "Customer Id")]
+        [Display(Name = "User Name")]
         [Required(ErrorMessage = "This field can not be empty.")]
         public string customerid { get; set; }
 
@@ -51,11 +51,6 @@ namespace agskeys.Models
         public string profileimg { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
-
-        [Required(ErrorMessage = "You must provide a user name")]
-        [Display(Name = "User Name")]
-        [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
-        public string username { get; set; }
 
         [Required(ErrorMessage = "You must enter a password")]
         [MembershipPassword(

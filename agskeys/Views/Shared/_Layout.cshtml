@@ -322,14 +322,6 @@
                                             <span class="pcoded-mtext">Dashboard</span>
                                         </a>
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Admin" ? "active" : "")">
-                                        <a href="~/SuperAdmin/Admin" class=" waves-dark">
-                                            <span class="pcoded-micon">
-                                                <i class="feather icon-users"></i>
-                                            </span>
-                                            <span class="pcoded-mtext">Employees</span>
-                                        </a>
-                                    </li>
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Emp" ? "active" : "")">
                                         <a href="~/EmpCategory/Emp" class=" waves-dark">
                                             <span class="pcoded-micon">
@@ -338,6 +330,15 @@
                                             <span class="pcoded-mtext">Employee Category</span>
                                         </a>
                                     </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Admin" ? "active" : "")">
+                                        <a href="~/SuperAdmin/Admin" class=" waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-users"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Employees</span>
+                                        </a>
+                                    </li>
+                                    
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Vendor" ? "active" : "")">
                                         <a href="~/Vendor/Vendor" class=" waves-dark">
                                             <span class="pcoded-micon">
@@ -367,15 +368,7 @@
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-user"></i>
                                             </span>
-                                            <span class="pcoded-mtext">Customer</span>
-                                        </a>
-                                    </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")">
-                                        <a href="~/Loan/Loan" class=" waves-dark">
-                                            <span class="pcoded-micon">
-                                                <i class="feather icon-user"></i>
-                                            </span>
-                                            <span class="pcoded-mtext">Loan</span>
+                                            <span class="pcoded-mtext">Customer Management</span>
                                         </a>
                                     </li>
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "loantype" ? "active" : "")">
@@ -386,15 +379,14 @@
                                             <span class="pcoded-mtext">Loan Type</span>
                                         </a>
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Track" ? "active" : "")">
-                                        <a href="~/Track/Track" class=" waves-dark">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")">
+                                        <a href="~/Loan/Loan" class=" waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-user"></i>
                                             </span>
-                                            <span class="pcoded-mtext">Track</span>
+                                            <span class="pcoded-mtext">Loan Management</span>
                                         </a>
-                                    </li>
-       
+                                    </li>  
 
                                 </ul>
 

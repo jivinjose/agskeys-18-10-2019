@@ -51,7 +51,7 @@ namespace agskeys.Models
 
         public HttpPostedFileBase sactionedCopyFile { get; set; }
 
-        [Display(Name = "ID Copy")]
+        [Display(Name = "DD Copy")]
         public string idcopy { get; set; }
 
         public HttpPostedFileBase idCopyFile { get; set; }
@@ -61,5 +61,13 @@ namespace agskeys.Models
 
         [Display(Name = "Added Date")]
         public string datex { get; set; }
+
+        [Display(Name = "Internal Comment")]
+        [DataType(DataType.MultilineText)]
+        public string internalcomment { get; set; }
+
+        [Display(Name = "External Comment")]
+        [DataType(DataType.MultilineText)]
+        public string externalcomment { get; set; }
     }
 }
