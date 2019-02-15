@@ -62,6 +62,14 @@ namespace agskeys.Models
         [Display(Name = "Added Date")]
         public string datex { get; set; }
 
+        [Required(ErrorMessage = "You must choose Employee Type")]
+        [Display(Name = "Employee Category")]
+        public string employeetype { get; set; }
+
+        [Required(ErrorMessage = "You must choose Employee")]
+        [Display(Name = "Employee")]
+        public string employee { get; set; }
+
         [Display(Name = "Internal Comment")]
         [DataType(DataType.MultilineText)]
         public string internalcomment { get; set; }
