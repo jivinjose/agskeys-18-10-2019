@@ -33,5 +33,6 @@ namespace agskeys.Models
         public virtual DbSet<customer_profile_table> customer_profile_table { get; set; }
         public virtual DbSet<loan_table> loan_table { get; set; }
         public virtual DbSet<loantype_table> loantype_table { get; set; }
+        public virtual DbSet<loan_track_table> loan_track_table { get; set; }
     }
 }

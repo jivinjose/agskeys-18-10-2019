@@ -99,8 +99,25 @@ namespace agskeys.Controllers
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
+            var empCategory = ags.emp_category_table.ToList();
+            SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+            ViewBag.empCategories = empCategories;
+
+            var employee = ags.admin_table.ToList();
+            SelectList employees = new SelectList(employee, "id", "name");
+            ViewBag.employees = employees;
+
+
             var model = new agskeys.Models.loan_table();
             return PartialView(model);
+        }
+
+
+        public JsonResult GetEmployeeList(string categoryId)
+        {
+            ags.Configuration.ProxyCreationEnabled = false;
+            List<admin_table> employees = ags.admin_table.Where(x => x.userrole.ToString() == categoryId).ToList();
+            return Json(employees, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -125,6 +142,28 @@ namespace agskeys.Controllers
                 var getBank = ags.bank_table.ToList();
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
+
+                //var empCategory = ags.emp_category_table.ToList();
+                //SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+                //ViewBag.empCategories = empCategories;
+
+                List<emp_category_table> categoryList = ags.emp_category_table.ToList();
+                ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
+
+
+                //if (employeetype.HasValue)
+                //{
+                //    var empcategory = (from emp_category_table in entities.States
+                //                  where emp_category_table.emp_category_id == employeetype.Value
+                //                  select emp_category_table).ToList();
+                //    foreach (var state in empcategory)
+                //    {
+                //        model.States.Add(new SelectListItem { Text = state.StateName, Value = state.StateId.ToString() });
+                //    }
+                //}
+                //var employee = ags.admin_table.ToList();
+                //SelectList employees = new SelectList(employee, "id", "name");
+                //ViewBag.employees = employees;
 
                 var getloantype = ags.loantype_table.ToList();
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
@@ -166,21 +205,28 @@ namespace agskeys.Controllers
                     TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
                     return View();
                 }
-                ags.loan_table.Add(new loan_table
-                {
-                    customerid = obj.customerid,
-                    partnerid = obj.partnerid,
-                    bankid = obj.bankid,
-                    loantype = obj.loantype,
-                    loanamt = obj.loanamt,
-                    disbursementamt = obj.disbursementamt,
-                    rateofinterest = obj.rateofinterest,
-                    sactionedcopy = obj.sactionedcopy,
-                    idcopy = obj.idcopy,
-                    datex = DateTime.Now.ToString(),
-                    addedby = Session["username"].ToString()
-                });
+                loan_table loan = new loan_table();
+                loan.customerid = obj.customerid;
+                loan.partnerid = obj.partnerid;
+                loan.bankid = obj.bankid;
+                loan.loantype = obj.loantype;
+                loan.loanamt = obj.loanamt;
+                loan.disbursementamt = obj.disbursementamt;
+                loan.rateofinterest = obj.rateofinterest;
+                loan.sactionedcopy = obj.sactionedcopy;
+                loan.idcopy = obj.idcopy;
+                loan.datex = DateTime.Now.ToString();
+                loan.addedby = Session["username"].ToString();
+                ags.loan_table.Add(loan);
                 ags.SaveChanges();
+
+                int latestloanid = loan.id;
+
+                loan_track_table loan_track = new loan_track_table();
+                loan_track.loanid = latestloanid.ToString();
+
+
+                
                 return RedirectToAction("Loan");
 
             }

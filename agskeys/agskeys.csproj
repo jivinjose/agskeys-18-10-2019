@@ -186,6 +186,9 @@
     <Compile Include="Models\loan_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\loan_track_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MultipleEmpClass.cs" />
     <Compile Include="Models\proof_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
