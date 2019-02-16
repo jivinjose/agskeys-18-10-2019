@@ -223,10 +223,31 @@ namespace agskeys.Controllers
                 int latestloanid = loan.id;
 
                 loan_track_table loan_track = new loan_track_table();
-                loan_track.loanid = latestloanid.ToString();
+                loan_track.loanid = latestloanid.ToString();               
+                if(obj.employee != null)
+                {
+                    loan_track.employeeid = obj.employee;
+                    loan_track.tracktime = DateTime.Now.ToString();
+                }
+                if(obj.partnerid != null)
+                {
+                    loan_track.vendorid = obj.partnerid;
+                    loan_track.vendortracktime = DateTime.Now.ToString();
 
+                }
+                if(obj.internalcomment != null)
+                {
+                    loan_track.internalcomment = obj.internalcomment;
+                }
+                if (obj.externalcomment != null)
+                {
+                    loan_track.externalcomment = obj.externalcomment;
+                }
+                loan_track.datex = DateTime.Now.ToString();
+                loan_track.addedby = Session["username"].ToString();
+                ags.loan_track_table.Add(loan_track);
+                ags.SaveChanges();
 
-                
                 return RedirectToAction("Loan");
 
             }

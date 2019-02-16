@@ -23,8 +23,14 @@ namespace agskeys.Models
         [Display(Name = "Employee Id")]
         public string employeeid { get; set; }
 
-        [Display(Name = "Track Time")]
+        [Display(Name = "Employee Track Time")]
         public string tracktime { get; set; }
+
+        [Display(Name = "Vendor Id")]
+        public string vendorid { get; set; }
+
+        [Display(Name = "Vendor Track Time")]
+        public string vendortracktime { get; set; }
 
         [Display(Name = "Internal Comment")]
         public string internalcomment { get; set; }
