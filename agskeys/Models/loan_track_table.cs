@@ -16,8 +16,8 @@ namespace agskeys.Models
     public partial class loan_track_table
     {
         public int id { get; set; }
-        
-        [Display(Name = "Customer Id")]
+
+        [Display(Name = "Loan Id")]
         public string loanid { get; set; }
 
         [Display(Name = "Employee Id")]
@@ -26,22 +26,22 @@ namespace agskeys.Models
         [Display(Name = "Employee Track Time")]
         public string tracktime { get; set; }
 
-        [Display(Name = "Vendor Id")]
-        public string vendorid { get; set; }
-
-        [Display(Name = "Vendor Track Time")]
-        public string vendortracktime { get; set; }
-
         [Display(Name = "Internal Comment")]
         public string internalcomment { get; set; }
 
         [Display(Name = "External Comment")]
         public string externalcomment { get; set; }
 
-        [Display(Name = "Added by")]
+        [Display(Name = "Added By")]
         public string addedby { get; set; }
 
         [Display(Name = "Added Date")]
         public string datex { get; set; }
+
+        [Display(Name = "Vendor ID")]
+        public string vendorid { get; set; }
+
+        [Display(Name = "Vendor Track Time")]
+        public string vendortracktime { get; set; }
     }
 }

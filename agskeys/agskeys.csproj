@@ -282,7 +282,6 @@
     <Content Include="Views\Admin_Mangement\AdminProofs\Edit.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminProofs\Delete.cshtml" />
     <Content Include="Views\Admin_Mangement\AdminProofs\Proof.cshtml" />
-    <Content Include="Views\Loan\Create.cshtml" />
     <Content Include="Views\Loan\Loan.cshtml" />
     <Content Include="Views\Loan\Details.cshtml" />
     <Content Include="Views\Loan\Edit.cshtml" />
@@ -297,6 +296,7 @@
     <Content Include="Views\LoanType\Edit.cshtml" />
     <Content Include="Views\LoanType\Delete.cshtml" />
     <Content Include="Views\Track\Track.cshtml" />
+    <Content Include="Views\Loan\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

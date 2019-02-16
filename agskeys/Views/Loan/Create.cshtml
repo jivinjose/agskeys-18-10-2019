@@ -15,7 +15,8 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" style="font-size:30px"
+                        data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -37,13 +38,16 @@
                                 {
 
                                     <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                        <button type="button" class="close"
+                                                data-dismiss="alert">
+                                            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                        </button>
                                         @TempData["AE"].ToString()
                                     </div>
 
                                 }
 
-                                @using (Html.BeginForm("Create", "Loan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("Create", "Loan",FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
@@ -52,99 +56,110 @@
                                         {
 
                                             <div class="alert alert-danger alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                <button type="button"
+                                                        class="close" data-dismiss="alert">
+                                                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                                </button>
                                                 @TempData["Message"].ToString()
                                             </div>
 
                                         }
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.ValidationSummary(true, "", new{ @class = "text-danger"})
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
+
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new{@class ="text-danger"})
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.bankid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.bankid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.bankid, "", new { @class = "text-danger" })
+                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank",new { @class = "form-control" })
+
+                                                        @Html.ValidationMessageFor(model => model.bankid, "", new{@class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
+
                                                         @Html.ValidationMessageFor(model => model.loantype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model=> model.loanamt, new { htmlAttributes = new { @class = "form-control" } })
+
                                                         @Html.ValidationMessageFor(model => model.loanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.disbursementamt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.disbursementamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.disbursementamt, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.disbursementamt, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model=> model.disbursementamt, new { htmlAttributes = new { @class = "form-control"} })
+
+                                                        @Html.ValidationMessageFor(model => model.disbursementamt, "", new { @class ="text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.rateofinterest, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.rateofinterest, htmlAttributes: new { @class = "control-label col-md-12"})
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.rateofinterest, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.rateofinterest, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model=> model.rateofinterest, new { htmlAttributes = new { @class = "form-control"} })
+
+                                                        @Html.ValidationMessageFor(model => model.rateofinterest, "", new { @class ="text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12"})
                                                     <div class="col-md-12">
-                                                        <input type="file" name="sactionedCopyFile" required />
+                                                        <input type = "file" name="sactionedCopyFile" required />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        <input type="file" name="idCopyFile" required />
+                                                        <input type = "file" name="idCopyFile" required />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="switch-field1">
                                                     <div class="switch-title1">Send To Partners</div>
-                                                    <input type="radio" id="switch_left1" name="switch_21" value="yes" checked />
+                                                    <input type = "radio" id="switch_left1" name="switch_21" value="yes" checked />
                                                     <label for="switch_left1">No</label>
-                                                    <input type="radio" id="switch_right1" name="switch_21" value="no" />
+                                                    <input type = "radio" id="switch_right1" name="switch_21" value="no" />
                                                     <label for="switch_right1">Yes</label>
-                                                </div>                                                
+                                                </div>
+
                                             </div>
-                                            <div class="col-md-6" id="partnerid">
+                                            <div class="col-md-6"id="partnerid">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.partnerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model =>model.partnerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.DropDownListFor(model => model.partnerid, ViewBag.vendorList as SelectList, "Please select vendor", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.partnerid, "", new { @class = "text-danger" })
+
+                                                        @Html.ValidationMessageFor(model => model.partnerid, "", new { @class ="text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,7 +176,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.employeetype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.employeetype, ViewBag.empCategories as SelectList, "Please select Employee Type", new { @class = "form-control"})
+                                                        @Html.DropDownListFor(model => model.employeetype, ViewBag.empCategories as SelectList, "Please select Employee Type", new { @class = "form-control" })
+
                                                         @Html.ValidationMessageFor(model => model.employeetype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -170,8 +186,10 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.employee, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
+
                                                         @*@Html.DropDownListFor(model => model.employee, ViewBag.employees as SelectList, "Please Choose an Employee", new { @class = "form-control", disabled = "disabled" })*@
                                                         @Html.DropDownListFor(model => model.employee, new SelectList(" "), "Please Choose an Employee", new { @class = "form-control", disabled = "disabled" })
+
                                                         @Html.ValidationMessageFor(model => model.employee, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -181,6 +199,7 @@
                                                     @Html.LabelFor(model => model.internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control" } })
+
                                                         @Html.ValidationMessageFor(model => model.internalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -190,6 +209,7 @@
                                                     @Html.LabelFor(model => model.externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.externalcomment, new { htmlAttributes = new { @class = "form-control" } })
+
                                                         @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -197,7 +217,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
-                                                        <input type="submit" value="Create" class="btn btn-default" />
+                                                        <input type = "submit" value="Create" class="btn btn-default" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,23 +238,27 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src = "~/Scripts/jquery.validate.min.js" ></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-@*<script type="text/javascript">
-     $(function () {
-         if ($("#employeetype option").length > 1) {
-             $("#employee").removeAttr("disabled");
-         }
-     });
-</script>*@
+                                                            @*<script type="text/javascript">
+                                                                     $(function () {
+                                                                         if ($("#employeetype option").length > 1) {
+                                                                             $("#employee").removeAttr("disabled");
+                                                                         }
+                                                                     });
+                                                                </script>*@
 <script>
     $(document).ready(function () {
         $("#employeetype").change(function () {
-            $.get("/Loan/GetEmployeeList", { categoryId: $("#employeetype").val() }, function (data) {
+            $.get("/Loan/GetEmployeeList", {
+                categoryId:
+                $("#employeetype").val()
+            }, function (data) {
                 $("#employee").empty();
-                $("#employee").append("<option>Please Select Employee Name</option>");
-                $.each(data, function (create, row) {                    
-                    $("#employee").append("<option value='" + row.id + "'>" + row.name + "</option>")
+                $("#employee").append("<option>Please Select Employee Name</option> ");
+                $.each(data, function (create, row) {
+                    $("#employee").append("<option value='" + row.id + "'>" +
+                        row.name + "</option>")
                     $("#employee").removeAttr("disabled");
                 });
             });
@@ -249,11 +273,6 @@
         padding: 20px;
         overflow: hidden;
     }
-
-    /*.switch-title, .switch-title1 {
-        margin-bottom: 6px;
-    }*/
-
     .switch-field input, .switch-field1 input {
         position: absolute !important;
         clip: rect(0, 0, 0, 0);
@@ -262,11 +281,9 @@
         border: 0;
         overflow: hidden;
     }
-
     .switch-field label, .switch-field1 label {
         float: left;
     }
-
     .switch-field label, .switch-field1 label {
         display: inline-block;
         width: 60px;
@@ -286,49 +303,36 @@
         transition: all 0.1s ease-in-out;
         background: #fff;
     }
-
-        .switch-field label:hover {
-            cursor: pointer;
-        }
-
-        .switch-field1 label:hover {
-            cursor: pointer;
-        }
-
+    .switch-field label:hover {
+        cursor: pointer;
+    }
+    .switch-field1 label:hover {
+        cursor: pointer;
+    }
     .switch-field input:checked + label, .switch-field1 input:checked + label {
         color: #fff;
         background-color: #4099FF;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
-
     .switch-field label:first-of-type, .switch-field1 label:first-of-type {
         border-radius: 4px 0 0 4px;
     }
-
     .switch-field label:last-of-type, .switch-field1 label:last-of-type {
         border-radius: 0 4px 4px 0;
     }
 </style>
 <script>
-
-
     $('.a-div').hide();
     $('#switch_right').click(function () {
         $('.a-div').show(500);
-
     });
     $('#switch_left').click(function () {
         if ($('.a-div').is(":visible"))
             $('.a-div').hide(500);
     });
-
 </script>
-
-
 <script>
-
-
     $('#partnerid').hide();
     $('#switch_right1').click(function () {
         $('#partnerid').show(500);
@@ -338,6 +342,5 @@
         if ($('#partnerid').is(":visible"))
             $('#partnerid').hide(500);
     });
-
 </script>
 

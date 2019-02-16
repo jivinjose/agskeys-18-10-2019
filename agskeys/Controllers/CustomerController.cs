@@ -199,7 +199,6 @@ namespace agskeys.Controllers
                 {
                     existing.profileimg = existing.profileimg;
                 }
-                existing.customerid = customer_profile_table.customerid;
                 existing.name = customer_profile_table.name;
                 existing.email = customer_profile_table.email;
                 existing.phoneno = customer_profile_table.phoneno;
@@ -220,6 +219,9 @@ namespace agskeys.Controllers
                         //return PartialView("Edit", "SuperAdmin");
                         return RedirectToAction("Customer");
                     }
+                }
+                else{
+                    existing.customerid = existing.customerid;
                 }
 
                 existing.profileimg = customer_profile_table.profileimg;

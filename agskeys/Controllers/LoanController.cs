@@ -21,39 +21,45 @@ namespace agskeys.Controllers
             }
             var getCustomer = ags.customer_profile_table.ToList();
             var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
-
+            var customerid = "";
             foreach (var item in customer_loans)
             {
                 foreach (var items in getCustomer)
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        item.customerid = items.customerid;
+                        customerid = items.customerid;
                         break;
                     }
-                    else if (!ags.loan_table.Any(s => s.customerid.ToString() == item.id.ToString()))
+                    else if (items.id.ToString() != item.customerid)
                     {
-                        item.customerid = "Not Updated";
-                    }
+                        customerid = "Not Updated";
+                        continue;
+                    }                   
                 }
+                item.customerid = customerid;
 
             }
 
             var getVendor = ags.vendor_table.ToList();
+            var partnerid = "";
             foreach (var item in customer_loans)
             {
                 foreach (var items in getVendor)
                 {
                     if (item.partnerid == items.id.ToString())
                     {
-                        item.partnerid = items.companyname;
+                        partnerid = items.companyname;
                         break;
                     }
-                    else if (!ags.loan_table.Any(s => s.partnerid.ToString() == items.id.ToString()))
+                    else if (items.id.ToString() != item.partnerid)
                     {
-                        item.partnerid = "Not Updated";
-                    }
+                        partnerid = "Not Updated";
+                        continue;
+                    }                  
+
                 }
+                item.partnerid = partnerid;
             }
 
             var getloantype = ags.loantype_table.ToList();
@@ -143,31 +149,21 @@ namespace agskeys.Controllers
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
 
-                //var empCategory = ags.emp_category_table.ToList();
-                //SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
-                //ViewBag.empCategories = empCategories;
-
                 List<emp_category_table> categoryList = ags.emp_category_table.ToList();
                 ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
-
-
-                //if (employeetype.HasValue)
-                //{
-                //    var empcategory = (from emp_category_table in entities.States
-                //                  where emp_category_table.emp_category_id == employeetype.Value
-                //                  select emp_category_table).ToList();
-                //    foreach (var state in empcategory)
-                //    {
-                //        model.States.Add(new SelectListItem { Text = state.StateName, Value = state.StateId.ToString() });
-                //    }
-                //}
-                //var employee = ags.admin_table.ToList();
-                //SelectList employees = new SelectList(employee, "id", "name");
-                //ViewBag.employees = employees;
-
+                
                 var getloantype = ags.loantype_table.ToList();
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
+
+                var empCategory = ags.emp_category_table.ToList();
+                SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+                ViewBag.empCategories = empCategories;
+
+                var employee = ags.admin_table.ToList();
+                SelectList employees = new SelectList(employee, "id", "name");
+                ViewBag.employees = employees;
+
                 // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
                     ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
@@ -223,19 +219,19 @@ namespace agskeys.Controllers
                 int latestloanid = loan.id;
 
                 loan_track_table loan_track = new loan_track_table();
-                loan_track.loanid = latestloanid.ToString();               
-                if(obj.employee != null)
+                loan_track.loanid = latestloanid.ToString(); 
+                if (obj.employee != null)
                 {
                     loan_track.employeeid = obj.employee;
                     loan_track.tracktime = DateTime.Now.ToString();
                 }
-                if(obj.partnerid != null)
+                if (obj.partnerid != null)
                 {
                     loan_track.vendorid = obj.partnerid;
                     loan_track.vendortracktime = DateTime.Now.ToString();
 
                 }
-                if(obj.internalcomment != null)
+                if (obj.internalcomment != null)
                 {
                     loan_track.internalcomment = obj.internalcomment;
                 }
@@ -655,8 +651,11 @@ namespace agskeys.Controllers
             {
                 fileSactioned.Delete();
             }
+            var loan_track = ags.loan_track_table.Where(x => x.loanid == loan_table.id.ToString());
+            ags.loan_track_table.RemoveRange(loan_track);
             ags.loan_table.Remove(loan_table);
             ags.SaveChanges();
+           
             return RedirectToAction("Loan");
         }
 
