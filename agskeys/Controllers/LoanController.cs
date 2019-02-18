@@ -225,12 +225,12 @@ namespace agskeys.Controllers
                     loan_track.employeeid = obj.employee;
                     loan_track.tracktime = DateTime.Now.ToString();
                 }
-                if (obj.partnerid != null)
-                {
-                    loan_track.vendorid = obj.partnerid;
-                    loan_track.vendortracktime = DateTime.Now.ToString();
+                //if (obj.partnerid != null)
+                //{
+                //    loan_track.vendorid = obj.partnerid;
+                //    loan_track.vendortracktime = DateTime.Now.ToString();
 
-                }
+                //}
                 if (obj.internalcomment != null)
                 {
                     loan_track.internalcomment = obj.internalcomment;
@@ -658,6 +658,18 @@ namespace agskeys.Controllers
            
             return RedirectToAction("Loan");
         }
+
+        [HttpGet]
+        public ActionResult Track(int loanid)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            var loan_track = (from loan_track_table in ags.loan_track_table orderby loan_track_table.id descending select loan_track_table).ToList().Where(x=>x.loanid == loanid.ToString());
+            return PartialView(loan_track);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

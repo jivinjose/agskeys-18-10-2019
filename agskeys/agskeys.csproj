@@ -297,6 +297,7 @@
     <Content Include="Views\LoanType\Delete.cshtml" />
     <Content Include="Views\Track\Track.cshtml" />
     <Content Include="Views\Loan\Create.cshtml" />
+    <Content Include="Views\Loan\Track.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

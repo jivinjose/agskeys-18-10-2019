@@ -37,11 +37,5 @@ namespace agskeys.Models
 
         [Display(Name = "Added Date")]
         public string datex { get; set; }
-
-        [Display(Name = "Vendor ID")]
-        public string vendorid { get; set; }
-
-        [Display(Name = "Vendor Track Time")]
-        public string vendortracktime { get; set; }
     }
 }
