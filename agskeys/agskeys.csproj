@@ -186,6 +186,7 @@
     <Compile Include="Models\loan_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\loan_track.cs" />
     <Compile Include="Models\loan_track_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
@@ -194,6 +195,9 @@
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vendor_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vendor_track_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -298,6 +302,7 @@
     <Content Include="Views\Track\Track.cshtml" />
     <Content Include="Views\Loan\Create.cshtml" />
     <Content Include="Views\Loan\Track.cshtml" />
+    <Content Include="Views\Loan\Track1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -220,9 +220,9 @@ namespace agskeys.Controllers
 
                 loan_track_table loan_track = new loan_track_table();
                 loan_track.loanid = latestloanid.ToString(); 
-                if (obj.employee != null)
+                if (Session["userid"] != null)
                 {
-                    loan_track.employeeid = obj.employee;
+                    loan_track.employeeid = Session["userid"].ToString();
                     loan_track.tracktime = DateTime.Now.ToString();
                 }
                 //if (obj.partnerid != null)
@@ -244,6 +244,41 @@ namespace agskeys.Controllers
                 ags.loan_track_table.Add(loan_track);
                 ags.SaveChanges();
 
+                ///Assigned Employee
+                loan_track_table loan_track_employee = new loan_track_table();
+                loan_track_employee.loanid = latestloanid.ToString();
+                if (obj.employee != null)
+                {
+                    loan_track_employee.employeeid = obj.employee;
+                    loan_track_employee.tracktime = DateTime.Now.ToString();
+                }
+                //if (obj.partnerid != null)
+                //{
+                //    loan_track.vendorid = obj.partnerid;
+                //    loan_track.vendortracktime = DateTime.Now.ToString();
+
+                //}
+                loan_track_employee.internalcomment = "Assigned";
+                loan_track_employee.externalcomment = "Assigned";
+                
+                loan_track_employee.datex = DateTime.Now.ToString();
+                loan_track_employee.addedby = Session["username"].ToString();
+                ags.loan_track_table.Add(loan_track_employee);
+                ags.SaveChanges();
+
+                vendor_track_table vendor_track = new vendor_track_table();
+                vendor_track.loanid = latestloanid.ToString();
+                if (obj.partnerid != null)
+                {
+                    vendor_track.vendorid = obj.partnerid;
+                    vendor_track.tracktime = DateTime.Now.ToString();
+                    vendor_track.comment = "Assigned";
+
+                }
+                vendor_track.datex = DateTime.Now.ToString();
+                vendor_track.addedby = Session["username"].ToString();
+                ags.vendor_track_table.Add(vendor_track);
+                ags.SaveChanges();
                 return RedirectToAction("Loan");
 
             }
@@ -653,6 +688,8 @@ namespace agskeys.Controllers
             }
             var loan_track = ags.loan_track_table.Where(x => x.loanid == loan_table.id.ToString());
             ags.loan_track_table.RemoveRange(loan_track);
+            var vendor_track = ags.vendor_track_table.Where(x => x.loanid == loan_table.id.ToString());
+            ags.vendor_track_table.RemoveRange(vendor_track);
             ags.loan_table.Remove(loan_table);
             ags.SaveChanges();
            
@@ -660,16 +697,102 @@ namespace agskeys.Controllers
         }
 
         [HttpGet]
-        public ActionResult Track(int loanid)
+        public ActionResult Track(int? Id)
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
-            var loan_track = (from loan_track_table in ags.loan_track_table orderby loan_track_table.id descending select loan_track_table).ToList().Where(x=>x.loanid == loanid.ToString());
-            return PartialView(loan_track);
-        }
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();            
+            List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+            List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
 
+            var employee = ags.admin_table.ToList(); 
+            loan_track loan_track = new loan_track();
+            loan_track.loan_details = loan.ToList();
+            loan_track.employee_track = employeeLoantrack.ToList().OrderByDescending(t => t.tracktime);
+            loan_track.vendor_track = vendorLoantrack.ToList().OrderByDescending(t => t.tracktime);
+
+            var user = ags.loan_table.Where(x => x.id == Id).FirstOrDefault();
+            var getCustomer = ags.customer_profile_table.ToList();
+            var customerid = "";
+            var phonenumber = "";
+            var name = "";
+            var email = "";
+            foreach (var customer in getCustomer)
+            {
+                if (user.customerid == customer.id.ToString())
+                {
+                    name = customer.name;
+                    customerid = customer.customerid;
+                    phonenumber = customer.phoneno;
+                    email = customer.email;
+                    break;
+                }
+                else if (user.customerid != customer.id.ToString())
+                {
+                    customerid = "Not Updated";
+                    continue;
+                }
+
+            } 
+            user.customerid = customerid;
+            ViewBag.name = name;
+            ViewBag.phoneno = phonenumber;
+            ViewBag.email = email;
+
+            var employees = ags.admin_table.ToList();
+
+            var employeeid = "";
+            foreach (var item in employeeLoantrack)
+            {
+                foreach (var items in employees)
+                {
+                    if (item.employeeid.ToString() == items.id.ToString())
+                    {
+                        string concatenated = items.name + " ( " + items.userrole + " ) ";                       
+                        employeeid = concatenated;
+                        break;
+                    }
+                    else if (items.id.ToString() != item.employeeid)
+                    {
+                        employeeid = "Not Updated";
+                        continue;
+                    }
+                }
+                item.employeeid = employeeid;
+
+            }
+
+            var vendors = ags.vendor_table.ToList();
+
+            var vendorid = "";
+            foreach (var item in vendorLoantrack)
+            {
+                foreach (var items in vendors)
+                {
+                    if (item.vendorid.ToString() == items.id.ToString())
+                    {
+                        vendorid = items.name;
+                        break;
+                    }
+                    else if (items.id.ToString() != item.vendorid)
+                    {
+                        vendorid = "Not Updated";
+                        continue;
+                    }
+                }
+                item.vendorid = vendorid;
+
+            }
+
+
+            return PartialView(loan_track);
+        }         
 
         protected override void Dispose(bool disposing)
         {

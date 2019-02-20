@@ -1,4 +1,31 @@
-﻿@model IEnumerable<agskeys.Models.loan_track_table>
+﻿@model agskeys.Models.loan_track
+
+<style>
+    .card .card-header h6 {
+        margin-bottom: 0;
+        color: #333;
+        font-size: 15px;
+        font-weight: 700;
+        display: inline-block;
+        margin-right: 10px;
+        line-height: 1.1;
+        position: relative;
+    }
+    .tbl th i {
+        border-radius: 50%;
+        border: 2px solid #fff;
+        -webkit-box-shadow: 0 5px 10px 0 rgba(43,43,43,0.2);
+        box-shadow: 0 5px 10px 0 rgba(43,43,43,0.2);
+        padding: 10px;
+        color: white;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+    }
+    .tbl th {
+        padding: 1.08rem 0.75rem !important;
+    }
+</style>
 <div class="modal-body">
     <!-- [ breadcrumb ] start -->
     <div class="page-header card">
@@ -7,7 +34,7 @@
                 <div class="page-header-title">
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Loan Details</h5>
+                        <h5>Loan Informations</h5>
                         <span>Aggressive Sales and Services</span>
                     </div>
                 </div>
@@ -32,9 +59,7 @@
                             <div class="card-block " style="box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
 
                                 <div class="row" style="padding-top: 20px;">
-
-
-                                    <div class="col-xl-12 col-md-12">
+                                    <div class="col-xl-6 col-md-6">
                                         <div class="card latest-update-card">
                                             <div class="card-header">
                                                 <h5>What’s New</h5>
@@ -75,7 +100,7 @@
                                                             <p class="text-muted m-b-0">Hemilton</p>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row p-b-30">
                                                         <div class="col-auto text-right update-meta p-r-0">
                                                             <img src="~/files/assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15 update-icon">
                                                         </div>
@@ -86,161 +111,180 @@
                                                             <p class="text-muted m-b-0">Jonny michel</p>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-auto text-right update-meta p-r-0">
+                                                            <i class="feather icon-check f-w-600 bg-c-blue update-icon"></i>
+                                                        </div>
+                                                        <div class="col p-l-5">
+                                                            <a href="#!">
+                                                                <h6> Order Received.</h6>
+                                                            </a>
+                                                            <p class="text-muted m-b-0">Hemilton</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                <h6>Loan Information</h6>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <table class="table  tbl" >
+                                                    <tr >
+                                                        <th><i class="fa fa-user f-w-600 bg-c-red update-icon" aria-hidden="true"></i></th>
+                                                        <td>@ViewBag.name</td>
+                                                    </tr>
+                                                    <tr >
+                                                        <th><i class="fa fa-envelope-o f-w-600 bg-c-green update-icon" aria-hidden="true"></i></th>
+                                                        <td>@ViewBag.email</td>
+                                                    </tr>
+                                                    <tr >
+                                                        <th><i class="fa fa-phone f-w-600 bg-c-blue update-icon" aria-hidden="true"></i></th>
+                                                        <td>@ViewBag.phoneno</td>
+                                                    </tr>
+                                                    <tr >
+                                                        <th><i class="fa fa-rupee f-w-600 bg-c-yellow update-icon" aria-hidden="true"></i></th>
+                                                        <td>@Html.DisplayFor(model => model.loan_details.FirstOrDefault().loanamt)<span style="color:#808080"> ( Sanctioned Amount ) </span></td>
 
-                                    <div class="col-md-12">
-                                        <h5 class="col-md-12"><a href="#" id="show-more">CLICK HERE FOR MORE DETAILS</a></h5>
+                                                    </tr>
+                                                    <tr >
+                                                        <th><i class="fa fa-rupee f-w-600 bg-c-green update-icon" aria-hidden="true"></i></th>
+                                                        <td>@Html.DisplayFor(model => model.loan_details.FirstOrDefault().disbursementamt)<span style="color:#808080"> ( Disbursement Amount ) </span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
 
 
 
+                                    @*<div class="col-md-12">
+                                            <h5 class="col-md-12"><a href="#" id="show-more">CLICK HERE FOR MORE DETAILS</a></h5>
+                                        </div>*@
 
-                                    <div id="personal-demo1" class="collapse loan col-md-12">
-                                        <h4 style="margin-bottom:25px;">Additional Information</h4>
-                                        <table class="table">
-                                            @*<tr>
-                                                    <th><i class="fa fa-envelope" aria-hidden="true"></i></th>
 
-                                                    <td>@Html.DisplayFor(model => model.partnerid)</td>
 
-                                                </tr>
-                                                <tr>
-                                                        <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
-                                                        <td>
-                                                            @{if (Model.alternatephone == null)
-                                                                {
-                                                                    Model.alternatephone = "Not Updated";
-                                                                }
-                                                            }
-                                                            @Html.DisplayFor(model => model.alternatephone)
-                                                        </td>
-                                                    </tr>
 
-                                                <tr>
-                                                    <th><i class="fa fa-university" aria-hidden="true"></i></th>
-                                                    <td>@Html.DisplayFor(model => model.bankid)</td>
+                                    <div class="collapse loan col-md-12 personal-demo1">
+                                        <h4 style="margin-bottom:25px;">Employee Track Information</h4>
+                                        <table id="alt-pg-dt" class="table table-striped table-bordered nowrap" style="line-height:.8;">
 
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-university" aria-hidden="true"></i></th>
-                                                    <td>@Html.DisplayFor(model => model.loantype)</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                    <td>@Html.DisplayFor(model => model.loanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.loanamt) )</span></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                    <td>@Html.DisplayFor(model => model.disbursementamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.disbursementamt) )</span></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-percent" aria-hidden="true"></i></th>
-                                                    <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                    <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a></td>
-
-                                                </tr>*@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>
-                                                        Photo
+                                                        Employee
                                                     </th>
                                                     <th>
-                                                        Name
+                                                        Track Time
                                                     </th>
                                                     <th>
-                                                        User Type
+                                                        Internal Comment
                                                     </th>
                                                     <th>
-                                                        User Name
+                                                        External Comment
                                                     </th>
-                                                    <th>
-                                                        Status
-                                                    </th>
-                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 @{
                                                     int i = 0;
                                                 }
-                                                @foreach (var item in Model)
+                                                @foreach (var item in Model.employee_track)
                                                 {
                                                     i++;
                                                     <tr>
                                                         <td>@i</td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.loanid)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.employeeid)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.tracktime)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.vendorid)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.vendortracktime)
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" id="edit" onclick="createModal('@Url.Action("Track", "Loan" , new {id=item.id })')"><i class="icon feather icon-map-pin f-w-600 f-16 m-r-15" style="color:#fb8d00;"></i></a>
-                                                            <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "Loan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
-                                                            <a href="#" id="details" onclick="createModal('@Url.Action("Details", "Loan" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
-                                                            <a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "Loan" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>
-                                                        </td>
+                                                        <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.internalcomment)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.externalcomment)</td>
                                                     </tr>
                                                 }
-
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-
                                                     <th>#</th>
                                                     <th>
-                                                        Photo
+                                                        Employee
                                                     </th>
                                                     <th>
-                                                        Name
+                                                        Track Time
                                                     </th>
                                                     <th>
-                                                        User Type
+                                                        Internal Comment
                                                     </th>
                                                     <th>
-                                                        User Name
+                                                        External Comment
                                                     </th>
-                                                    <th>
-                                                        Status
-                                                    </th>
-                                                    <th>Actions</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
+                                    <div class="collapse loan col-md-12 personal-demo1">
+                                        <h4 style="margin-bottom:25px;">Vendor Track Information</h4>
+                                        <table id="alt-pg-dt" class="table table-striped table-bordered nowrap" style="line-height:.5;">
 
-                                    <div class="col-md-12">
-                                        <h5 class="col-md-12"><a href="#" id="show-less">SHOW LESS</a></h5>
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>
+                                                        Vendor
+                                                    </th>
+                                                    <th>
+                                                        Track Time
+                                                    </th>
+                                                    <th>
+                                                        Comment
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    int j = 0;
+                                                }
+                                                @foreach (var item in Model.vendor_track)
+                                                {
+                                                    j++;
+                                                    <tr>
+                                                        <td>@j</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.vendorid)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.comment)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>
+                                                        Vendor
+                                                    </th>
+                                                    <th>
+                                                        Track Time
+                                                    </th>
+                                                    <th>
+                                                        Comment
+                                                    </th>
+
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
+                                    <div class="col-md-12">
+                                        <button class="btn waves-effect waves-light hor-grd btn-grd-primary" id="show-more" style="padding: 8px 0px; float:right;">
+                                            <h5 class="col-md-12" style="font-size: 12px;"><i class="fa fa-angle-double-down"></i>SHOW MORE</h5>
+                                        </button>
+                                        <button class="btn waves-effect waves-light hor-grd btn-grd-primary" id="show-less" style="padding: 8px 0px;  float:right;">
 
+                                            <h5 class="col-md-12" style="font-size: 12px;"><i class="fa fa-angle-double-up"></i>SHOW LESS</h5>
+                                        </button>
+                                    </div>
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -252,19 +296,19 @@
 </div>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
 <script>
     $('#show-less').hide();
     $('#show-more').click(function () {
-        $('#personal-demo1').show(500);
-
         $('#show-more').hide();
-        $('#show-less').show(500);
+        $('.personal-demo1').show(500);
+
+
+        $('#show-less').show();
     });
     $('#show-less').click(function () {
-
-        $('#personal-demo1').hide(500);
         $('#show-less').hide();
-        $('#show-more').show(500);
+        $('.personal-demo1').hide(500);
+
+        $('#show-more').show();
     });
 </script>
