@@ -24,6 +24,17 @@
           <Property Name="photo" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="assigned_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="loanid" Type="varchar" MaxLength="50" />
+          <Property Name="assign_emp_id" Type="varchar" MaxLength="50" />
+          <Property Name="assign_vendor_id" Type="varchar" MaxLength="50" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="bank_table">
           <Key>
             <PropertyRef Name="id" />
@@ -141,6 +152,7 @@
         </EntityType>
         <EntityContainer Name="agsfinancialsModelStoreContainer">
           <EntitySet Name="admin_table" EntityType="Self.admin_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assigned_table" EntityType="Self.assigned_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bank_table" EntityType="Self.bank_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer_profile_table" EntityType="Self.customer_profile_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_category_table" EntityType="Self.emp_category_table" Schema="dbo" store:Type="Tables" />
@@ -200,6 +212,7 @@
           <EntitySet Name="loantype_table" EntityType="agsfinancialsModel.loantype_table" />
           <EntitySet Name="loan_track_table" EntityType="agsfinancialsModel.loan_track_table" />
           <EntitySet Name="vendor_track_table" EntityType="agsfinancialsModel.vendor_track_table" />
+          <EntitySet Name="assigned_table" EntityType="agsfinancialsModel.assigned_table" />
         </EntityContainer>
         <EntityType Name="emp_category_table">
           <Key>
@@ -298,6 +311,17 @@
           <Property Name="vendorid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="tracktime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="assigned_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="loanid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="assign_emp_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="assign_vendor_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -446,6 +470,18 @@
                 <ScalarProperty Name="tracktime" ColumnName="tracktime" />
                 <ScalarProperty Name="comment" ColumnName="comment" />
                 <ScalarProperty Name="vendorid" ColumnName="vendorid" />
+                <ScalarProperty Name="loanid" ColumnName="loanid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="assigned_table">
+            <EntityTypeMapping TypeName="agsfinancialsModel.assigned_table">
+              <MappingFragment StoreEntitySet="assigned_table">
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="assign_vendor_id" ColumnName="assign_vendor_id" />
+                <ScalarProperty Name="assign_emp_id" ColumnName="assign_emp_id" />
                 <ScalarProperty Name="loanid" ColumnName="loanid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

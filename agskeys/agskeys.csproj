@@ -171,6 +171,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>agskeys.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\assigned_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\bank_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>

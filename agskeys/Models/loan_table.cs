@@ -22,7 +22,7 @@ namespace agskeys.Models
         [Display(Name = "Customer Id")]
         public string customerid { get; set; }
 
-        [Required(ErrorMessage = "You must choose partner")]
+      
         [Display(Name = "Partner")]
         public string partnerid { get; set; }
 
