@@ -11,11 +11,9 @@
     <meta name="description" content="Admindek Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="colorlib" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="https://colorlib.com//polygon/admindek/files/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+    <!-- Favicon icon 
+    <link rel="icon" href="https://colorlib.com//polygon/admindek/files/assets/images/favicon.ico" type="image/x-icon">-->
+
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/css/bootstrap.min.css">
     <!-- waves.css -->
@@ -330,6 +328,14 @@
                                             <span class="pcoded-mtext">Customers</span>
                                         </a>
                                     </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "salesloan" ? "active" : "")">
+                                        <a href="~/SalesLoan/salesloan" class="waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-users"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Loan Management</span>
+                                        </a>
+                                    </li>
 
                                
                                 </ul>
@@ -353,9 +359,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
 
-    </script>
     <script>
     function createModal(url){
           $('#modelContent').load(url);

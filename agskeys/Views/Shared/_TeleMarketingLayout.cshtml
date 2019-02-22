@@ -330,6 +330,14 @@
                                             <span class="pcoded-mtext">Customer</span>
                                         </a>
                                     </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "telemarketingloan" ? "active" : "")">
+                                        <a href="~/TeleMarketingLoan/telemarketingloan" class="waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-users"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Loan Management</span>
+                                        </a>
+                                    </li>
 
                                   
 
@@ -354,9 +362,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
-
-    </script>
+  
     <script>
     function createModal(url){
           $('#modelContent').load(url);

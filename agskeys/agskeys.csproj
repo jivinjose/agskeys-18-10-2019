@@ -144,8 +144,10 @@
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
     <Compile Include="Controllers\SaleExecutive\SalesExecutiveController.cs" />
+    <Compile Include="Controllers\SaleExecutive\SalesLoanController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TeleMarketing\TeleMarketingController.cs" />
+    <Compile Include="Controllers\TeleMarketing\TeleMarketingLoanController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\userprofileController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -194,6 +196,7 @@
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MultipleEmpClass.cs" />
+    <Compile Include="Models\Multiple_proofs_customer.cs" />
     <Compile Include="Models\proof_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
@@ -306,6 +309,24 @@
     <Content Include="Views\Loan\Create.cshtml" />
     <Content Include="Views\Loan\Track.cshtml" />
     <Content Include="Views\Loan\Track1.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\salesloan.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesExecutive\Create.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesExecutive\Edit.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesExecutive\Delete.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\Create.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\Details.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\Edit.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\Track.cshtml" />
+    <Content Include="Views\SalesExecutive\SalesLoan\Delete.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Create.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Edit.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketing\Delete.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\telemarketingloan.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\Create.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\Edit.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\Details.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\Track.cshtml" />
+    <Content Include="Views\TeleMarketing\TeleMarketingLoan\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

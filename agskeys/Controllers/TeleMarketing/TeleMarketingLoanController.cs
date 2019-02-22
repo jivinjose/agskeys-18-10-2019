@@ -7,20 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace agskeys.Controllers
+namespace agskeys.Controllers.TeleMarketing
 {
     [Authorize]
-    public class LoanController : Controller
+    public class TeleMarketingLoanController : Controller
     {
         agsfinancialsEntities ags = new agsfinancialsEntities();
-        public ActionResult Loan()
+        public ActionResult telemarketingloan()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            string username = Session["username"].ToString();
             var getCustomer = ags.customer_profile_table.ToList();
-            var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
+            var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).Where(x => x.addedby == username).ToList();
             var customerid = "";
             foreach (var item in customer_loans)
             {
@@ -35,7 +36,7 @@ namespace agskeys.Controllers
                     {
                         customerid = "Not Updated";
                         continue;
-                    }                   
+                    }
                 }
                 item.customerid = customerid;
 
@@ -56,7 +57,7 @@ namespace agskeys.Controllers
                     {
                         partnerid = "Not Updated";
                         continue;
-                    }                  
+                    }
 
                 }
                 item.partnerid = partnerid;
@@ -78,18 +79,30 @@ namespace agskeys.Controllers
                     }
                 }
             }
-            
-            return PartialView(customer_loans);
+
+            string userid = Session["userid"].ToString();
+            List<assigned_table> assign = ags.assigned_table.Where(x => x.assign_emp_id == userid).ToList();
+            ViewBag.assigned_loan = assign;
+
+
+
+            return View("~/Views/TeleMarketing/TeleMarketingLoan/telemarketingloan.cshtml", customer_loans);
         }
+
+
+
+
+
 
         [HttpGet]
         public ActionResult Create()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
-            var getCustomer = ags.customer_profile_table.ToList();
+            string username = Session["username"].ToString();
+            var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 
@@ -115,9 +128,8 @@ namespace agskeys.Controllers
 
 
             var model = new agskeys.Models.loan_table();
-            return PartialView(model);
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Create.cshtml", model);
         }
-
 
         public JsonResult GetEmployeeList(string categoryId)
         {
@@ -131,7 +143,7 @@ namespace agskeys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(loan_table obj)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -151,7 +163,7 @@ namespace agskeys.Controllers
 
                 List<emp_category_table> categoryList = ags.emp_category_table.ToList();
                 ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
-                
+
                 var getloantype = ags.loantype_table.ToList();
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
@@ -166,8 +178,8 @@ namespace agskeys.Controllers
 
                 // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
-                };
+                ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
+            };
                 string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
                 string fileName = sactionedFileName.Substring(0, 1);
                 string extension1 = Path.GetExtension(obj.sactionedCopyFile.FileName);
@@ -182,7 +194,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
-                    return View();
+                    return RedirectToAction("telemarketingloan");
                 }
 
                 string idCopyFileName = Path.GetFileNameWithoutExtension(obj.idCopyFile.FileName);
@@ -199,7 +211,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                    return View();
+                    return RedirectToAction("telemarketingloan");
                 }
                 loan_table loan = new loan_table();
                 loan.customerid = obj.customerid;
@@ -219,7 +231,7 @@ namespace agskeys.Controllers
                 int latestloanid = loan.id;
 
                 loan_track_table loan_track = new loan_track_table();
-                loan_track.loanid = latestloanid.ToString(); 
+                loan_track.loanid = latestloanid.ToString();
                 if (Session["userid"] != null)
                 {
                     loan_track.employeeid = Session["userid"].ToString();
@@ -246,7 +258,7 @@ namespace agskeys.Controllers
 
 
                 ///Assigned Employee
-                
+
                 loan_track_table loan_track_employee = new loan_track_table();
                 if (obj.employee != null)
                 {
@@ -266,11 +278,11 @@ namespace agskeys.Controllers
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();
-                }              
-               
+                }
+
 
                 vendor_track_table vendor_track = new vendor_track_table();
-                if(obj.partnerid != null)
+                if (obj.partnerid != null)
                 {
                     vendor_track.loanid = latestloanid.ToString();
                     vendor_track.vendorid = obj.partnerid;
@@ -282,7 +294,7 @@ namespace agskeys.Controllers
                     ags.SaveChanges();
 
                 }
-                
+
 
                 //assigned table
 
@@ -299,23 +311,23 @@ namespace agskeys.Controllers
                 if (obj.partnerid != null)
                 {
                     assigned.assign_vendor_id = obj.partnerid;
-                }               
+                }
                 assigned.datex = DateTime.Now.ToString();
                 assigned.addedby = Session["username"].ToString();
                 ags.assigned_table.Add(assigned);
                 ags.SaveChanges();
-                return RedirectToAction("Loan");
+                return RedirectToAction("telemarketingloan");
 
             }
             else
             {
                 TempData["AE"] = "Something went wrong";
-                return RedirectToAction("Loan");
+                return RedirectToAction("telemarketingloan");
             }
         }
         public ActionResult Details(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -412,13 +424,13 @@ namespace agskeys.Controllers
             }
             user.loantype = loan;
 
-            return PartialView(user);
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Details.cshtml", user);
         }
 
 
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -427,7 +439,8 @@ namespace agskeys.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var getCustomer = ags.customer_profile_table.ToList();
+            string username = Session["username"].ToString();
+            var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 
@@ -460,7 +473,7 @@ namespace agskeys.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(loan_table);
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Edit.cshtml", loan_table);
         }
 
         [HttpPost]
@@ -485,11 +498,11 @@ namespace agskeys.Controllers
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
-               
+
 
                 var allowedExtensions = new[] {
-                    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
-                };
+                ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
+            };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 string partner = existing.partnerid;
                 if (existing.sactionedcopy == null)
@@ -508,7 +521,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return RedirectToAction("Loan");
+                        return RedirectToAction("telemarketingloan");
                     }
                 }
 
@@ -537,7 +550,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Loan");
+                            return RedirectToAction("telemarketingloan");
                         }
 
                     }
@@ -569,7 +582,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return RedirectToAction("Loan");
+                        return RedirectToAction("telemarketingloan");
                     }
                 }
 
@@ -598,7 +611,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Loan");
+                            return RedirectToAction("telemarketingloan");
                         }
 
                     }
@@ -665,7 +678,7 @@ namespace agskeys.Controllers
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();
                 }
-                
+
 
                 vendor_track_table vendor_track = new vendor_track_table();
                 if (loan_table.partnerid != null)
@@ -685,11 +698,11 @@ namespace agskeys.Controllers
 
                     }
                 }
-                
-                
+
+
 
                 //assigned table
-                assigned_table existing_data = ags.assigned_table.Where(x=>x.loanid == loan_table.id.ToString()).FirstOrDefault();
+                assigned_table existing_data = ags.assigned_table.Where(x => x.loanid == loan_table.id.ToString()).FirstOrDefault();
 
 
                 //existing_data.loanid = latestloanid.ToString();
@@ -724,13 +737,121 @@ namespace agskeys.Controllers
                 else
                 {
                     existing_data.datex = existing_data.datex;
-                }                              
+                }
                 ags.SaveChanges();
 
-                return RedirectToAction("Loan", "Loan");
+                return RedirectToAction("telemarketingloan");
             }
-            return PartialView(loan_table);
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Edit.cshtml", loan_table);
         }
+
+        [HttpGet]
+        public ActionResult Track(int? Id)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
+            List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+            List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+
+            var employee = ags.admin_table.ToList();
+            loan_track loan_track = new loan_track();
+            loan_track.loan_details = loan.ToList();
+            loan_track.employee_track = employeeLoantrack.ToList().OrderBy(t => t.tracktime);
+            loan_track.vendor_track = vendorLoantrack.ToList().OrderBy(t => t.tracktime);
+
+            var user = ags.loan_table.Where(x => x.id == Id).FirstOrDefault();
+            var getCustomer = ags.customer_profile_table.ToList();
+            var customerid = "";
+            var phonenumber = "";
+            var name = "";
+            var email = "";
+            foreach (var customer in getCustomer)
+            {
+                if (user.customerid == customer.id.ToString())
+                {
+                    name = customer.name;
+                    customerid = customer.customerid;
+                    phonenumber = customer.phoneno;
+                    email = customer.email;
+                    break;
+                }
+                else if (user.customerid != customer.id.ToString())
+                {
+                    customerid = "Not Updated";
+                    continue;
+                }
+
+            }
+            user.customerid = customerid;
+            ViewBag.name = name;
+            ViewBag.phoneno = phonenumber;
+            ViewBag.email = email;
+
+            var employees = ags.admin_table.ToList();
+
+            var employeeid = "";
+            foreach (var item in employeeLoantrack)
+            {
+                foreach (var items in employees)
+                {
+                    if (item.employeeid != null)
+                    {
+                        if (item.employeeid.ToString() == items.id.ToString())
+                        {
+                            string concatenated = items.name + " ( " + items.userrole + " ) ";
+                            employeeid = concatenated;
+                            break;
+                        }
+                        else if (items.id.ToString() != item.employeeid)
+                        {
+                            employeeid = "Not Updated";
+                            continue;
+                        }
+                    }
+
+                }
+                item.employeeid = employeeid;
+
+            }
+
+            var vendors = ags.vendor_table.ToList();
+
+            var vendorid = "";
+            foreach (var item in vendorLoantrack)
+            {
+                foreach (var items in vendors)
+                {
+                    if (item.vendorid != null)
+                    {
+                        if (item.vendorid.ToString() == items.id.ToString())
+                        {
+                            string concatenated = items.companyname + " ( " + items.name + " ) ";
+                            vendorid = concatenated;
+                            break;
+                        }
+                        else if (items.id.ToString() != item.vendorid)
+                        {
+                            vendorid = "Not Updated";
+                            continue;
+                        }
+                    }
+
+                }
+                item.vendorid = vendorid;
+
+            }
+
+
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Track.cshtml", loan_track);
+        }
+
 
 
 
@@ -738,7 +859,7 @@ namespace agskeys.Controllers
 
         public ActionResult Delete(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -835,7 +956,7 @@ namespace agskeys.Controllers
             }
             user.loantype = loan;
 
-            return PartialView(user);
+            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Delete.cshtml", user);
         }
         // POST: vendor_table/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -868,118 +989,12 @@ namespace agskeys.Controllers
             ags.loan_table.Remove(loan_table);
             ags.SaveChanges();
 
-            return RedirectToAction("Loan");
+            return RedirectToAction("telemarketingloan");
         }
 
 
 
 
-        [HttpGet]
-        public ActionResult Track(int? Id)
-        {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "super_admin")
-            {
-                return this.RedirectToAction("Logout", "Account");
-            }
-            if (Id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();            
-            List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
-            List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
-
-            var employee = ags.admin_table.ToList(); 
-            loan_track loan_track = new loan_track();
-            loan_track.loan_details = loan.ToList();
-            loan_track.employee_track = employeeLoantrack.ToList().OrderBy(t => t.tracktime);
-            loan_track.vendor_track = vendorLoantrack.ToList().OrderBy(t => t.tracktime);
-
-            var user = ags.loan_table.Where(x => x.id == Id).FirstOrDefault();
-            var getCustomer = ags.customer_profile_table.ToList();
-            var customerid = "";
-            var phonenumber = "";
-            var name = "";
-            var email = "";
-            foreach (var customer in getCustomer)
-            {
-                if (user.customerid == customer.id.ToString())
-                {
-                    name = customer.name;
-                    customerid = customer.customerid;
-                    phonenumber = customer.phoneno;
-                    email = customer.email;
-                    break;
-                }
-                else if (user.customerid != customer.id.ToString())
-                {
-                    customerid = "Not Updated";
-                    continue;
-                }
-
-            } 
-            user.customerid = customerid;
-            ViewBag.name = name;
-            ViewBag.phoneno = phonenumber;
-            ViewBag.email = email;
-
-            var employees = ags.admin_table.ToList();
-
-            var employeeid = "";
-            foreach (var item in employeeLoantrack)
-            {
-                foreach (var items in employees)
-                {
-                    if (item.employeeid != null)
-                    {
-                        if (item.employeeid.ToString() == items.id.ToString())
-                        {
-                            string concatenated = items.name + " ( " + items.userrole + " ) ";
-                            employeeid = concatenated;
-                            break;
-                        }
-                        else if (items.id.ToString() != item.employeeid)
-                        {
-                            employeeid = "Not Updated";
-                            continue;
-                        }
-                    }
-                   
-                }
-                item.employeeid = employeeid;
-
-            }
-
-            var vendors = ags.vendor_table.ToList();
-
-            var vendorid = "";
-            foreach (var item in vendorLoantrack)
-            {
-                foreach (var items in vendors)
-                {
-                    if (item.vendorid != null)
-                    {
-                        if (item.vendorid.ToString() == items.id.ToString())
-                        {
-                            string concatenated = items.companyname + " ( " + items.name + " ) ";
-                            vendorid = concatenated;
-                            break;
-                        }
-                        else if (items.id.ToString() != item.vendorid)
-                        {
-                            vendorid = "Not Updated";
-                            continue;
-                        }
-                    }
-                        
-                }
-                item.vendorid = vendorid;
-
-            }
-
-
-            return PartialView(loan_track);
-        }         
 
         protected override void Dispose(bool disposing)
         {
@@ -988,6 +1003,7 @@ namespace agskeys.Controllers
                 ags.Dispose();
             }
             base.Dispose(disposing);
+
         }
     }
 }

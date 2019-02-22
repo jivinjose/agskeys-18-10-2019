@@ -8,8 +8,9 @@
                 <div class="page-header-title">
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Customer Details</h5>
-                        <span>Aggressive Sales and Services</span>
+                        <h4>Delete Customer</h4>
+                        <span>Aggressive Sales and Services</span><br /><br />
+                        <h5>Are you sure you want to delete this?</h5>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,7 @@
 
                                             }
                                             <div class="form-group prf row">
-                                                <label class="col-sm-12 col-form-label">@Html.DisplayFor(model => model.customerid)<span> ( Customer Id ) </span></label>
+                                                <label class="col-sm-12 col-form-label">@Html.DisplayFor(model => model.customerid)<span> ( username ) </span></label>
                                             </div>
                                             <div class="form-group prf row">
                                                 <label class="col-sm-12 col-form-label">@Html.DisplayFor(model => model.name)</label>
@@ -63,10 +64,6 @@
                                             <tr>
                                                 <th><i class="fa fa-envelope" aria-hidden="true"></i></th>
                                                 <td>@Html.DisplayFor(model => model.email)</td>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-user" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.name)<span> ( username ) </span></td>
                                             </tr>
                                             <tr>
                                                 <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
@@ -93,10 +90,17 @@
                                         </table>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                @Html.ActionLink("Back to List", "Customer")
+                            </div>
+                        }
 
                     </div>
                 </div>
