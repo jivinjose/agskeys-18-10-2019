@@ -22,7 +22,7 @@ namespace agskeys.Models
         [Display(Name = "Customer Id")]
         public string customerid { get; set; }
 
-      
+
         [Display(Name = "Partner")]
         public string partnerid { get; set; }
 
@@ -34,15 +34,19 @@ namespace agskeys.Models
         [Display(Name = "Loan Type")]
         public string loantype { get; set; }
 
-        [Required(ErrorMessage = "please enter loan amount")]
+        [Required(ErrorMessage = "Please enter loan amount")]
+        [Display(Name = "Request Loan Amount")]
+        public string requestloanamt { get; set; }
+
+        [Required(ErrorMessage = "Please enter loan amount")]
         [Display(Name = "Loan Amount")]
         public string loanamt { get; set; }
 
-        [Required(ErrorMessage = "please enter disbursement amount")]
+        [Required(ErrorMessage = "Please enter disbursement amount")]
         [Display(Name = "Disbursement Amount")]
         public string disbursementamt { get; set; }
 
-        [Required(ErrorMessage = "please enter rate of intrest")]
+        [Required(ErrorMessage = "Please enter rate of intrest")]
         [Display(Name = "Disbursement Rate Of Intrest")]
         public string rateofinterest { get; set; }
 
@@ -61,10 +65,10 @@ namespace agskeys.Models
 
         [Display(Name = "Added Date")]
         public string datex { get; set; }
-        
+
         [Display(Name = "Employee Category")]
         public string employeetype { get; set; }
-        
+
         [Display(Name = "Employee")]
         public string employee { get; set; }
 
@@ -75,5 +79,9 @@ namespace agskeys.Models
         [Display(Name = "External Comment")]
         [DataType(DataType.MultilineText)]
         public string externalcomment { get; set; }
+
+        [Display(Name = "Loan Status")]
+        public string loanstatus { get; set; }
     }
 }
+

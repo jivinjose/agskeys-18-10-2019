@@ -44,10 +44,19 @@ namespace agskeys.Models
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string dob { get; set; }
 
+        [Display(Name = "Wedding Date")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string weddingdate { get; set; }
+
         [Display(Name = "Address")]
         [Required(ErrorMessage = "You must provide a address")]
         [DataType(DataType.MultilineText)]
         public string address { get; set; }
+
+        [Display(Name = "Property Details")]
+        [Required(ErrorMessage = "You must provide a address")]
+        [DataType(DataType.MultilineText)]
+        public string propertydetails { get; set; }
 
         [Required(ErrorMessage = "You must choose user role")]
         [Display(Name = "User Role")]
