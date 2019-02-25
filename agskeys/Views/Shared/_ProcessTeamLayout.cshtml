@@ -12,11 +12,7 @@
     <meta name="description" content="Admindek Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="colorlib" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="https://colorlib.com//polygon/admindek/files/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+   
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="~/files/bower_components/bootstrap/css/bootstrap.min.css">
     <!-- waves.css -->
@@ -332,7 +328,14 @@
                                         </a>
                                     </li>
 
-                                   
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "processloan" ? "active" : "")">
+                                        <a href="~/ProcessLoan/processloan" class="waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="feather icon-users"></i>
+                                            </span>
+                                            <span class="pcoded-mtext">Loan Management</span>
+                                        </a>
+                                    </li>
 
 
                                 </ul>
@@ -356,9 +359,6 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
-
-    </script>
     <script>
     function createModal(url){
           $('#modelContent').load(url);
@@ -420,14 +420,6 @@
     <script src="~/files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript" src="~/files/assets/js/script.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
-    </script>-->
+    
 </body>
 </html>

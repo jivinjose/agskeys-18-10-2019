@@ -77,7 +77,7 @@
                                                 @Html.DisplayFor(modelItem => item.addedby)
                                             </td>
                                             <td>
-
+                                                <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ProcessTeam" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
                                                 <a href="#" id="details" onclick="createModal('@Url.Action("Details", "ProcessTeam" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
 
                                             </td>

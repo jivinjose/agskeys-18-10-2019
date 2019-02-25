@@ -141,6 +141,7 @@
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTypeController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
+    <Compile Include="Controllers\ProcessTeam\ProcessLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
     <Compile Include="Controllers\SaleExecutive\SalesExecutiveController.cs" />
@@ -197,6 +198,9 @@
     </Compile>
     <Compile Include="Models\MultipleEmpClass.cs" />
     <Compile Include="Models\Multiple_proofs_customer.cs" />
+    <Compile Include="Models\proof_customer_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\proof_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
@@ -327,6 +331,11 @@
     <Content Include="Views\TeleMarketing\TeleMarketingLoan\Details.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketingLoan\Track.cshtml" />
     <Content Include="Views\TeleMarketing\TeleMarketingLoan\Delete.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessTeam\Edit.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessLoan\processloan.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessLoan\Details.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessLoan\Edit.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessLoan\Track.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
