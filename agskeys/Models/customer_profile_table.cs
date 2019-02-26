@@ -72,5 +72,9 @@ namespace agskeys.Models
         [Required(ErrorMessage = "You must provide a address")]
         [DataType(DataType.MultilineText)]
         public string address { get; set; }
+
+        [Display(Name = "Wedding Date")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string weddingdate { get; set; }
     }
 }

@@ -37,5 +37,6 @@ namespace agskeys.Models
         public virtual DbSet<vendor_track_table> vendor_track_table { get; set; }
         public virtual DbSet<assigned_table> assigned_table { get; set; }
         public virtual DbSet<proof_customer_table> proof_customer_table { get; set; }
+        public virtual DbSet<external_comment_table> external_comment_table { get; set; }
     }
 }

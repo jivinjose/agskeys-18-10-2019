@@ -13,33 +13,14 @@ namespace agskeys.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class loan_track_table
+    public partial class external_comment_table
     {
         public int id { get; set; }
 
-        [Display(Name = "Loan Id")]
-        public string loanid { get; set; }
-
-        [Display(Name = "Employee Id")]
-        public string employeeid { get; set; }
-
-        [Display(Name = "Employee Track Time")]
-        public string tracktime { get; set; }
-
-        [Display(Name = "Internal Comment")]
-        public string internalcomment { get; set; }
-
+        [Required(ErrorMessage = "You must enter External Comment")]
         [Display(Name = "External Comment")]
         public string externalcomment { get; set; }
-
-        [Display(Name = "Added By")]
         public string addedby { get; set; }
-
-        [Display(Name = "Added Date")]
         public string datex { get; set; }
-
-        [Display(Name = "Followup Date")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string followupdate { get; set; }
     }
 }

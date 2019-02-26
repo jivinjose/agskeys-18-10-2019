@@ -16,6 +16,7 @@
         <EntityTypeShape EntityType="agsfinancialsModel.loan_track_table" Width="1.5" PointX="0.75" PointY="7.125" />
         <EntityTypeShape EntityType="agsfinancialsModel.vendor_track_table" Width="1.5" PointX="2.625" PointY="6.5" />
         <EntityTypeShape EntityType="agsfinancialsModel.assigned_table" Width="1.5" PointX="4.375" PointY="6.625" />
+        <EntityTypeShape EntityType="agsfinancialsModel.external_comment_table" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -82,6 +82,9 @@ namespace agskeys.Models
 
         [Display(Name = "Loan Status")]
         public string loanstatus { get; set; }
+
+        [Display(Name = "Property Details")]
+        [DataType(DataType.MultilineText)]
+        public string propertydetails { get; set; }
     }
 }
-
