@@ -207,6 +207,7 @@ namespace agskeys.Controllers
                 loan.bankid = obj.bankid;
                 loan.loantype = obj.loantype;
                 loan.loanamt = obj.loanamt;
+                loan.requestloanamt = obj.requestloanamt;
                 loan.disbursementamt = obj.disbursementamt;
                 loan.rateofinterest = obj.rateofinterest;
                 loan.sactionedcopy = obj.sactionedcopy;
@@ -616,11 +617,13 @@ namespace agskeys.Controllers
                 existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
+                existing.requestloanamt = loan_table.requestloanamt;
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
                 existing.sactionedcopy = loan_table.sactionedcopy;
                 existing.idcopy = loan_table.idcopy;
+                existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)
                 {

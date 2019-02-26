@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,7 +124,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
@@ -141,6 +144,7 @@
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTypeController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
+    <Compile Include="Controllers\Manager\ManagerLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
@@ -336,6 +340,11 @@
     <Content Include="Views\ProcessTeam\ProcessLoan\Details.cshtml" />
     <Content Include="Views\ProcessTeam\ProcessLoan\Edit.cshtml" />
     <Content Include="Views\ProcessTeam\ProcessLoan\Track.cshtml" />
+    <Content Include="Views\Manager\ManagerLoan\managerloan.cshtml" />
+    <Content Include="Views\Manager\ManagerLoan\Details.cshtml" />
+    <Content Include="Views\Manager\ManagerLoan\Edit.cshtml" />
+    <Content Include="Views\Manager\ManagerLoan\Track.cshtml" />
+    <Content Include="Views\Manager\ManagerLoan\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

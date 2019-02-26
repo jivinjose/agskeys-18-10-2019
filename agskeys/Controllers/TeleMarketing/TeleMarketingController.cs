@@ -29,7 +29,8 @@ namespace agskeys.Controllers.TeleMarketing
             {
                 return this.RedirectToAction("Logout", "Account");
             }
-            var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
+            string username = Session["username"].ToString();
+            var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).Where(x => x.addedby == username).ToList();
 
             return PartialView("~/Views/TeleMarketing/TeleMarketing/Customer.cshtml", customers);
         }

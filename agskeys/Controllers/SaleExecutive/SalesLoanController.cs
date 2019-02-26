@@ -29,11 +29,11 @@ namespace agskeys.Controllers.SaleExecutive
             // var assigne_id = ags.assigned_table.Where(x => x.assign_emp_id == userid).ToList();
             var getCustomer = ags.customer_profile_table.ToList();
             var customer_loans = (from s in ags.loan_table
-                                   join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
-                                   where sa.employeeid == userid
+                                  join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                  where sa.employeeid == userid
                                   orderby sa.datex descending
-                                  select s  );
-           // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
+                                  select s);
+            // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
             foreach (var item in customer_loans)
@@ -92,9 +92,6 @@ namespace agskeys.Controllers.SaleExecutive
                     }
                 }
             }
-            
-         
-
 
 
             return View("~/Views/SalesExecutive/SalesLoan/salesloan.cshtml", customer_loans);
@@ -142,7 +139,7 @@ namespace agskeys.Controllers.SaleExecutive
             List<admin_table> employees = ags.admin_table.Where(x => x.userrole.ToString() == categoryId).ToList();
             return Json(employees, JsonRequestBehavior.AllowGet);
         }
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -481,7 +478,7 @@ namespace agskeys.Controllers.SaleExecutive
             List<proof_table> proof_table = ags.proof_table.ToList();
             List<proof_customer_table> proof_customer = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
 
-           
+
             Multiple_proofs_customer Multiple_pc = new Multiple_proofs_customer();
             Multiple_pc.loan_table = loan.ToList();
             Multiple_pc.proof_table = proof_table.ToList();

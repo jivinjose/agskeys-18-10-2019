@@ -99,6 +99,15 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    @Html.LabelFor(model => model.requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.requestloanamt, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     @Html.LabelFor(model =>model.loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model=> model.loanamt, new { htmlAttributes = new { @class = "form-control" } })
@@ -213,7 +222,7 @@
                                                         @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                           
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">

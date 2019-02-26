@@ -158,46 +158,46 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @{if (Model.loan_table.FirstOrDefault().sactionedcopy != null || Model.loan_table.FirstOrDefault().sactionedcopy == "")
-                                                            {
-                                                                @Html.HiddenFor(model => model.loan_table.FirstOrDefault().sactionedcopy)
-                                                                <a id="oldSactionedCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a>
-                                                                <a id="blah" href="#" target="_blank" alt="Your Sactioned Copy File" hidden>Sactioned Copy(Click here)</a>
-                                                                <input type="file" id="sactionedCopyFile" name="sactionedCopyFile" onchange="readSactioned(this);" />
-                                                            }
-                                                            else
-                                                            {
-                                                                <input type="file" name="sactionedCopyFile" required />
-                                                            }
+                                            @*<div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                        <div class="col-md-12">
+                                                            @{if (Model.loan_table.FirstOrDefault().sactionedcopy != null || Model.loan_table.FirstOrDefault().sactionedcopy == "")
+                                                                {
+                                                                    @Html.HiddenFor(model => model.loan_table.FirstOrDefault().sactionedcopy)
+                                                                    <a id="oldSactionedCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a>
+                                                                    <a id="blah" href="#" target="_blank" alt="Your Sactioned Copy File" hidden>Sactioned Copy(Click here)</a>
+                                                                    <input type="file" id="sactionedCopyFile" name="sactionedCopyFile" onchange="readSactioned(this);" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="file" name="sactionedCopyFile" required />
+                                                                }
 
-                                                        }
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @{if (Model.loan_table.FirstOrDefault().idcopy != null || Model.loan_table.FirstOrDefault().idcopy == "")
-                                                            {
-                                                                @Html.HiddenFor(model => model.loan_table.FirstOrDefault().idcopy)
-                                                                <a id="oldIdCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().idcopy)" target="_blank">Download ID Copy (Click here)</a>
-                                                                <a id="blah1" href="#" target="_blank" alt="Your ID Copy File" hidden>ID Copy (Click here)</a>
-                                                                <input type="file" id="idCopyFile" name="idCopyFile" onchange="readIdFile(this);" />
-                                                            }
-                                                            else
-                                                            {
-                                                                <input type="file" name="idCopyFile" required />
-                                                            }
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                        <div class="col-md-12">
+                                                            @{if (Model.loan_table.FirstOrDefault().idcopy != null || Model.loan_table.FirstOrDefault().idcopy == "")
+                                                                {
+                                                                    @Html.HiddenFor(model => model.loan_table.FirstOrDefault().idcopy)
+                                                                    <a id="oldIdCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().idcopy)" target="_blank">Download ID Copy (Click here)</a>
+                                                                    <a id="blah1" href="#" target="_blank" alt="Your ID Copy File" hidden>ID Copy (Click here)</a>
+                                                                    <input type="file" id="idCopyFile" name="idCopyFile" onchange="readIdFile(this);" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="file" name="idCopyFile" required />
+                                                                }
 
-                                                        }
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div>*@
                                             <div class="col-md-12">
                                                 <div class="switch-field">
                                                     <div class="switch-title">Send To Employee</div>
@@ -250,16 +250,16 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().externalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                            @*<div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                        <div class="col-md-12">
+                                                            @Html.EditorFor(model => model.loan_table.FirstOrDefault().externalcomment, new { htmlAttributes = new { @class = "form-control" } })
 
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().externalcomment, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().externalcomment, "", new { @class = "text-danger" })
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div>*@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -272,33 +272,51 @@
 
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <div class='Edit@(i)'>
-                                                                    @Html.DisplayFor(modelItem => item.proofname, new { @class = "control-label col-md-12", @id = i })<br>
+                                                                @Html.DisplayFor(modelItem => item.proofname, new { @class = "control-label col-md-12" })<br>
 
-                                                                    @*@foreach(var items in Model.proof_customer_table.Where(x=>x.proofid==item.id.ToString()))*@
-                                                                    @*@foreach (var items in Model.proof_customer_table)
-                                                                   {*@
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, "Not Applicable", new { id = i +" 1", @class = "control-label col-md-4" })
-                                                                            @Html.Label(i+"1","Not Applicable")
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, "Pending", new { id = i +" 2", @class = "control-label col-md-4" })
-                                                                            @Html.Label(i + "2", "Pending")
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, "Submited", new { id = i + "3", @class = "control-label col-md-4" })
-                                                                            @Html.Label(i + "3", "Submited")
-                                                                        </div>
+                                                                @*@foreach(var items in Model.proof_customer_table.Where(x=>x.proofid==item.id.ToString()))*@
+                                                                @*@foreach (var items in Model.proof_customer_table)
+                                                                    {
+                                                                        if (items.id.ToString()!= "" || items.id.ToString() != null)
+                                                                        {*@
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                        @Html.Label("Not Applicable")
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                        @Html.Label("Pending")
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                        @Html.Label("Submited")
                                                                     </div>
                                                                 </div>
-                                                                    @*}*@
-                                                                </div>
-                                                              </div>
+                                                                @*   }
+                                                                            else
+                                                                            {
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.RadioButton("Applicable", new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                                        @Html.Label("Not Applicable")
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.RadioButton("Pending", new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                                        @Html.Label("Pending")
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.RadioButton("Submited", new { selectedid = item.id, @class = "control-label col-md-4" })
+                                                                                        @Html.Label("Submited")
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+
+                                                                    }*@
+                                                            </div>
+                                                        </div>
                                                     }
-                                                       
+
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -310,12 +328,12 @@
                                             </div>
                                         </div>
 
-                                            </div>
-                                            }
-                                            <div>
-                                                @Html.ActionLink("Back to List", "salesloan")
-                                            </div>
-                                        </div>
+                                    </div>
+                                                        }
+                                <div>
+                                    @Html.ActionLink("Back to List", "salesloan")
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -331,22 +349,22 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $("#employeetype").change(function () {
-            $.get("/Loan/GetEmployeeList", {
-                categoryId:
-                $("#employeetype").val()
-            }, function (data) {
-                $("#employee").empty();
-                $("#employee").append("<option>Please Select Employee Name</option> ");
-                $.each(data, function (create, row) {
-                    $("#employee").append("<option value='" + row.id + "'>" +
-                        row.name + "</option>")
-                    $("#employee").removeAttr("disabled");
-                });
-            });
-        })
-    });
+                                    $(document).ready(function () {
+                                        $("#employeetype").change(function () {
+                                            $.get("/Loan/GetEmployeeList", {
+                                                categoryId:
+                                                $("#employeetype").val()
+                                            }, function (data) {
+                                                $("#employee").empty();
+                                                $("#employee").append("<option>Please Select Employee Name</option> ");
+                                                $.each(data, function (create, row) {
+                                                    $("#employee").append("<option value='" + row.id + "'>" +
+                                                        row.name + "</option>")
+                                                    $("#employee").removeAttr("disabled");
+                                                });
+                                            });
+                                        })
+                                    });
 </script>
 
 
@@ -414,12 +432,12 @@
         }
 </style>
 <script>
-    $('.a-div').hide();
-    $('#switch_right').click(function () {
-        $('.a-div').show(500);
-    });
-    $('#switch_left').click(function () {
-        if ($('.a-div').is(":visible"))
-            $('.a-div').hide(500);
-    });
+                                    $('.a-div').hide();
+                                    $('#switch_right').click(function () {
+                                        $('.a-div').show(500);
+                                    });
+                                    $('#switch_left').click(function () {
+                                        if ($('.a-div').is(":visible"))
+                                            $('.a-div').hide(500);
+                                    });
 </script>

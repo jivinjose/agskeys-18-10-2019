@@ -526,11 +526,13 @@ namespace agskeys.Controllers.ProcessTeam
                 existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
+                existing.requestloanamt = loan_table.requestloanamt;
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
                 existing.sactionedcopy = loan_table.sactionedcopy;
                 existing.idcopy = loan_table.idcopy;
+                existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)
                 {

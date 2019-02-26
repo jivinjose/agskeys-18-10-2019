@@ -1,25 +1,21 @@
 ﻿using agskeys.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace agskeys.Controllers.TeleMarketing
+namespace agskeys.Controllers.Manager
 {
+
     [Authorize]
-    public class TeleMarketingLoanController : Controller
+    public class ManagerLoanController : Controller
     {
         agsfinancialsEntities ags = new agsfinancialsEntities();
-        public ActionResult telemarketingloan()
+        public ActionResult managerloan()
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
-            {
-                return this.RedirectToAction("Logout", "Account");
-            }
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -36,7 +32,7 @@ namespace agskeys.Controllers.TeleMarketing
                                   where sa.employeeid == userid
                                   orderby sa.datex descending
                                   select s).ToList();
-            //var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
+            // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
             foreach (var item in customer_loans)
@@ -97,51 +93,10 @@ namespace agskeys.Controllers.TeleMarketing
             }
 
 
-            return View("~/Views/TeleMarketing/TeleMarketingLoan/telemarketingloan.cshtml", customer_loans);
+
+
+            return View("~/Views/Manager/ManagerLoan/managerloan.cshtml", customer_loans);
         }
-
-
-
-
-
-
-        [HttpGet]
-        public ActionResult Create()
-        {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
-            {
-                return this.RedirectToAction("Logout", "Account");
-            }
-            string username = Session["username"].ToString();
-            var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
-            SelectList customers = new SelectList(getCustomer, "id", "customerid");
-            ViewBag.customerList = customers;
-
-            var getVendor = ags.vendor_table.ToList();
-            SelectList vendors = new SelectList(getVendor, "id", "companyname");
-            ViewBag.vendorList = vendors;
-
-            var getBank = ags.bank_table.ToList();
-            SelectList banks = new SelectList(getBank, "id", "bankname");
-            ViewBag.bankList = banks;
-
-            var getloantype = ags.loantype_table.ToList();
-            SelectList loantp = new SelectList(getloantype, "id", "loan_type");
-            ViewBag.loantypeList = loantp;
-
-            var empCategory = ags.emp_category_table.ToList();
-            SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
-            ViewBag.empCategories = empCategories;
-
-            var employee = ags.admin_table.ToList();
-            SelectList employees = new SelectList(employee, "id", "name");
-            ViewBag.employees = employees;
-
-
-            var model = new agskeys.Models.loan_table();
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Create.cshtml", model);
-        }
-
         public JsonResult GetEmployeeList(string categoryId)
         {
             ags.Configuration.ProxyCreationEnabled = false;
@@ -149,196 +104,9 @@ namespace agskeys.Controllers.TeleMarketing
             return Json(employees, JsonRequestBehavior.AllowGet);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(loan_table obj)
-        {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
-            {
-                return this.RedirectToAction("Logout", "Account");
-            }
-            if (ModelState.IsValid)
-            {
-                var getCustomer = ags.customer_profile_table.ToList();
-                SelectList customers = new SelectList(getCustomer, "id", "customerid");
-                ViewBag.customerList = customers;
-
-                var getVendor = ags.vendor_table.ToList();
-                SelectList vendors = new SelectList(getVendor, "id", "companyname");
-                ViewBag.vendorList = vendors;
-
-                var getBank = ags.bank_table.ToList();
-                SelectList banks = new SelectList(getBank, "id", "bankname");
-                ViewBag.bankList = banks;
-
-                List<emp_category_table> categoryList = ags.emp_category_table.ToList();
-                ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
-
-                var getloantype = ags.loantype_table.ToList();
-                SelectList loantp = new SelectList(getloantype, "id", "loan_type");
-                ViewBag.loantypeList = loantp;
-
-                var empCategory = ags.emp_category_table.ToList();
-                SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
-                ViewBag.empCategories = empCategories;
-
-                var employee = ags.admin_table.ToList();
-                SelectList employees = new SelectList(employee, "id", "name");
-                ViewBag.employees = employees;
-
-                // var usr = (from u in ags.loan_table where u. == obj.username select u).FirstOrDefault();
-                //    var allowedExtensions = new[] {
-                //    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
-                //};
-                //string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
-                //string fileName = sactionedFileName.Substring(0, 1);
-                //string extension1 = Path.GetExtension(obj.sactionedCopyFile.FileName);
-                //string extension = extension1.ToLower();
-                //if (allowedExtensions.Contains(extension))
-                //{
-                //    fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                //    obj.sactionedcopy = "~/sactionedcopyfile/" + fileName;
-                //    fileName = Path.Combine(Server.MapPath("~/sactionedcopyfile/"), fileName);
-                //    obj.sactionedCopyFile.SaveAs(fileName);
-                //}
-                //else
-                //{
-                //    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
-                //    return RedirectToAction("telemarketingloan");
-                //}
-
-                //string idCopyFileName = Path.GetFileNameWithoutExtension(obj.idCopyFile.FileName);
-                //string idFileName = idCopyFileName.Substring(0, 1);
-                //string extension2 = Path.GetExtension(obj.idCopyFile.FileName);
-                //string idExtension = extension2.ToLower();
-                //if (allowedExtensions.Contains(idExtension))
-                //{
-                //    idFileName = idFileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                //    obj.idcopy = "~/idcopyfile/" + idFileName;
-                //    idFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), idFileName);
-                //    obj.idCopyFile.SaveAs(idFileName);
-                //}
-                //else
-                //{
-                //    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                //    return RedirectToAction("telemarketingloan");
-                //}
-                loan_table loan = new loan_table();
-                loan.customerid = obj.customerid;
-                loan.partnerid = obj.partnerid;
-                loan.bankid = obj.bankid;
-                loan.loantype = obj.loantype;
-                loan.loanamt = obj.loanamt;
-                loan.disbursementamt = obj.disbursementamt;
-                loan.rateofinterest = obj.rateofinterest;
-                //loan.sactionedcopy = obj.sactionedcopy;
-                //loan.idcopy = obj.idcopy;
-                loan.datex = DateTime.Now.ToString();
-                loan.addedby = Session["username"].ToString();
-                ags.loan_table.Add(loan);
-                ags.SaveChanges();
-
-                int latestloanid = loan.id;
-
-                loan_track_table loan_track = new loan_track_table();
-                loan_track.loanid = latestloanid.ToString();
-                if (Session["userid"] != null)
-                {
-                    loan_track.employeeid = Session["userid"].ToString();
-                    loan_track.tracktime = DateTime.Now.ToString();
-                }
-                //if (obj.partnerid != null)
-                //{
-                //    loan_track.vendorid = obj.partnerid;
-                //    loan_track.vendortracktime = DateTime.Now.ToString();
-
-                //}
-                if (obj.internalcomment != null)
-                {
-                    loan_track.internalcomment = obj.internalcomment;
-                }
-                if (obj.externalcomment != null)
-                {
-                    loan_track.externalcomment = obj.externalcomment;
-                }
-                loan_track.datex = DateTime.Now.ToString();
-                loan_track.addedby = Session["username"].ToString();
-                ags.loan_track_table.Add(loan_track);
-                ags.SaveChanges();
-
-
-                ///Assigned Employee
-
-                loan_track_table loan_track_employee = new loan_track_table();
-                if (obj.employee != null)
-                {
-                    loan_track_employee.loanid = latestloanid.ToString();
-                    loan_track_employee.employeeid = obj.employee;
-                    loan_track_employee.tracktime = DateTime.Now.ToString();
-                    //if (obj.partnerid != null)
-                    //{
-                    //    loan_track.vendorid = obj.partnerid;
-                    //    loan_track.vendortracktime = DateTime.Now.ToString();
-
-                    //}
-                    loan_track_employee.internalcomment = "Assigned";
-                    loan_track_employee.externalcomment = "Assigned";
-
-                    loan_track_employee.datex = DateTime.Now.ToString();
-                    loan_track_employee.addedby = Session["username"].ToString();
-                    ags.loan_track_table.Add(loan_track_employee);
-                    ags.SaveChanges();
-                }
-
-
-                vendor_track_table vendor_track = new vendor_track_table();
-                if (obj.partnerid != null)
-                {
-                    vendor_track.loanid = latestloanid.ToString();
-                    vendor_track.vendorid = obj.partnerid;
-                    vendor_track.tracktime = DateTime.Now.ToString();
-                    vendor_track.comment = "Assigned";
-                    vendor_track.datex = DateTime.Now.ToString();
-                    vendor_track.addedby = Session["username"].ToString();
-                    ags.vendor_track_table.Add(vendor_track);
-                    ags.SaveChanges();
-
-                }
-
-
-                //assigned table
-
-                assigned_table assigned = new assigned_table();
-                assigned.loanid = latestloanid.ToString();
-                if (obj.employee != null)
-                {
-                    assigned.assign_emp_id = obj.employee;
-                }
-                else
-                {
-                    assigned.assign_emp_id = Session["userid"].ToString();
-                }
-                if (obj.partnerid != null)
-                {
-                    assigned.assign_vendor_id = obj.partnerid;
-                }
-                assigned.datex = DateTime.Now.ToString();
-                assigned.addedby = Session["username"].ToString();
-                ags.assigned_table.Add(assigned);
-                ags.SaveChanges();
-                return RedirectToAction("telemarketingloan");
-
-            }
-            else
-            {
-                TempData["AE"] = "Something went wrong";
-                return RedirectToAction("telemarketingloan");
-            }
-        }
         public ActionResult Details(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -435,13 +203,13 @@ namespace agskeys.Controllers.TeleMarketing
             }
             user.loantype = loan;
 
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Details.cshtml", user);
+            return PartialView("~/Views/Manager/ManagerLoan/Details.cshtml", user);
         }
 
 
         public ActionResult Edit(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -484,7 +252,7 @@ namespace agskeys.Controllers.TeleMarketing
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Edit.cshtml", loan_table);
+            return PartialView("~/Views/Manager/ManagerLoan/Edit.cshtml", loan_table);
         }
 
         [HttpPost]
@@ -511,7 +279,7 @@ namespace agskeys.Controllers.TeleMarketing
 
 
 
-                //    var allowedExtensions = new[] {
+                //var allowedExtensions = new[] {
                 //    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 //};
                 loan_table existing = ags.loan_table.Find(loan_table.id);
@@ -532,7 +300,7 @@ namespace agskeys.Controllers.TeleMarketing
                 //    else
                 //    {
                 //        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                //        return RedirectToAction("telemarketingloan");
+                //        return RedirectToAction("managerloan");
                 //    }
                 //}
 
@@ -561,7 +329,7 @@ namespace agskeys.Controllers.TeleMarketing
                 //        else
                 //        {
                 //            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                //            return RedirectToAction("telemarketingloan");
+                //            return RedirectToAction("managerloan");
                 //        }
 
                 //    }
@@ -593,7 +361,7 @@ namespace agskeys.Controllers.TeleMarketing
                 //    else
                 //    {
                 //        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                //        return RedirectToAction("telemarketingloan");
+                //        return RedirectToAction("managerloan");
                 //    }
                 //}
 
@@ -622,7 +390,7 @@ namespace agskeys.Controllers.TeleMarketing
                 //        else
                 //        {
                 //            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                //            return RedirectToAction("telemarketingloan");
+                //            return RedirectToAction("managerloan");
                 //        }
 
                 //    }
@@ -751,15 +519,14 @@ namespace agskeys.Controllers.TeleMarketing
                 }
                 ags.SaveChanges();
 
-                return RedirectToAction("telemarketingloan");
+                return RedirectToAction("managerloan");
             }
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Edit.cshtml", loan_table);
+            return PartialView("~/Views/Manager/ManagerLoan/Edit.cshtml", loan_table);
         }
-
         [HttpGet]
         public ActionResult Track(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -860,17 +627,11 @@ namespace agskeys.Controllers.TeleMarketing
             }
 
 
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Track.cshtml", loan_track);
+            return PartialView("~/Views/Manager/ManagerLoan/Track.cshtml", loan_track);
         }
-
-
-
-
-
-
         public ActionResult Delete(int? Id)
         {
-            if (Session["username"] == null || Session["userlevel"].ToString() != "tele_marketing")
+            if (Session["username"] == null || Session["userlevel"].ToString() != "manager")
             {
                 return this.RedirectToAction("Logout", "Account");
             }
@@ -967,7 +728,7 @@ namespace agskeys.Controllers.TeleMarketing
             }
             user.loantype = loan;
 
-            return PartialView("~/Views/TeleMarketing/TeleMarketingLoan/Delete.cshtml", user);
+            return PartialView("~/Views/Manager/ManagerLoan/Delete.cshtml", user);
         }
         // POST: vendor_table/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -976,7 +737,7 @@ namespace agskeys.Controllers.TeleMarketing
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
             loan_table loan_table = ags.loan_table.Find(id);
             //string idcopypath = Server.MapPath(loan_table.idcopy);
@@ -1000,7 +761,7 @@ namespace agskeys.Controllers.TeleMarketing
             ags.loan_table.Remove(loan_table);
             ags.SaveChanges();
 
-            return RedirectToAction("telemarketingloan");
+            return RedirectToAction("managerloan");
         }
 
 
@@ -1014,7 +775,6 @@ namespace agskeys.Controllers.TeleMarketing
                 ags.Dispose();
             }
             base.Dispose(disposing);
-
         }
     }
 }

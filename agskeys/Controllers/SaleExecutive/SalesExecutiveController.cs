@@ -30,7 +30,15 @@ namespace agskeys.Controllers.SaleExecutive
                 return this.RedirectToAction("Logout", "Account");
             }
             string username = Session["username"].ToString();
-            var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).Where(x => x.addedby == username).ToList();
+            //var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
+            string userid = Session["userid"].ToString();
+            var customers = (from s in ags.customer_profile_table
+                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid
+                             join sb in ags.loan_track_table on sa.id.ToString() equals sb.loanid
+                             where sb.employeeid == userid
+                             orderby sb.datex descending
+                             select s);
+
 
             return PartialView("~/Views/SalesExecutive/SalesExecutive/Customer.cshtml", customers);
         }
@@ -55,7 +63,7 @@ namespace agskeys.Controllers.SaleExecutive
                 return this.RedirectToAction("Logout", "Account");
             }
             var model = new agskeys.Models.customer_profile_table();
-            return PartialView("~/Views/SalesExecutive/SalesExecutive/Create.cshtml",model);
+            return PartialView("~/Views/SalesExecutive/SalesExecutive/Create.cshtml", model);
         }
 
         [HttpPost]
@@ -121,7 +129,7 @@ namespace agskeys.Controllers.SaleExecutive
             }
             return View("~/Views/SalesExecutive/SalesExecutive/Create.cshtml", obj);
         }
-       
+
         public ActionResult Edit(int? Id)
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "sales_executive")
