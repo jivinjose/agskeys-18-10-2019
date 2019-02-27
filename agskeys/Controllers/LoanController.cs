@@ -196,10 +196,27 @@ namespace agskeys.Controllers
                 string idExtension = extension2.ToLower();
                 if (allowedExtensions.Contains(idExtension))
                 {
-                    idFileName = idFileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                    idFileName = idFileName + DateTime.Now.ToString("yyssmmfff") + extension2;
                     obj.idcopy = "~/idcopyfile/" + idFileName;
                     idFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), idFileName);
                     obj.idCopyFile.SaveAs(idFileName);
+                }
+                else
+                {
+                    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
+                    return View();
+                }
+
+                string propertyDocumentsFile = Path.GetFileNameWithoutExtension(obj.propertyDocumentsFile.FileName);
+                string propertyFileName = propertyDocumentsFile.Substring(0, 1);
+                string extension3 = Path.GetExtension(obj.propertyDocumentsFile.FileName);
+                string propertyExtension = extension3.ToLower();
+                if (allowedExtensions.Contains(propertyExtension))
+                {
+                    propertyFileName = propertyFileName + DateTime.Now.ToString("yyssmmfff") + extension3;
+                    obj.propertydocuments = "~/idcopyfile/" + propertyFileName;
+                    propertyFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), propertyFileName);
+                    obj.propertyDocumentsFile.SaveAs(propertyFileName);
                 }
                 else
                 {
@@ -217,6 +234,8 @@ namespace agskeys.Controllers
                 loan.rateofinterest = obj.rateofinterest;
                 loan.sactionedcopy = obj.sactionedcopy;
                 loan.idcopy = obj.idcopy;
+                loan.propertydocuments = obj.propertydocuments;
+                loan.propertydocuments = obj.propertydetails;
                 loan.datex = DateTime.Now.ToString();
                 loan.addedby = Session["username"].ToString();
                 ags.loan_table.Add(loan);
@@ -548,8 +567,8 @@ namespace agskeys.Controllers
                         if (allowedExtensions.Contains(sactionedExtension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + sactionedExtension;
-                            loan_table.sactionedcopy = "~/adminimage/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
+                            loan_table.sactionedcopy = "~/sactionedcopyfile/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/sactionedcopyfile/"), fileName);
                             loan_table.sactionedCopyFile.SaveAs(fileName);
                         }
                         else
@@ -569,7 +588,68 @@ namespace agskeys.Controllers
                     existing.sactionedcopy = existing.sactionedcopy;
                 }
 
-                //ID copy file
+                //property documents
+
+                if (existing.propertydocuments == null)
+                {
+                    string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
+                    string fileName = BigfileName.Substring(0, 1);
+                    string extension2 = Path.GetExtension(loan_table.propertyDocumentsFile.FileName);
+                    string propertyExtension = extension2.ToLower();
+                    if (allowedExtensions.Contains(propertyExtension))
+                    {
+                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + propertyExtension;
+                        loan_table.propertydocuments = "~/propertyFile/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/propertyFile/"), fileName);
+                        loan_table.propertyDocumentsFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
+                        return RedirectToAction("Loan");
+                    }
+                }
+
+
+                else if (existing.propertydocuments != null && loan_table.propertydocuments != null)
+                {
+                    if (loan_table.propertyDocumentsFile != null)
+                    {
+                        string path = Server.MapPath(existing.propertydocuments);
+                        FileInfo file = new FileInfo(path);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                        string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension2 = Path.GetExtension(loan_table.propertyDocumentsFile.FileName);
+                        string propertyExtension = extension2.ToLower();
+                        if (allowedExtensions.Contains(propertyExtension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + propertyExtension;
+                            loan_table.idcopy = "~/propertyFile/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/propertyFile/"), fileName);
+                            loan_table.propertyDocumentsFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Loan");
+                        }
+
+                    }
+                    else
+                    {
+                        existing.propertydocuments = existing.propertydocuments;
+                    }
+                }
+                else
+                {
+                    existing.propertydocuments = existing.propertydocuments;
+                }
+
+                //DD Copy
 
                 if (existing.idcopy == null)
                 {
@@ -609,8 +689,8 @@ namespace agskeys.Controllers
                         if (allowedExtensions.Contains(idExtension))
                         {
                             fileName = fileName + DateTime.Now.ToString("yyssmmfff") + idExtension;
-                            loan_table.idcopy = "~/adminimage/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
+                            loan_table.idcopy = "~/idcopyfile/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/idcopyfile/"), fileName);
                             loan_table.idCopyFile.SaveAs(fileName);
                         }
                         else
@@ -640,6 +720,8 @@ namespace agskeys.Controllers
                 existing.rateofinterest = loan_table.rateofinterest;
                 existing.sactionedcopy = loan_table.sactionedcopy;
                 existing.idcopy = loan_table.idcopy;
+                existing.propertydocuments = loan_table.propertydocuments;
+                existing.propertydetails = loan_table.propertydetails;
                 existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)

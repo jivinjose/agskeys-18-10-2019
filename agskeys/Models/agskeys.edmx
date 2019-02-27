@@ -102,6 +102,7 @@
           <Property Name="idcopy" Type="varchar" MaxLength="50" />
           <Property Name="loanstatus" Type="varchar" MaxLength="50" />
           <Property Name="propertydetails" Type="varchar(max)" />
+          <Property Name="propertydocuments" Type="varchar" MaxLength="50" />
           <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -316,6 +317,7 @@
           <Property Name="requestloanamt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="loanstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="propertydetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="propertydocuments" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="loantype_table">
           <Key>
@@ -484,6 +486,7 @@
           <EntitySetMapping Name="loan_table">
             <EntityTypeMapping TypeName="agsfinancialsModel.loan_table">
               <MappingFragment StoreEntitySet="loan_table">
+                <ScalarProperty Name="propertydocuments" ColumnName="propertydocuments" />
                 <ScalarProperty Name="propertydetails" ColumnName="propertydetails" />
                 <ScalarProperty Name="loanstatus" ColumnName="loanstatus" />
                 <ScalarProperty Name="requestloanamt" ColumnName="requestloanamt" />

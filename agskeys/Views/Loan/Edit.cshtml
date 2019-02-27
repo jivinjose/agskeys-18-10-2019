@@ -10,7 +10,7 @@
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
                         <h5>Edit Loan</h5>
-                        <span>Aggressive Sales and Services</span>
+                        <span>Agskeys</span>
                     </div>
                 </div>
             </div>
@@ -75,6 +75,23 @@
                                             reader.readAsDataURL(input.files[0]);
                                         }
                                     }
+                                </script>
+                                <script>
+                                     function readIdFile(input) {
+                                         $('#oldPropertyDocument').hide();
+                                         $('#blah2').removeAttr('hidden');
+
+                                         if (input.files && input.files[0]) {
+                                             var reader = new FileReader();
+
+                                             reader.onload = function (e) {
+                                                 $('#blah2')
+                                                     .attr('href', e.target.result);
+                                             };
+
+                                             reader.readAsDataURL(input.files[0]);
+                                         }
+                                     }
                                 </script>
 
                                 @using (Html.BeginForm("Edit", "Loan", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -204,6 +221,36 @@
                                                             }
 
                                                         }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.propertydocuments, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @{if (Model.propertydocuments != null || Model.propertydocuments == "")
+                                                            {
+                                                                @Html.HiddenFor(model => model.propertydocuments)
+                                                                <a id="oldPropertyDocument" href="@Url.Content(Model.propertydocuments)" target="_blank">Download Property Documents (Click here)</a>
+                                                                <a id="blah2" href="#" target="_blank" alt="Your Property Documents File" hidden>Property Documents (Click here)</a>
+                                                                <input type="file" id="propertyDocumentsFile" name="propertyDocumentsFile" onchange="readIdFile(this);" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="file" name="propertyDocumentsFile" required />
+                                                            }
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.propertydetails, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.propertydetails, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        @Html.ValidationMessageFor(model => model.propertydetails, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>

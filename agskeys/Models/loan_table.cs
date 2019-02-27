@@ -90,6 +90,10 @@ namespace agskeys.Models
         [Display(Name = "Follow up Date")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public string followupdate { get; set; }
-        
+
+        [Display(Name = "Property Documents")]
+        public string propertydocuments { get; set; }       
+
+        public HttpPostedFileBase propertyDocumentsFile { get; set; }
     }
 }

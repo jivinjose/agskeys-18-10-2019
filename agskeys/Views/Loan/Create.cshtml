@@ -10,7 +10,7 @@
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
                         <h5>Create Loan</h5>
-                        <span>Aggressive Sales and Services</span>
+                        <span>Agskeys</span>
                     </div>
                 </div>
             </div>
@@ -149,6 +149,24 @@
                                                     @Html.LabelFor(model =>model.idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         <input type = "file" name="idCopyFile" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.propertydocuments, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        <input type="file" name="propertyDocumentsFile" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.propertydetails, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.propertydetails, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        @Html.ValidationMessageFor(model => model.propertydetails, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>

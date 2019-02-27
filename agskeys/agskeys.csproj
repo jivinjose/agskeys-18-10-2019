@@ -366,6 +366,7 @@
     <Folder Include="bankImage\" />
     <Folder Include="customerImage\" />
     <Folder Include="idcopyfile\" />
+    <Folder Include="propertyFile\" />
     <Folder Include="sactionedcopyfile\" />
   </ItemGroup>
   <ItemGroup>
