@@ -203,7 +203,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 ">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
@@ -217,12 +217,29 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.externalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
 
                                                         @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                            </div>                                           
+                                            </div> 
+                                            <div class="col-md-6 a-div">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @*<div id="datetimepicker1" class="input-append date">
+                                                            @Html.TextBoxFor(model => model.followupdate, "{0:dd/MM/yyyy HH:mm}",new { placeholder = "Follow Up date", @class = "dtPicket" })
+                                                            <span class="add-on">
+                                                                <i data-time-icon="icon-time"
+                                                                   data-date-icon="icon-calendar"></i>
+                                                            </span>
+                                                        </div>*@
+
+                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div> 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
@@ -249,13 +266,11 @@
 </div>
 <script src = "~/Scripts/jquery.validate.min.js" ></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-                                                            @*<script type="text/javascript">
-                                                                     $(function () {
-                                                                         if ($("#employeetype option").length > 1) {
-                                                                             $("#employee").removeAttr("disabled");
-                                                                         }
-                                                                     });
-                                                                </script>*@
+<script type="text/javascript">
+    $('#datetimepicker1, #datetimepicker2').datetimepicker({
+        format: 'dd/MM/yyyy HH:mm'
+    });
+</script>
 <script>
     $(document).ready(function () {
         $("#employeetype").change(function () {

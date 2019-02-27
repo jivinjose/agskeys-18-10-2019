@@ -141,6 +141,7 @@
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmpCategoryController.cs" />
+    <Compile Include="Controllers\ExternalCommentController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTypeController.cs" />
     <Compile Include="Controllers\Manager\ManagerController.cs" />
@@ -348,6 +349,10 @@
     <Content Include="Views\Manager\ManagerLoan\Edit.cshtml" />
     <Content Include="Views\Manager\ManagerLoan\Track.cshtml" />
     <Content Include="Views\Manager\ManagerLoan\Delete.cshtml" />
+    <Content Include="Views\ExternalComment\ExternalComment.cshtml" />
+    <Content Include="Views\ExternalComment\Create.cshtml" />
+    <Content Include="Views\ExternalComment\Edit.cshtml" />
+    <Content Include="Views\ExternalComment\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

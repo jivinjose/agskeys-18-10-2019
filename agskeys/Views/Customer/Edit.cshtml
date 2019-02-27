@@ -126,6 +126,15 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    @Html.LabelFor(model => model.weddingdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.weddingdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.weddingdate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control" } })

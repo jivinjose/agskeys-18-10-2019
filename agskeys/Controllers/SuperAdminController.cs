@@ -382,7 +382,7 @@ namespace agskeys.Controllers
                 ags.SaveChanges();
                 return RedirectToAction("Admin", "SuperAdmin");
             }
-            return RedirectToAction("Edit", "SuperAdmin");
+            return RedirectToAction("Admin", "SuperAdmin");
         }
 
         // GET: vendor_table/Delete/5

@@ -82,6 +82,11 @@
 
                                             </tr>
                                             <tr>
+                                                <th><i class="fa fa-calendar" aria-hidden="true"></i></th>
+                                                <td>@Html.DisplayFor(model => model.weddingdate)<span> ( Wedding Date ) </span></td>
+
+                                            </tr>
+                                            <tr>
                                                 <th><i class="fa fa-address-card" aria-hidden="true"></i></th>
                                                 <td>@Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:#FFF;" } })</td>
 

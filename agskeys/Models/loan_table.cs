@@ -86,5 +86,10 @@ namespace agskeys.Models
         [Display(Name = "Property Details")]
         [DataType(DataType.MultilineText)]
         public string propertydetails { get; set; }
+
+        [Display(Name = "Follow up Date")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        public string followupdate { get; set; }
+        
     }
 }

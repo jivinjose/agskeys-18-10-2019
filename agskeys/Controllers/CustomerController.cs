@@ -79,7 +79,7 @@ namespace agskeys.Controllers
                         phoneno = obj.phoneno,
                         alterphoneno = obj.alterphoneno,
                         dob = obj.dob,
-                        
+                        weddingdate = obj.weddingdate,
                         profileimg = obj.profileimg,
                         password = obj.password,
                         address = obj.address,
@@ -204,6 +204,7 @@ namespace agskeys.Controllers
                 existing.phoneno = customer_profile_table.phoneno;
                 existing.alterphoneno = customer_profile_table.alterphoneno;
                 existing.dob = customer_profile_table.dob;
+                existing.weddingdate = customer_profile_table.weddingdate;
                 existing.address = customer_profile_table.address;
                 if (existing.customerid != customer_profile_table.customerid)
                 {
