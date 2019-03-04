@@ -31,7 +31,7 @@ namespace agskeys.Controllers.ProcessTeam
                                   join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                   where sa.employeeid == userid
                                   orderby sa.datex descending
-                                  select s);
+                                  select s).Distinct().ToList();
             // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
@@ -114,7 +114,7 @@ namespace agskeys.Controllers.ProcessTeam
                 var customer_loans = (from s in ags.loan_table
                                       join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                       where sa.employeeid == userid
-                                      orderby sa.datex descending
+                                      orderby sa.datex descending 
                                       select s);
                 if (form != null)
                 {
@@ -221,10 +221,12 @@ namespace agskeys.Controllers.ProcessTeam
                      
 
         }
+
         public JsonResult GetEmployeeList(string categoryId)
         {
+            var username = Session["username"].ToString();
             ags.Configuration.ProxyCreationEnabled = false;
-            List<admin_table> employees = ags.admin_table.Where(x => x.userrole.ToString() == categoryId).ToList();
+            List<admin_table> employees = ags.admin_table.Where(x => x.userrole.ToString() == categoryId && x.username != username).ToList();
             return Json(employees, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Details(int? Id)
@@ -354,13 +356,18 @@ namespace agskeys.Controllers.ProcessTeam
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
-            var employee = ags.admin_table.ToList();
+            var username = Session["username"].ToString();
+            var employee = ags.admin_table.Where(x=>x.username != username).ToList();
             SelectList employees = new SelectList(employee, "id", "name");
             ViewBag.employees = employees;
+
+            var ExtComment = ags.external_comment_table.ToList();
+            SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+            ViewBag.commentList = commentlist;
 
             //List<emp_category_table> categoryList = ags.emp_category_table.ToList();
             //ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
@@ -395,6 +402,18 @@ namespace agskeys.Controllers.ProcessTeam
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
+                var ExtComment = ags.external_comment_table.ToList();
+                SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+                ViewBag.commentList = commentlist;
+
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+                ViewBag.empCategories = empCategories;
+
+                var username = Session["username"].ToString();
+                var employee = ags.admin_table.Where(x => x.username != username).ToList();
+                SelectList employees = new SelectList(employee, "id", "name");
+                ViewBag.employees = employees;
 
 
                 var allowedExtensions = new[] {
@@ -522,6 +541,68 @@ namespace agskeys.Controllers.ProcessTeam
                     existing.idcopy = existing.idcopy;
                 }
 
+                //property documents
+
+                if (existing.propertydocuments == null)
+                {
+                    string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
+                    string fileName = BigfileName.Substring(0, 1);
+                    string extension2 = Path.GetExtension(loan_table.propertyDocumentsFile.FileName);
+                    string propertyExtension = extension2.ToLower();
+                    if (allowedExtensions.Contains(propertyExtension))
+                    {
+                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + propertyExtension;
+                        loan_table.propertydocuments = "~/propertyFile/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/propertyFile/"), fileName);
+                        loan_table.propertyDocumentsFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
+                        return RedirectToAction("Loan");
+                    }
+                }
+
+
+                else if (existing.propertydocuments != null && loan_table.propertydocuments != null)
+                {
+                    if (loan_table.propertyDocumentsFile != null)
+                    {
+                        string path = Server.MapPath(existing.propertydocuments);
+                        FileInfo file = new FileInfo(path);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                        string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension2 = Path.GetExtension(loan_table.propertyDocumentsFile.FileName);
+                        string propertyExtension = extension2.ToLower();
+                        if (allowedExtensions.Contains(propertyExtension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + propertyExtension;
+                            loan_table.idcopy = "~/propertyFile/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/propertyFile/"), fileName);
+                            loan_table.propertyDocumentsFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Loan");
+                        }
+
+                    }
+                    else
+                    {
+                        existing.propertydocuments = existing.propertydocuments;
+                    }
+                }
+                else
+                {
+                    existing.propertydocuments = existing.propertydocuments;
+                }
+
+
                 existing.customerid = loan_table.customerid;
                 existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
@@ -532,6 +613,9 @@ namespace agskeys.Controllers.ProcessTeam
                 existing.rateofinterest = loan_table.rateofinterest;
                 existing.sactionedcopy = loan_table.sactionedcopy;
                 existing.idcopy = loan_table.idcopy;
+                existing.propertydocuments = loan_table.propertydocuments;
+                existing.propertydetails = loan_table.propertydetails;
+                existing.followupdate = loan_table.followupdate;
                 existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)
@@ -658,6 +742,7 @@ namespace agskeys.Controllers.ProcessTeam
             List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
             List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
             List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+            List<external_comment_table> externalComment = ags.external_comment_table.ToList();
 
             var employee = ags.admin_table.ToList();
             loan_track loan_track = new loan_track();
@@ -719,6 +804,33 @@ namespace agskeys.Controllers.ProcessTeam
                 item.employeeid = employeeid;
 
             }
+
+
+            var extComment = "";
+            foreach (var item in employeeLoantrack)
+            {
+                foreach (var items in externalComment)
+                {
+                    if (item.externalcomment != null)
+                    {
+                        if (item.externalcomment.ToString() == items.id.ToString())
+                        {
+                            extComment = items.externalcomment;
+                            break;
+                        }
+                        else if (items.id.ToString() != item.externalcomment)
+                        {
+                            extComment = "Not Updated";
+                            continue;
+                        }
+                    }
+
+                }
+                item.externalcomment = extComment;
+
+            }
+
+
 
             var vendors = ags.vendor_table.ToList();
 

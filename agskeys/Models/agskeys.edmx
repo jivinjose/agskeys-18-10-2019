@@ -215,8 +215,6 @@
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="weddingdate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="propertydetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vendor_table">
           <Key>
@@ -394,8 +392,6 @@
           <EntitySetMapping Name="admin_table">
             <EntityTypeMapping TypeName="agsfinancialsModel.admin_table">
               <MappingFragment StoreEntitySet="admin_table">
-                <ScalarProperty Name="propertydetails" ColumnName="propertydetails" />
-                <ScalarProperty Name="weddingdate" ColumnName="weddingdate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="email" ColumnName="email" />

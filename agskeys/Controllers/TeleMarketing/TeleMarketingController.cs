@@ -30,7 +30,14 @@ namespace agskeys.Controllers.TeleMarketing
                 return this.RedirectToAction("Logout", "Account");
             }
             string username = Session["username"].ToString();
-            var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).Where(x => x.addedby == username).ToList();
+            //var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
+            string userid = Session["userid"].ToString();
+            var customers = (from s in ags.customer_profile_table
+                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid
+                             join sb in ags.loan_track_table on sa.id.ToString() equals sb.loanid
+                             where sb.employeeid == userid
+                             orderby sb.datex descending
+                             select s).Distinct().ToList();
 
             return PartialView("~/Views/TeleMarketing/TeleMarketing/Customer.cshtml", customers);
         }

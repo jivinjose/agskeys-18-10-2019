@@ -132,6 +132,15 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().requestloanamt, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     @Html.LabelFor(model => model.loan_table.FirstOrDefault().loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.loan_table.FirstOrDefault().loanamt, new { htmlAttributes = new { @class = "form-control" } })
@@ -243,13 +252,21 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().externalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
 
                                                         @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6 a-div">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().followupdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().followupdate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div> 
                                             @*<div class="col-md-6">
                                                     <div class="form-group">
                                                         @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })

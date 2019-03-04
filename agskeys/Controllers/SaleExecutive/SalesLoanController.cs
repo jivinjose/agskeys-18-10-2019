@@ -32,7 +32,7 @@ namespace agskeys.Controllers.SaleExecutive
                                   join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                   where sa.employeeid == userid
                                   orderby sa.datex descending
-                                  select s);
+                                  select s).Distinct().ToList();
             // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
@@ -120,13 +120,17 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
             var employee = ags.admin_table.ToList();
             SelectList employees = new SelectList(employee, "id", "name");
             ViewBag.employees = employees;
+
+            var ExtComment = ags.external_comment_table.ToList();
+            SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+            ViewBag.commentList = commentlist;
 
 
             var model = new agskeys.Models.loan_table();
@@ -459,13 +463,17 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
             var employee = ags.admin_table.ToList();
             SelectList employees = new SelectList(employee, "id", "name");
             ViewBag.employees = employees;
+
+            var ExtComment = ags.external_comment_table.ToList();
+            SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+            ViewBag.commentList = commentlist;
 
             List<proof_customer_table> proofcus = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
             ViewBag.proofcus = proofcus;
@@ -512,142 +520,36 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+                ViewBag.empCategories = empCategories;
 
+                var employee = ags.admin_table.ToList();
+                SelectList employees = new SelectList(employee, "id", "name");
+                ViewBag.employees = employees;
+
+                var ExtComment = ags.external_comment_table.ToList();
+                SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+                ViewBag.commentList = commentlist;
 
                 var allowedExtensions = new[] {
                     ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 string partner = existing.partnerid;
-                if (existing.sactionedcopy == null)
-                {
-                    string BigfileName = Path.GetFileNameWithoutExtension(loan_table.sactionedCopyFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension2 = Path.GetExtension(loan_table.sactionedCopyFile.FileName);
-                    string sactionedExtension = extension2.ToLower();
-                    if (allowedExtensions.Contains(sactionedExtension))
-                    {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + sactionedExtension;
-                        loan_table.sactionedcopy = "~/sactionedcopyfile/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/sactionedcopyfile/"), fileName);
-                        loan_table.sactionedCopyFile.SaveAs(fileName);
-                    }
-                    else
-                    {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return RedirectToAction("salesloan");
-                    }
-                }
+              
+                              
 
-
-                else if (existing.sactionedcopy != null && loan_table.sactionedcopy != null)
-                {
-                    if (loan_table.sactionedCopyFile != null)
-                    {
-                        string path = Server.MapPath(existing.sactionedcopy);
-                        FileInfo file = new FileInfo(path);
-                        if (file.Exists)
-                        {
-                            file.Delete();
-                        }
-                        string BigfileName = Path.GetFileNameWithoutExtension(loan_table.sactionedCopyFile.FileName);
-                        string fileName = BigfileName.Substring(0, 1);
-                        string extension2 = Path.GetExtension(loan_table.sactionedCopyFile.FileName);
-                        string sactionedExtension = extension2.ToLower();
-                        if (allowedExtensions.Contains(sactionedExtension))
-                        {
-                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + sactionedExtension;
-                            loan_table.sactionedcopy = "~/adminimage/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
-                            loan_table.sactionedCopyFile.SaveAs(fileName);
-                        }
-                        else
-                        {
-                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("salesloan");
-                        }
-
-                    }
-                    else
-                    {
-                        existing.sactionedcopy = existing.sactionedcopy;
-                    }
-                }
-                else
-                {
-                    existing.sactionedcopy = existing.sactionedcopy;
-                }
-
-                //ID copy file
-
-                if (existing.idcopy == null)
-                {
-                    string BigfileName = Path.GetFileNameWithoutExtension(loan_table.idCopyFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension1 = Path.GetExtension(loan_table.idCopyFile.FileName);
-                    string idExtension = extension1.ToLower();
-                    if (allowedExtensions.Contains(idExtension))
-                    {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + idExtension;
-                        loan_table.idcopy = "~/idcopyfile/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/idcopyfile/"), fileName);
-                        loan_table.idCopyFile.SaveAs(fileName);
-                    }
-                    else
-                    {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return RedirectToAction("salesloan");
-                    }
-                }
-
-
-                else if (existing.idcopy != null && loan_table.idcopy != null)
-                {
-                    if (loan_table.idCopyFile != null)
-                    {
-                        string path = Server.MapPath(existing.idcopy);
-                        FileInfo file = new FileInfo(path);
-                        if (file.Exists)
-                        {
-                            file.Delete();
-                        }
-                        string BigfileName = Path.GetFileNameWithoutExtension(loan_table.idCopyFile.FileName);
-                        string fileName = BigfileName.Substring(0, 1);
-                        string extension1 = Path.GetExtension(loan_table.idCopyFile.FileName);
-                        string idExtension = extension1.ToLower();
-                        if (allowedExtensions.Contains(idExtension))
-                        {
-                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + idExtension;
-                            loan_table.idcopy = "~/adminimage/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
-                            loan_table.idCopyFile.SaveAs(fileName);
-                        }
-                        else
-                        {
-                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("salesloan");
-                        }
-
-                    }
-                    else
-                    {
-                        existing.idcopy = existing.idcopy;
-                    }
-                }
-                else
-                {
-                    existing.idcopy = existing.idcopy;
-                }
 
                 existing.customerid = loan_table.customerid;
                 existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
+                existing.requestloanamt = loan_table.requestloanamt;
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
-                existing.sactionedcopy = loan_table.sactionedcopy;
-                existing.idcopy = loan_table.idcopy;
+                existing.followupdate = loan_table.followupdate;
 
                 if (existing.addedby == null)
                 {
@@ -773,6 +675,7 @@ namespace agskeys.Controllers.SaleExecutive
             List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
             List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
             List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+            List<external_comment_table> externalComment = ags.external_comment_table.ToList();
 
             var employee = ags.admin_table.ToList();
             loan_track loan_track = new loan_track();
@@ -834,6 +737,33 @@ namespace agskeys.Controllers.SaleExecutive
                 item.employeeid = employeeid;
 
             }
+
+
+
+            var extComment = "";
+            foreach (var item in employeeLoantrack)
+            {
+                foreach (var items in externalComment)
+                {
+                    if (item.externalcomment != null)
+                    {
+                        if (item.externalcomment.ToString() == items.id.ToString())
+                        {
+                            extComment = items.externalcomment;
+                            break;
+                        }
+                        else if (items.id.ToString() != item.externalcomment)
+                        {
+                            extComment = "Not Updated";
+                            continue;
+                        }
+                    }
+
+                }
+                item.externalcomment = extComment;
+
+            }
+
 
             var vendors = ags.vendor_table.ToList();
 

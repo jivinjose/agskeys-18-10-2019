@@ -37,7 +37,7 @@ namespace agskeys.Controllers.SaleExecutive
                              join sb in ags.loan_track_table on sa.id.ToString() equals sb.loanid
                              where sb.employeeid == userid
                              orderby sb.datex descending
-                             select s);
+                             select s).Distinct().ToList();
 
 
             return PartialView("~/Views/SalesExecutive/SalesExecutive/Customer.cshtml", customers);

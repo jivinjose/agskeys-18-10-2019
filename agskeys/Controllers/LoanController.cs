@@ -37,7 +37,7 @@ namespace agskeys.Controllers
                         continue;
                     }                   
                 }
-                item.customerid = customerid;
+                item.employeetype = customerid;
 
             }
 
@@ -59,7 +59,7 @@ namespace agskeys.Controllers
                     }                  
 
                 }
-                item.partnerid = partnerid;
+                item.employee = partnerid;
             }
 
             var getloantype = ags.loantype_table.ToList();
@@ -470,6 +470,7 @@ namespace agskeys.Controllers
             ViewBag.loantypeList = loantp;
 
             var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            //var empCategory = ags.emp_category_table.ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -520,6 +521,7 @@ namespace agskeys.Controllers
                 ViewBag.commentList = commentlist;
 
                 var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                //var empCategory = ags.emp_category_table.ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 
@@ -722,6 +724,7 @@ namespace agskeys.Controllers
                 existing.idcopy = loan_table.idcopy;
                 existing.propertydocuments = loan_table.propertydocuments;
                 existing.propertydetails = loan_table.propertydetails;
+                existing.followupdate = loan_table.followupdate;
                 existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)
@@ -1020,7 +1023,6 @@ namespace agskeys.Controllers
                     customerid = "Not Updated";
                     continue;
                 }
-
             } 
             user.customerid = customerid;
             ViewBag.name = name;
@@ -1048,10 +1050,8 @@ namespace agskeys.Controllers
                             continue;
                         }
                     }
-                   
                 }
                 item.employeeid = employeeid;
-
             }
 
             var extComment = "";

@@ -24,8 +24,9 @@
         text-align: center;
     }
 
-    .tbl th {
-        padding: 1.08rem 0.75rem !important;
+    p {
+        margin-top: 0;
+        margin-bottom: 0rem;
     }
 </style>
 <div class="modal-body">
@@ -203,7 +204,9 @@
                                                         <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.internalcomment)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.externalcomment)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.externalcomment)<br />
+                                                          <p style="margin-top:8px;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
+                                                        </td>
                                                     </tr>
                                                 }
                                             </tbody>

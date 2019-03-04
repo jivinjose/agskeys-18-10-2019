@@ -31,7 +31,7 @@ namespace agskeys.Controllers.Manager
                                   join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                   where sa.employeeid == userid
                                   orderby sa.datex descending
-                                  select s).ToList();
+                                  select s).Distinct().ToList();
             // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
@@ -50,7 +50,7 @@ namespace agskeys.Controllers.Manager
                         continue;
                     }
                 }
-                item.employeetype = customerid;
+                item.customerid = customerid;
 
             }
 
@@ -72,7 +72,7 @@ namespace agskeys.Controllers.Manager
                     }
 
                 }
-                item.employee = partnerid;
+                item.partnerid = partnerid;
             }
 
             var getloantype = ags.loantype_table.ToList();
@@ -235,13 +235,17 @@ namespace agskeys.Controllers.Manager
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
             var employee = ags.admin_table.ToList();
             SelectList employees = new SelectList(employee, "id", "name");
             ViewBag.employees = employees;
+
+            var ExtComment = ags.external_comment_table.ToList();
+            SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+            ViewBag.commentList = commentlist;
 
             //List<emp_category_table> categoryList = ags.emp_category_table.ToList();
             //ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
@@ -276,8 +280,18 @@ namespace agskeys.Controllers.Manager
                 var getloantype = ags.loantype_table.ToList();
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
+                
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
+                ViewBag.empCategories = empCategories;
 
+                var employee = ags.admin_table.ToList();
+                SelectList employees = new SelectList(employee, "id", "name");
+                ViewBag.employees = employees;
 
+                var ExtComment = ags.external_comment_table.ToList();
+                SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
+                ViewBag.commentList = commentlist;
 
                 //var allowedExtensions = new[] {
                 //    ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
@@ -408,9 +422,11 @@ namespace agskeys.Controllers.Manager
                 existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
+                existing.requestloanamt = loan_table.requestloanamt;
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
+                existing.followupdate = loan_table.followupdate;
                 //existing.sactionedcopy = loan_table.sactionedcopy;
                 //existing.idcopy = loan_table.idcopy;
 
@@ -537,6 +553,7 @@ namespace agskeys.Controllers.Manager
             List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
             List<loan_track_table> employeeLoantrack = ags.loan_track_table.Where(x => x.loanid == Id.ToString()).ToList();
             List<vendor_track_table> vendorLoantrack = ags.vendor_track_table.Where(x => x.loanid == Id.ToString()).ToList();
+            List<external_comment_table> externalComment = ags.external_comment_table.ToList();
 
             var employee = ags.admin_table.ToList();
             loan_track loan_track = new loan_track();
@@ -596,6 +613,29 @@ namespace agskeys.Controllers.Manager
 
                 }
                 item.employeeid = employeeid;
+
+            }
+            var extComment = "";
+            foreach (var item in employeeLoantrack)
+            {
+                foreach (var items in externalComment)
+                {
+                    if (item.externalcomment != null)
+                    {
+                        if (item.externalcomment.ToString() == items.id.ToString())
+                        {
+                            extComment = items.externalcomment;
+                            break;
+                        }
+                        else if (items.id.ToString() != item.externalcomment)
+                        {
+                            extComment = "Not Updated";
+                            continue;
+                        }
+                    }
+
+                }
+                item.externalcomment = extComment;
 
             }
 

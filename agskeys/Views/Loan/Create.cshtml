@@ -243,7 +243,7 @@
                                             </div> 
                                             <div class="col-md-6 a-div">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12 date-picker" })
                                                     <div class="col-md-12">
                                                         @*<div id="datetimepicker1" class="input-append date">
                                                             @Html.TextBoxFor(model => model.followupdate, "{0:dd/MM/yyyy HH:mm}",new { placeholder = "Follow Up date", @class = "dtPicket" })
@@ -251,13 +251,13 @@
                                                                 <i data-time-icon="icon-time"
                                                                    data-date-icon="icon-calendar"></i>
                                                             </span>
-                                                        </div>*@
-
+                                                        </div>*@                                                       
                                                         @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div> 
+                                           
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
@@ -284,11 +284,31 @@
 </div>
 <script src = "~/Scripts/jquery.validate.min.js" ></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script type="text/javascript">
-    $('#datetimepicker1, #datetimepicker2').datetimepicker({
-        format: 'dd/MM/yyyy HH:mm'
-    });
+@*<script type="text/javascript">
+     $(document).ready(function () {
+         $(function () {
+             $(".date-picker").datepicker({
+                 changeMonth: true,
+                 changeYear: true,
+                 yearRange: "-100:+0",
+                 dateFormat: 'dd-M-yy'
+             });
+         });
+
+         jQuery.validator.methods.date = function (value, element) {
+             var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+             if (isChrome) {
+                 var d = new Date();
+                 return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+             } else {
+                 return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+             }
+         };
+     });
+
 </script>
+}*@
+
 <script>
     $(document).ready(function () {
         $("#employeetype").change(function () {
@@ -385,4 +405,6 @@
             $('#partnerid').hide(500);
     });
 </script>
+
+
 
