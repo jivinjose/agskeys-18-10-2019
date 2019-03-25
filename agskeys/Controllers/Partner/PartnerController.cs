@@ -29,6 +29,26 @@ namespace agskeys.Controllers.partner
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 
+            var customerid = "";
+            foreach (var item in customer_loans)
+            {
+                foreach (var items in getCustomer)
+                {
+                    if (item.customerid.ToString() == items.id.ToString())
+                    {
+                        customerid = items.customerid;
+                        break;
+                    }
+                    else if (items.id.ToString() != item.customerid)
+                    {
+                        customerid = "Not Updated";
+                        continue;
+                    }
+                }
+                item.employeetype = customerid;
+
+            }
+
 
             return View("~/Views/Partner/Index.cshtml", customer_loans);
         }

@@ -34,19 +34,26 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/pages.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+        body {
+            /*background-image: url("~/files/assets/images/bg.jpg");*/
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 
-<body style="background-color:#343a40;">
+<body background="~/files/assets/images/bg.jpg" style="background-repeat:no-repeat; background-size:cover">
     <!-- Pre-loader start -->
     <!-- Pre-loader end -->
     <section class="login-block">
         <!-- Container-fluid starts -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6" style="background-color:#fff; min-height:100vh;">
+                <div class="col-sm-12" style="min-height:100vh;">
                     <!-- Authentication card start -->
                     <form class="form-horizontal f1" id="login-form" method="post" action="@Url.Content("/Account/Login/")">
-                        <div class="text-center">
+                        <div class="text-center" style="margin-top:10%;">
                             <img src="~/files/assets/images/logo1.png" alt="logo.png">
                         </div>
                         <div class="auth-box card">
@@ -103,14 +110,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <p style="text-align:center"><i class="far fa-copyright"></i><span style="color:#808080"> 2019 - 2020</span> Softmagic.in. <span style="color:#808080">All Rights Reserved</span> </p>
                         </div>
                     </form>
                 </div>
 
-                <div class="col-sm-6">
+                @*<div class="col-sm-6">
 
-                </div>
+                </div>*@
                 <!-- Authentication card end -->
+                <div style="text-align:center">
+                   
+                </div>
             </div>
             <!-- end of col-sm-12 -->
         </div>
@@ -140,6 +151,13 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-23581568-13');
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('focus', ':input', function () {
+                $(this).attr('autocomplete', 'off');
+            });
+        });
     </script>
 </body>
 
