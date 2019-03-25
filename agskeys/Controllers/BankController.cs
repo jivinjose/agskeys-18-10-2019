@@ -50,22 +50,26 @@ namespace agskeys.Controllers
 
                 if (bank == null)
                 {
-                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
-                    string extension = extension1.ToLower();
-                    if (allowedExtensions.Contains(extension))
+                    if (obj.ImageFile != null)
                     {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                        obj.photo = "~/bankImage/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
-                        obj.ImageFile.SaveAs(fileName);
+                        string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                        string extension = extension1.ToLower();
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            obj.photo = "~/bankImage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/bankImage/"), fileName);
+                            obj.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return View();
+                        }
                     }
-                    else
-                    {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
-                    }
+                   
                     ags.bank_table.Add(new bank_table
                     {
                         bankname = obj.bankname,
@@ -113,7 +117,7 @@ namespace agskeys.Controllers
                 };
 
 
-                if (existing.photo == null)
+                if (existing.photo == null && bank_table.ImageFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(bank_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);

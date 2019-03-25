@@ -70,7 +70,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model =>model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", required = true })
 
                                                         @Html.ValidationMessageFor(model => model.customerid, "", new{@class ="text-danger"})
                                                     </div>
@@ -101,7 +101,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.requestloanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -140,7 +140,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model =>model.sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12"})
                                                     <div class="col-md-12">
-                                                        <input type = "file" name="sactionedCopyFile" required />
+                                                        <input type = "file" name="sactionedCopyFile"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,7 +148,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model =>model.idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        <input type = "file" name="idCopyFile" required />
+                                                        <input type = "file" name="idCopyFile"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -156,7 +156,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.propertydocuments, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        <input type="file" name="propertyDocumentsFile" required />
+                                                        <input type="file" name="propertyDocumentsFile"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,7 +243,7 @@
                                             </div> 
                                             <div class="col-md-6 a-div">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12 date-picker" })
+                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @*<div id="datetimepicker1" class="input-append date">
                                                             @Html.TextBoxFor(model => model.followupdate, "{0:dd/MM/yyyy HH:mm}",new { placeholder = "Follow Up date", @class = "dtPicket" })
@@ -252,7 +252,7 @@
                                                                    data-date-icon="icon-calendar"></i>
                                                             </span>
                                                         </div>*@                                                       
-                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker" } })
                                                         @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -282,8 +282,32 @@
         </div>
     </div>
 </div>
+<style>
+    .ui_tpicker_second_label, .ui_tpicker_second, .ui_tpicker_millisec_label, .ui_tpicker_millisec, .ui_tpicker_microsec_label, .ui_tpicker_microsec, .ui_tpicker_timezone_label, .ui_tpicker_timezone {
+        display: none !important;
+    }
+</style>
+
 <script src = "~/Scripts/jquery.validate.min.js" ></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript">
+    $('.datetimepicker').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'dd/mm/yy',
+    });
+
+
+</script>
+<script type="text/javascript">
+
+    $(".datetimepicker").click(function (event) {
+        event.preventDefault();
+        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
+    });
+
+</script>
+
 @*<script type="text/javascript">
      $(document).ready(function () {
          $(function () {

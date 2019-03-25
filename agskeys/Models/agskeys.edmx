@@ -15,9 +15,7 @@
           <Property Name="phoneno" Type="varchar" MaxLength="50" />
           <Property Name="alternatephone" Type="varchar" MaxLength="50" />
           <Property Name="dob" Type="varchar" MaxLength="50" />
-          <Property Name="weddingdate" Type="varchar" MaxLength="50" />
           <Property Name="address" Type="varchar(max)" />
-          <Property Name="propertydetails" Type="varchar(max)" />
           <Property Name="userrole" Type="varchar" MaxLength="50" />
           <Property Name="username" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="255" />

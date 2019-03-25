@@ -1,4 +1,4 @@
-﻿@model agskeys.Models.Multiple_proofs_customer
+﻿@model agskeys.Models.loan_table
 
 <div class="modal-body">
     <!-- [ breadcrumb ] start -->
@@ -20,8 +20,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Main-body start -->
     <div class="main-body">
         <div class="page-wrapper">
@@ -41,41 +39,6 @@
                                     </div>
 
                                 }
-                                <script>
-                                    function readSactioned(input) {
-                                        $('#oldSactionedCopy').hide();
-                                        $('#blah').removeAttr('hidden');
-
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
-
-                                            reader.onload = function (e) {
-                                                $('#blah')
-                                                    .attr('href', e.target.result);
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
-                                </script>
-                                <script>
-                                    function readIdFile(input) {
-                                        $('#oldIdCopy').hide();
-                                        $('#blah1').removeAttr('hidden');
-
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
-
-                                            reader.onload = function (e) {
-                                                $('#blah1')
-                                                    .attr('href', e.target.result);
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
-                                </script>
-
                                 @using (Html.BeginForm("Edit", "salesloan", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
@@ -91,96 +54,62 @@
 
                                         }
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        @Html.HiddenFor(model => model.loan_table.FirstOrDefault().id)
+                                        @Html.HiddenFor(model => model.id)
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().customerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", disabled = "disabled" })
-                                                        @Html.HiddenFor(model => model.loan_table.FirstOrDefault().customerid)
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().customerid, "", new { @class = "text-danger" })
+                                                        @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.customerid)
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>                                           
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.bankid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.bankid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().partnerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().partnerid, ViewBag.vendorList as SelectList, "Please select vendor", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().partnerid, "", new { @class = "text-danger" })
+                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.loantype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().bankid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().bankid, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.requestloanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().loantype, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().loantype, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().requestloanamt, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().loanamt, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().loanamt, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().disbursementamt, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().disbursementamt, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().disbursementamt, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().rateofinterest, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().rateofinterest, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().rateofinterest, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-                                            </div>
+                                            
+                                           
+                                          
                                             @*<div class="col-md-6">
                                                     <div class="form-group">
-                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                        @Html.LabelFor(model => model.sactionedcopy, htmlAttributes: new { @class = "control-label col-md-12" })
                                                         <div class="col-md-12">
-                                                            @{if (Model.loan_table.FirstOrDefault().sactionedcopy != null || Model.loan_table.FirstOrDefault().sactionedcopy == "")
+                                                            @{if (Model.sactionedcopy != null || Model.sactionedcopy == "")
                                                                 {
-                                                                    @Html.HiddenFor(model => model.loan_table.FirstOrDefault().sactionedcopy)
-                                                                    <a id="oldSactionedCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a>
+                                                                    @Html.HiddenFor(model => model.sactionedcopy)
+                                                                    <a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a>
                                                                     <a id="blah" href="#" target="_blank" alt="Your Sactioned Copy File" hidden>Sactioned Copy(Click here)</a>
                                                                     <input type="file" id="sactionedCopyFile" name="sactionedCopyFile" onchange="readSactioned(this);" />
                                                                 }
                                                                 else
                                                                 {
-                                                                    <input type="file" name="sactionedCopyFile" required />
+                                                                    <input type="file" name="sactionedCopyFile"/>
                                                                 }
 
                                                             }
@@ -189,18 +118,18 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                        @Html.LabelFor(model => model.idcopy, htmlAttributes: new { @class = "control-label col-md-12" })
                                                         <div class="col-md-12">
-                                                            @{if (Model.loan_table.FirstOrDefault().idcopy != null || Model.loan_table.FirstOrDefault().idcopy == "")
+                                                            @{if (Model.idcopy != null || Model.idcopy == "")
                                                                 {
-                                                                    @Html.HiddenFor(model => model.loan_table.FirstOrDefault().idcopy)
-                                                                    <a id="oldIdCopy" href="@Url.Content(Model.loan_table.FirstOrDefault().idcopy)" target="_blank">Download ID Copy (Click here)</a>
+                                                                    @Html.HiddenFor(model => model.idcopy)
+                                                                    <a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a>
                                                                     <a id="blah1" href="#" target="_blank" alt="Your ID Copy File" hidden>ID Copy (Click here)</a>
                                                                     <input type="file" id="idCopyFile" name="idCopyFile" onchange="readIdFile(this);" />
                                                                 }
                                                                 else
                                                                 {
-                                                                    <input type="file" name="idCopyFile" required />
+                                                                    <input type="file" name="idCopyFile"/>
                                                                 }
 
                                                             }
@@ -218,124 +147,92 @@
                                             </div>
                                             <div class="col-md-6  a-div">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().employeetype, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.employeetype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().employeetype, ViewBag.empCategories as SelectList, "Please select Employee Type", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.employeetype, ViewBag.empCategories as SelectList, "Please select Employee Type", new { @class = "form-control" })
 
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().employeetype, "", new { @class = "text-danger" })
+                                                        @Html.ValidationMessageFor(model => model.employeetype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6  a-div">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().employee, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.employee, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
 
                                                         @*@Html.DropDownListFor(model => model.employee, ViewBag.employees as SelectList, "Please Choose an Employee", new { @class = "form-control", disabled = "disabled" })*@
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().employee, new SelectList(" "), "Please Choose an Employee", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.DropDownListFor(model => model.employee, new SelectList(" "), "Please Choose an Employee", new { @class = "form-control", disabled = "disabled" })
 
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().employee, "", new { @class = "text-danger" })
+                                                        @Html.ValidationMessageFor(model => model.employee, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().internalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control" } })
 
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().internalcomment, "", new { @class = "text-danger" })
+                                                        @Html.ValidationMessageFor(model => model.internalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loan_table.FirstOrDefault().externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
 
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().externalcomment, "", new { @class = "text-danger" })
+                                                        @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 a-div">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.loan_table.FirstOrDefault().followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loan_table.FirstOrDefault().followupdate, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().followupdate, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker" } })
+                                                        @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div> 
-                                            @*<div class="col-md-6">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.loan_table.FirstOrDefault().externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                        <div class="col-md-12">
-                                                            @Html.EditorFor(model => model.loan_table.FirstOrDefault().externalcomment, new { htmlAttributes = new { @class = "form-control" } })
 
-                                                            @Html.ValidationMessageFor(model => model.loan_table.FirstOrDefault().externalcomment, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                </div>*@
-
-                                            <div class="col-md-12">
+                                            @*<div class="col-md-12">
                                                 <div class="form-group">
                                                     @{
                                                         int i = 0;
                                                     }
-                                                    @foreach (var item in Model.proof_table)
+                                                    @foreach (var item in ViewBag.prooflists)
                                                     {
                                                         i++;
-
-                                                        <div class="col-md-12">
+                                                        Model.proofid = item.id.ToString();
+                                                        if (Model.proofans != null)
+                                                        {
+                                                            Model.proofans = Model.proofans[i].ToString();
+                                                        }
+                                                        @Html.HiddenFor(model => model.proofid)
+                                                        @*<input type="text" name="questionid" id="questionid" value="@item.id"/>*@
+                                                        @*<div class="col-md-12">
                                                             <div class="form-group">
-                                                                @Html.DisplayFor(modelItem => item.proofname, new { @class = "control-label col-md-12" })<br>
-
-                                                                @*@foreach(var items in Model.proof_customer_table.Where(x=>x.proofid==item.id.ToString()))*@
-                                                                @*@foreach (var items in Model.proof_customer_table)
-                                                                    {
-                                                                        if (items.id.ToString()!= "" || items.id.ToString() != null)
-                                                                        {*@
-                                                                <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                        @Html.Label("Not Applicable")
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                        @Html.Label("Pending")
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        @Html.RadioButtonFor(m => Model.proof_customer_table.FirstOrDefault().proofid, new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                        @Html.Label("Submited")
-                                                                    </div>
-                                                                </div>
-                                                                @*   }
-                                                                            else
-                                                                            {
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        @Html.RadioButton("Applicable", new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                                        @Html.Label("Not Applicable")
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        @Html.RadioButton("Pending", new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                                        @Html.Label("Pending")
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        @Html.RadioButton("Submited", new { selectedid = item.id, @class = "control-label col-md-4" })
-                                                                                        @Html.Label("Submited")
-                                                                                    </div>
-                                                                                </div>
-                                                                            }
-
-                                                                    }*@
+                                                                <p>@item.proofname</p>
+                                                                <label>
+                                                                    @Html.RadioButtonFor(model => model.proofans[i],"NotApplicable")
+                                                                    <span>Not Applicable</span>
+                                                                </label>
+                                                                <label>
+                                                                    @Html.RadioButtonFor(model => model.proofans[i], "Pending")
+                                                                    <span>Pending</span>
+                                                                </label>
+                                                                <label>
+                                                                    @Html.RadioButtonFor(model => model.proofans[i], "Submitted")
+                                                                    <span>Submitted</span>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     }
 
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
@@ -360,10 +257,33 @@
     </div>
 </div>
 
+<style>
+    .ui_tpicker_second_label, .ui_tpicker_second, .ui_tpicker_millisec_label, .ui_tpicker_millisec, .ui_tpicker_microsec_label, .ui_tpicker_microsec, .ui_tpicker_timezone_label, .ui_tpicker_timezone {
+        display: none !important;
+    }
+</style>
+
 
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript">
+                                    $('.datetimepicker').datetimepicker({
+                                        showAnim: 'slideDown',
+                                        dateFormat: 'dd/mm/yy',
+                                    });
+
+
+</script>
+<script type="text/javascript">
+
+                                    $(".datetimepicker").click(function (event) {
+                                        event.preventDefault();
+                                        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
+                                    });
+
+</script>
 
 <script>
                                     $(document).ready(function () {

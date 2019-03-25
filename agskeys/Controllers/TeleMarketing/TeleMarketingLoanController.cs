@@ -34,8 +34,7 @@ namespace agskeys.Controllers.TeleMarketing
             var customer_loans = (from s in ags.loan_table
                                   join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                   where sa.employeeid == userid
-                                  orderby sa.datex descending
-                                  select s).Distinct().ToList();
+                                  orderby sa.datex select s).Distinct().OrderByDescending(t=>t.id).ToList();
             //var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
 
             var customerid = "";
@@ -56,14 +55,13 @@ namespace agskeys.Controllers.TeleMarketing
                 }
                 item.customerid = customerid;
 
-            }
-
+            }           
             var getVendor = ags.vendor_table.ToList();
             var partnerid = "";
             foreach (var item in customer_loans)
             {
                 foreach (var items in getVendor)
-                {
+                {                   
                     if (item.partnerid == items.id.ToString())
                     {
                         partnerid = items.companyname;
@@ -238,8 +236,8 @@ namespace agskeys.Controllers.TeleMarketing
                 loan.bankid = obj.bankid;
                 loan.loantype = obj.loantype;
                 loan.requestloanamt = obj.requestloanamt;
-                loan.loanamt = obj.loanamt;
-                loan.disbursementamt = obj.disbursementamt;
+                loan.loanamt = "0";
+                loan.disbursementamt = "0";
                 loan.rateofinterest = obj.rateofinterest;                
                 //loan.sactionedcopy = obj.sactionedcopy;
                 //loan.idcopy = obj.idcopy;
@@ -268,9 +266,17 @@ namespace agskeys.Controllers.TeleMarketing
                 {
                     loan_track.internalcomment = obj.internalcomment;
                 }
+                else
+                {
+                    loan_track.internalcomment = "Created";
+                }
                 if (obj.externalcomment != null)
                 {
                     loan_track.externalcomment = obj.externalcomment;
+                }
+                else
+                {
+                    loan_track.externalcomment = "Created";
                 }
                 loan_track.datex = DateTime.Now.ToString();
                 loan_track.addedby = Session["username"].ToString();
@@ -289,12 +295,12 @@ namespace agskeys.Controllers.TeleMarketing
                     //if (obj.partnerid != null)
                     //{
                     //    loan_track.vendorid = obj.partnerid;
-                    //    loan_track.vendortracktime = DateTime.Now.ToString();
+                    //    loan_track.vendortracktime = DateTime.Now .ToString();
 
                     //}
                     loan_track_employee.internalcomment = "Assigned";
                     loan_track_employee.externalcomment = "Assigned";
-
+                    loan_track_employee.followupdate = obj.followupdate;
                     loan_track_employee.datex = DateTime.Now.ToString();
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
@@ -669,7 +675,7 @@ namespace agskeys.Controllers.TeleMarketing
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
-                existing.followupdate = loan_table.followupdate;
+                //existing.followupdate = loan_table.followupdate;
                 //existing.sactionedcopy = loan_table.sactionedcopy;
                 //existing.idcopy = loan_table.idcopy;
 
@@ -710,8 +716,11 @@ namespace agskeys.Controllers.TeleMarketing
                     {
                         loan_track_employee.externalcomment = loan_table.externalcomment;
                     }
-
-                    loan_track_employee.datex = DateTime.Now.ToString();
+                    if (loan_table.followupdate != null)
+                    {
+                        loan_track_employee.followupdate = loan_table.followupdate;
+                    }
+                    loan_track_employee.datex = DateTime.Now.ToString();                    
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();

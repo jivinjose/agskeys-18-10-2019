@@ -32,7 +32,7 @@ namespace agskeys.Controllers.Admin
                 return this.RedirectToAction("Logout", "Account");
             }
             var getEmployeeCategoty = ags.emp_category_table.ToList();
-            var Admin = ags.admin_table.Where(x => x.userrole != "super_admin").ToList();
+            var Admin = ags.admin_table.Where(x => x.userrole != "super_admin").OrderByDescending(t => t.id).ToList();
             var userrole = "";
             foreach (var item in Admin)
             {
@@ -89,34 +89,24 @@ namespace agskeys.Controllers.Admin
 
                 if (usr == null)
                 {
-                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension = Path.GetExtension(obj.ImageFile.FileName);
-                    if (allowedExtensions.Contains(extension))
+                    if (obj.ImageFile != null)
                     {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                        obj.photo = "~/adminimage/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
-                        obj.ImageFile.SaveAs(fileName);
+                        string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension = Path.GetExtension(obj.ImageFile.FileName);
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            obj.photo = "~/adminimage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/adminimage/"), fileName);
+                            obj.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Admin");
+                        }
                     }
-                    else
-                    {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Admin");
-                    }
-
-                    //if (obj.userrole == "1")
-                    //{
-                    //    obj.userrole = "ab1d92aaed90828a0fc1c95ecd5fda1f";
-                    //}
-                    //else if (obj.userrole == "2")
-                    //{
-                    //    obj.userrole = "admin";
-                    //}
-                    //else
-                    //{
-                    //    obj.userrole = "Undefined";
-                    //}
                     obj.password = PasswordStorage.CreateHash(obj.password);
                     ags.admin_table.Add(new admin_table
                     {
@@ -206,7 +196,7 @@ namespace agskeys.Controllers.Admin
                 var newPassword = admin_table.password.ToString();
 
 
-                if (existing.photo == null)
+                if (existing.photo == null && admin_table.ImageFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(admin_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);

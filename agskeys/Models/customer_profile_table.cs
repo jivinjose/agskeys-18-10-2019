@@ -20,15 +20,15 @@ namespace agskeys.Models
         public int id { get; set; }
 
         [Display(Name = "User Name")]
-        [Required(ErrorMessage = "This field can not be empty.")]
+       // [Required(ErrorMessage = "This field can not be empty.")]
         public string customerid { get; set; }
 
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "This field can not be empty.")]
+       // [Required(ErrorMessage = "This field can not be empty.")]
         public string name { get; set; }
 
         [Display(Name = "Phone Number")]
-        [Required(ErrorMessage = "You must provide a phone number")]
+       // [Required(ErrorMessage = "You must provide a phone number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string phoneno { get; set; }
@@ -38,7 +38,7 @@ namespace agskeys.Models
         public string dob { get; set; }
 
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "The email address is required")]
+       // [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string email { get; set; }
 
@@ -52,7 +52,7 @@ namespace agskeys.Models
 
         public HttpPostedFileBase ImageFile { get; set; }
 
-        [Required(ErrorMessage = "You must enter a password")]
+        //[Required(ErrorMessage = "You must enter a password")]
         [MembershipPassword(
         MinRequiredNonAlphanumericCharacters = 1,
         MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
@@ -69,7 +69,7 @@ namespace agskeys.Models
         public string datex { get; set; }
 
         [Display(Name = "Address")]
-        [Required(ErrorMessage = "You must provide a address")]
+       // [Required(ErrorMessage = "You must provide a address")]
         [DataType(DataType.MultilineText)]
         public string address { get; set; }
 

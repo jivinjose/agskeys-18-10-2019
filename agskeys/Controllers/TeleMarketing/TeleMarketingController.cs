@@ -33,11 +33,13 @@ namespace agskeys.Controllers.TeleMarketing
             //var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
             string userid = Session["userid"].ToString();
             var customers = (from s in ags.customer_profile_table
-                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid
-                             join sb in ags.loan_track_table on sa.id.ToString() equals sb.loanid
-                             where sb.employeeid == userid
-                             orderby sb.datex descending
-                             select s).Distinct().ToList();
+                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid into rd 
+                             from rt in rd.DefaultIfEmpty()
+                             join sb in ags.loan_track_table on rt.id.ToString() equals sb.loanid into rb
+                             from rc in rb.DefaultIfEmpty()
+                             where rc.employeeid == userid ||  s.addedby==username
+                             orderby rc.datex select s).Distinct().OrderByDescending(t => t.id).ToList();
+          
 
             return PartialView("~/Views/TeleMarketing/TeleMarketing/Customer.cshtml", customers);
         }
@@ -85,22 +87,25 @@ namespace agskeys.Controllers.TeleMarketing
 
                 if (customer == null)
                 {
-                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                    if (obj.ImageFile != null)
+                    {
+                        string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
 
-                    string extension = extension1.ToLower();
-                    if (allowedExtensions.Contains(extension))
-                    {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                        obj.profileimg = "~/customerImage/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
-                        obj.ImageFile.SaveAs(fileName);
-                    }
-                    else
-                    {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Customer");
+                        string extension = extension1.ToLower();
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            obj.profileimg = "~/customerImage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
+                            obj.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Customer");
+                        }
                     }
                     obj.password = PasswordStorage.CreateHash(obj.password);
                     ags.customer_profile_table.Add(new customer_profile_table
@@ -163,7 +168,7 @@ namespace agskeys.Controllers.TeleMarketing
                 customer_profile_table existing = ags.customer_profile_table.Find(customer_profile_table.id);
                 var password = existing.password.ToString();
                 var newPassword = customer_profile_table.password.ToString();
-                if (existing.profileimg == null)
+                if (existing.profileimg == null && customer_profile_table.ImageFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);

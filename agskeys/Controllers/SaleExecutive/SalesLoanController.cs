@@ -55,26 +55,26 @@ namespace agskeys.Controllers.SaleExecutive
 
             }
 
-            var getVendor = ags.vendor_table.ToList();
-            var partnerid = "";
-            foreach (var item in customer_loans)
-            {
-                foreach (var items in getVendor)
-                {
-                    if (item.partnerid == items.id.ToString())
-                    {
-                        partnerid = items.companyname;
-                        break;
-                    }
-                    else if (items.id.ToString() != item.partnerid)
-                    {
-                        partnerid = "Not Updated";
-                        continue;
-                    }
+            //var getVendor = ags.vendor_table.ToList();
+            //var partnerid = "";
+            //foreach (var item in customer_loans)
+            //{
+            //    foreach (var items in getVendor)
+            //    {
+            //        if (item.partnerid == items.id.ToString())
+            //        {
+            //            partnerid = items.companyname;
+            //            break;
+            //        }
+            //        else if (items.id.ToString() != item.partnerid)
+            //        {
+            //            partnerid = "Not Updated";
+            //            continue;
+            //        }
 
-                }
-                item.partnerid = partnerid;
-            }
+            //    }
+            //    item.partnerid = partnerid;
+            //}
 
             var getloantype = ags.loantype_table.ToList();
             foreach (var item in customer_loans)
@@ -107,10 +107,6 @@ namespace agskeys.Controllers.SaleExecutive
             var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
-
-            var getVendor = ags.vendor_table.ToList();
-            SelectList vendors = new SelectList(getVendor, "id", "companyname");
-            ViewBag.vendorList = vendors;
 
             var getBank = ags.bank_table.ToList();
             SelectList banks = new SelectList(getBank, "id", "bankname");
@@ -451,10 +447,6 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 
-            var getVendor = ags.vendor_table.ToList();
-            SelectList vendors = new SelectList(getVendor, "id", "companyname");
-            ViewBag.vendorList = vendors;
-
             var getBank = ags.bank_table.ToList();
             SelectList banks = new SelectList(getBank, "id", "bankname");
             ViewBag.bankList = banks;
@@ -475,6 +467,13 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
             ViewBag.commentList = commentlist;
 
+            var prooflist = ags.proof_table.ToList();
+            SelectList prooflists = new SelectList(prooflist, "id", "proofname");
+            ViewBag.prooflists = prooflists;
+
+            List<proof_table> prooftable = ags.proof_table.ToList();
+            ViewBag.prooflists = prooftable;
+
             List<proof_customer_table> proofcus = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
             ViewBag.proofcus = proofcus;
 
@@ -482,20 +481,21 @@ namespace agskeys.Controllers.SaleExecutive
             //ViewBag.empCategories = new (caSelectListtegoryList, "emp_category_id", "emp_category");
 
 
-            List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
-            List<proof_table> proof_table = ags.proof_table.ToList();
-            List<proof_customer_table> proof_customer = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
+            //List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
+            //List<proof_table> proof_table = ags.proof_table.ToList();
+            //List<proof_customer_table> proof_customer = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
 
 
-            Multiple_proofs_customer Multiple_pc = new Multiple_proofs_customer();
-            Multiple_pc.loan_table = loan.ToList();
-            Multiple_pc.proof_table = proof_table.ToList();
-            Multiple_pc.proof_customer_table = proof_customer.ToList();
-            if (Multiple_pc == null)
+            //Multiple_proofs_customer Multiple_pc = new Multiple_proofs_customer();
+            //Multiple_pc.loan_table = loan.ToList();
+            //Multiple_pc.proof_table = proof_table.ToList();
+            //Multiple_pc.proof_customer_table = proof_customer.ToList();
+            loan_table loan_table = ags.loan_table.Find(Id);
+            if (loan_table == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/SalesExecutive/SalesLoan/Edit.cshtml", Multiple_pc);
+            return PartialView("~/Views/SalesExecutive/SalesLoan/Edit.cshtml", loan_table);
         }
 
         [HttpPost]
@@ -507,10 +507,6 @@ namespace agskeys.Controllers.SaleExecutive
                 var getCustomer = ags.customer_profile_table.ToList();
                 SelectList customers = new SelectList(getCustomer, "id", "customerid");
                 ViewBag.customerList = customers;
-
-                var getVendor = ags.vendor_table.ToList();
-                SelectList vendors = new SelectList(getVendor, "id", "companyname");
-                ViewBag.vendorList = vendors;
 
                 var getBank = ags.bank_table.ToList();
                 SelectList banks = new SelectList(getBank, "id", "bankname");
@@ -537,18 +533,11 @@ namespace agskeys.Controllers.SaleExecutive
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 string partner = existing.partnerid;
-              
-                              
-
 
                 existing.customerid = loan_table.customerid;
-                existing.partnerid = loan_table.partnerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
-                existing.requestloanamt = loan_table.requestloanamt;
-                existing.loanamt = loan_table.loanamt;
-                existing.disbursementamt = loan_table.disbursementamt;
-                existing.rateofinterest = loan_table.rateofinterest;
+                existing.requestloanamt = loan_table.requestloanamt;               
                 existing.followupdate = loan_table.followupdate;
 
                 if (existing.addedby == null)
@@ -590,10 +579,29 @@ namespace agskeys.Controllers.SaleExecutive
                     }
 
                     loan_track_employee.datex = DateTime.Now.ToString();
+                    loan_track_employee.followupdate = loan_table.followupdate;
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();
                 }
+
+                /////Proof
+                //proof_customer_table proof_customer_table = new proof_customer_table();
+
+                //if (loan_table.proofid != null)
+                //{
+                //    proof_customer_table.customerid = loan_table.customerid;
+                //    proof_customer_table.proofid = loan_table.proofid;
+                //    proof_customer_table.proofans = loan_table.proofans;
+
+                //    List<proof_customer_table> proofcus = ags.proof_customer_table.ToList();
+                //    proofcus.ForEach(x => ags.proof_customer_table.Add(x));
+
+                //    proof_customer_table.datex = DateTime.Now.ToString();
+                //    proof_customer_table.addedby = Session["username"].ToString();
+                //    ags.proof_customer_table.Add(proof_customer_table);
+                //    ags.SaveChanges();
+                //}
 
 
                 vendor_track_table vendor_track = new vendor_track_table();
@@ -630,14 +638,14 @@ namespace agskeys.Controllers.SaleExecutive
                 {
                     existing_data.assign_emp_id = Session["userid"].ToString();
                 }
-                if (loan_table.partnerid != null)
-                {
-                    existing_data.assign_vendor_id = loan_table.partnerid;
-                }
-                else
-                {
-                    existing_data.assign_vendor_id = Session["userid"].ToString();
-                }
+                //if (loan_table.partnerid != null)
+                //{
+                //    existing_data.assign_vendor_id = loan_table.partnerid;
+                //}
+                //else
+                //{
+                //    existing_data.assign_vendor_id = Session["userid"].ToString();
+                //}
                 if (existing_data.addedby == null)
                 {
                     existing_data.addedby = Session["username"].ToString();
@@ -722,7 +730,7 @@ namespace agskeys.Controllers.SaleExecutive
                     {
                         if (item.employeeid.ToString() == items.id.ToString())
                         {
-                            string concatenated = items.name + " ( " + items.userrole + " ) ";
+                            string concatenated = items.name;
                             employeeid = concatenated;
                             break;
                         }
@@ -776,7 +784,7 @@ namespace agskeys.Controllers.SaleExecutive
                     {
                         if (item.vendorid.ToString() == items.id.ToString())
                         {
-                            string concatenated = items.companyname + " ( " + items.name + " ) ";
+                            string concatenated = items.companyname;
                             vendorid = concatenated;
                             break;
                         }

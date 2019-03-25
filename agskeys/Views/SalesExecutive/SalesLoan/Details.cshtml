@@ -34,7 +34,7 @@
 
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-sm-6 col-md-6">
-                                        <center style="padding-bottom:30px;">
+                                        <center style="padding-bottom:30px;">                                           
                                             @{if (ViewBag.profileimg != null)
                                                 {
                                                     <img class="rounded" width="150" height="150" src="@Url.Content(ViewBag.profileimg)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
@@ -93,17 +93,7 @@
                                             </tr>
                                             <tr>
                                                 <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.loanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.loanamt) )</span></td>
-
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.disbursementamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.disbursementamt) )</span></td>
-
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-percent" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
+                                                <td>@Html.DisplayFor(model => model.requestloanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.requestloanamt) )</span></td>
 
                                             </tr>
                                             @if ((Model.sactionedcopy == null && Model.sactionedCopyFile == null) || (Model.sactionedcopy == ""))

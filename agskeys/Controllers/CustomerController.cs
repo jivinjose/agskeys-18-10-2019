@@ -53,24 +53,31 @@ namespace agskeys.Controllers
 
                 if (customer == null)
                 {
-                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
-                  
-                    string extension = extension1.ToLower();
-                    if (allowedExtensions.Contains(extension))
+                    //bool filename = string.IsNullOrEmpty(obj.ImageFile.FileName);
+                    if (obj.ImageFile != null)
                     {
-                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                        obj.profileimg = "~/customerImage/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
-                        obj.ImageFile.SaveAs(fileName);
+                        string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+
+                        string extension = extension1.ToLower();
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            obj.profileimg = "~/customerImage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
+                            obj.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return View();
+                        }
                     }
-                    else
+                    if (!string.IsNullOrEmpty(obj.password))
                     {
-                        TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return View();
-                    }
-                    obj.password = PasswordStorage.CreateHash(obj.password);
+                        obj.password = PasswordStorage.CreateHash(obj.password);
+                    }  
                     ags.customer_profile_table.Add(new customer_profile_table
                     {
                         customerid = obj.customerid,
@@ -141,7 +148,7 @@ namespace agskeys.Controllers
                 customer_profile_table existing = ags.customer_profile_table.Find(customer_profile_table.id);
                 var password = existing.password.ToString();
                 var newPassword = customer_profile_table.password.ToString();
-                if (existing.profileimg == null)
+                if (existing.profileimg == null  && customer_profile_table.ImageFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);

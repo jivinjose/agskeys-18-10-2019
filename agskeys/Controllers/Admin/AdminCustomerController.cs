@@ -47,28 +47,30 @@ namespace agskeys.Controllers.Admin
                     var usr = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
                     var allowedExtensions = new[] {
                     ".Jpg", ".png", ".jpg", "jpeg"
-                };
+                    };
                     var customer = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
-
-
                     if (customer == null)
                     {
-                    string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
-                    string fileName = BigfileName.Substring(0, 1);
-                    string extension1 = Path.GetExtension(obj.ImageFile.FileName);
-                        string extension = extension1.ToLower();
-                        if (allowedExtensions.Contains(extension))
+                        if (obj.ImageFile != null)
                         {
-                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                            obj.profileimg = "~/customerImage/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
-                            obj.ImageFile.SaveAs(fileName);
+                            string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                            string fileName = BigfileName.Substring(0, 1);
+                            string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+                            string extension = extension1.ToLower();
+                            if (allowedExtensions.Contains(extension))
+                            {
+                                fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                                obj.profileimg = "~/customerImage/" + fileName;
+                                fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
+                                obj.ImageFile.SaveAs(fileName);
+                            }
+                            else
+                            {
+                                TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                                return RedirectToAction("Customer");
+                            }
                         }
-                        else
-                        {
-                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Customer");
-                    }
+                    
                         obj.password = PasswordStorage.CreateHash(obj.password);
                         ags.customer_profile_table.Add(new customer_profile_table
                         {
@@ -78,7 +80,7 @@ namespace agskeys.Controllers.Admin
                             phoneno = obj.phoneno,
                             alterphoneno = obj.alterphoneno,
                             dob = obj.dob,
-                           
+                            weddingdate = obj.weddingdate,
                             profileimg = obj.profileimg,
                             password = obj.password,
                             address = obj.address,
@@ -91,8 +93,8 @@ namespace agskeys.Controllers.Admin
                     else
                     {
                         TempData["AE"] = "This customer user name is already exist";
-                    return RedirectToAction("Customer");
-                }
+                        return RedirectToAction("Customer");
+                    }
                 }
                 return View("~/Views/Admin_Mangement/AdminCustomer/Details.cshtml",obj);
             }
@@ -140,7 +142,7 @@ namespace agskeys.Controllers.Admin
                     customer_profile_table existing = ags.customer_profile_table.Find(customer_profile_table.id);
                     var password = existing.password.ToString();
                     var newPassword = customer_profile_table.password.ToString();
-                    if (existing.profileimg == null)
+                    if (existing.profileimg == null && customer_profile_table.ImageFile != null)
                     {
                         string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                         string fileName = BigfileName.Substring(0, 1);
@@ -156,8 +158,8 @@ namespace agskeys.Controllers.Admin
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Customer");
-                    }
+                            return RedirectToAction("Customer");
+                        }
                     }
 
 
@@ -198,12 +200,12 @@ namespace agskeys.Controllers.Admin
                     {
                         existing.profileimg = existing.profileimg;
                     }
-                    existing.customerid = customer_profile_table.customerid;
                     existing.name = customer_profile_table.name;
                     existing.email = customer_profile_table.email;
                     existing.phoneno = customer_profile_table.phoneno;
                     existing.alterphoneno = customer_profile_table.alterphoneno;
                     existing.dob = customer_profile_table.dob;
+                    existing.weddingdate = customer_profile_table.weddingdate;
                     existing.address = customer_profile_table.address;
                     if (existing.customerid != customer_profile_table.customerid)
                     {
@@ -216,9 +218,9 @@ namespace agskeys.Controllers.Admin
                         {
                             //existing.username = customer_profile_table.username;
                             TempData["AE"] = "This user name is already exist";
-                        //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Customer");
-                    }
+                            //return PartialView("Edit", "SuperAdmin");
+                            return RedirectToAction("Customer");
+                        }
                     }
 
                     existing.profileimg = customer_profile_table.profileimg;

@@ -54,26 +54,26 @@ namespace agskeys.Controllers.Manager
 
             }
 
-            var getVendor = ags.vendor_table.ToList();
-            var partnerid = "";
-            foreach (var item in customer_loans)
-            {
-                foreach (var items in getVendor)
-                {
-                    if (item.partnerid == items.id.ToString())
-                    {
-                        partnerid = items.companyname;
-                        break;
-                    }
-                    else if (items.id.ToString() != item.partnerid)
-                    {
-                        partnerid = "Not Updated";
-                        continue;
-                    }
+            //var getVendor = ags.vendor_table.ToList();
+            //var partnerid = "";
+            //foreach (var item in customer_loans)
+            //{
+            //    foreach (var items in getVendor)
+            //    {
+            //        if (item.partnerid == items.id.ToString())
+            //        {
+            //            partnerid = items.companyname;
+            //            break;
+            //        }
+            //        else if (items.id.ToString() != item.partnerid)
+            //        {
+            //            partnerid = "Not Updated";
+            //            continue;
+            //        }
 
-                }
-                item.partnerid = partnerid;
-            }
+            //    }
+            //    item.partnerid = partnerid;
+            //}
 
             var getloantype = ags.loantype_table.ToList();
             foreach (var item in customer_loans)
@@ -426,7 +426,7 @@ namespace agskeys.Controllers.Manager
                 existing.loanamt = loan_table.loanamt;
                 existing.disbursementamt = loan_table.disbursementamt;
                 existing.rateofinterest = loan_table.rateofinterest;
-                existing.followupdate = loan_table.followupdate;
+                //existing.followupdate = loan_table.followupdate;
                 //existing.sactionedcopy = loan_table.sactionedcopy;
                 //existing.idcopy = loan_table.idcopy;
 
@@ -469,6 +469,7 @@ namespace agskeys.Controllers.Manager
                     }
 
                     loan_track_employee.datex = DateTime.Now.ToString();
+                    loan_track_employee.followupdate = loan_table.followupdate;
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();
@@ -600,7 +601,7 @@ namespace agskeys.Controllers.Manager
                     {
                         if (item.employeeid.ToString() == items.id.ToString())
                         {
-                            string concatenated = items.name + " ( " + items.userrole + " ) ";
+                            string concatenated = items.name;
                             employeeid = concatenated;
                             break;
                         }
@@ -639,32 +640,32 @@ namespace agskeys.Controllers.Manager
 
             }
 
-            var vendors = ags.vendor_table.ToList();
+            //var vendors = ags.vendor_table.ToList();
 
-            var vendorid = "";
-            foreach (var item in vendorLoantrack)
-            {
-                foreach (var items in vendors)
-                {
-                    if (item.vendorid != null)
-                    {
-                        if (item.vendorid.ToString() == items.id.ToString())
-                        {
-                            string concatenated = items.companyname + " ( " + items.name + " ) ";
-                            vendorid = concatenated;
-                            break;
-                        }
-                        else if (items.id.ToString() != item.vendorid)
-                        {
-                            vendorid = "Not Updated";
-                            continue;
-                        }
-                    }
+            //var vendorid = "";
+            //foreach (var item in vendorLoantrack)
+            //{
+            //    foreach (var items in vendors)
+            //    {
+            //        if (item.vendorid != null)
+            //        {
+            //            if (item.vendorid.ToString() == items.id.ToString())
+            //            {
+            //                string concatenated = items.companyname + " ( " + items.name + " ) ";
+            //                vendorid = concatenated;
+            //                break;
+            //            }
+            //            else if (items.id.ToString() != item.vendorid)
+            //            {
+            //                vendorid = "Not Updated";
+            //                continue;
+            //            }
+            //        }
 
-                }
-                item.vendorid = vendorid;
+            //    }
+            //    item.vendorid = vendorid;
 
-            }
+            //}
 
 
             return PartialView("~/Views/Manager/ManagerLoan/Track.cshtml", loan_track);

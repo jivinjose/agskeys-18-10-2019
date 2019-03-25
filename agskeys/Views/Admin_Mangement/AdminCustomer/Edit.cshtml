@@ -80,15 +80,6 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                    <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
                                                     @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
                                                         @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
@@ -134,10 +125,19 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.LabelFor(model => model.weddingdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                                        @Html.EditorFor(model => model.weddingdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.weddingdate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,12 +172,11 @@
                                                                 <img id="oldPhoto" src="@Url.Content(Model.profileimg)" width="150" height="150" />
                                                                 <img id="blah" src="#" alt="Your Photo" hidden />
                                                                 <input type="file" name="ImageFile" onchange="readURL(this);" />
-
-                                                                @*<button name="delete" class="btn btn-danger" OnClick="btnDelete_Click()"> Delete </button>*@
                                                             }
                                                             else
                                                             {
-                                                                <input type="file" name="ImageFile" required />
+                                                                @*<img id="oldPhoto" src="~/customerImage/customer_dummy.png" width="150" height="150" />*@
+                                                                <input type="file" name="ImageFile" />
                                                             }
 
                                                         }

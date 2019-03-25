@@ -95,19 +95,9 @@
                                             </tr>
                                             <tr>
                                                 <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.loanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.loanamt) )</span></td>
+                                                <td>@Html.DisplayFor(model => model.requestloanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.requestloanamt) )</span></td>
 
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.disbursementamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.disbursementamt) )</span></td>
-
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-percent" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
-
-                                            </tr>
+                                            </tr>                                            
                                             @if ((Model.sactionedcopy == null && Model.sactionedCopyFile == null) || (Model.sactionedcopy == ""))
                                             {
                                                 <tr>

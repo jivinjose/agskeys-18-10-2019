@@ -173,12 +173,11 @@
                                                                 <img id="oldPhoto" src="@Url.Content(Model.profileimg)" width="150" height="150" />
                                                                 <img id="blah" src="#" alt="Your Photo" hidden />
                                                                 <input type="file" name="ImageFile" onchange="readURL(this);" />
-
-                                                                @*<button name="delete" class="btn btn-danger" OnClick="btnDelete_Click()"> Delete </button>*@
                                                             }
                                                             else
                                                             {
-                                                                <input type="file" name="ImageFile" required />
+                                                                @*<img id="oldPhoto" src="~/customerImage/customer_dummy.png" width="150" height="150" />*@
+                                                                <input type="file" name="ImageFile"/>
                                                             }
 
                                                         }

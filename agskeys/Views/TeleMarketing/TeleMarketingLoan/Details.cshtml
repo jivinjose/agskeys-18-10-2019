@@ -69,18 +69,6 @@
                                                 <td>@Html.DisplayFor(model => model.partnerid)</td>
 
                                             </tr>
-                                            @*<tr>
-                                                    <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
-                                                    <td>
-                                                        @{if (Model.alternatephone == null)
-                                                            {
-                                                                Model.alternatephone = "Not Updated";
-                                                            }
-                                                        }
-                                                        @Html.DisplayFor(model => model.alternatephone)
-                                                    </td>
-                                                </tr>*@
-
                                             <tr>
                                                 <th><i class="fa fa-university" aria-hidden="true"></i></th>
                                                 <td>@Html.DisplayFor(model => model.bankid)</td>
@@ -90,22 +78,12 @@
                                                 <th><i class="fa fa-university" aria-hidden="true"></i></th>
                                                 <td>@Html.DisplayFor(model => model.loantype)</td>
 
-                                            </tr>
+                                            </tr>                                           
                                             <tr>
                                                 <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.loanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.loanamt) )</span></td>
+                                                <td>@Html.DisplayFor(model => model.requestloanamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.requestloanamt) )</span></td>
 
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.disbursementamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.disbursementamt) )</span></td>
-
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-percent" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
-
-                                            </tr>
+                                            </tr>                                            
                                             @*<tr>
                                                     <th><i class="fa fa-download" aria-hidden="true"></i></th>
                                                     <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>

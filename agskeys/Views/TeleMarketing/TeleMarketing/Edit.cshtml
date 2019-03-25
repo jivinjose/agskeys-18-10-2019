@@ -83,7 +83,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -101,7 +101,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.phoneno, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.phoneno, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.phoneno, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.phoneno, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -128,7 +128,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.customerid, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -137,7 +137,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", required = true } })
                                                         @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -169,7 +169,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <input type="file" name="ImageFile" required />
+                                                                <input type="file" name="ImageFile"/>
                                                             }
 
                                                         }

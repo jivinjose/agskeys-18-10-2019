@@ -49,9 +49,9 @@
                                         <th>#</th>
                                         <th>
                                             Customer Id
-                                        </th>
+                                        </th>                                       
                                         <th>
-                                            Partner Id
+                                           Requested Amount
                                         </th>
                                         <th>
                                             Loan Amount
@@ -76,17 +76,16 @@
                                             <td>@i</td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.customerid)
-                                            </td>
+                                            </td>                                           
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.partnerid)
-                                            </td>
-
+                                                @Html.DisplayFor(modelItem => item.requestloanamt)
+                                            </td> 
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.loanamt)
-                                            </td>
+                                            </td> 
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.disbursementamt)
-                                            </td>
+                                            </td> 
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.addedby)
                                             </td>
@@ -121,7 +120,7 @@
                                             Customer Id
                                         </th>
                                         <th>
-                                            Partner Id
+                                            Requested Amount
                                         </th>
                                         <th>
                                             Loan Amount

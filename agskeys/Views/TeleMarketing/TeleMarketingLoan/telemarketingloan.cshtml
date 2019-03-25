@@ -49,16 +49,10 @@
                                         <th>#</th>
                                         <th>
                                             Customer Id
-                                        </th>
+                                        </th>                                       
                                         <th>
-                                            Partner Id
-                                        </th>
-                                        <th>
-                                            Loan Amount
-                                        </th>
-                                        <th>
-                                            Disbursed Amount
-                                        </th>
+                                            Request Amount
+                                        </th>                                        
                                         <th>
                                             Created By
                                         </th>
@@ -76,16 +70,11 @@
                                             <td>@i</td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.customerid)
-                                            </td>
+                                            </td>                                           
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.partnerid)
+                                                @Html.DisplayFor(modelItem => item.requestloanamt)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.loanamt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.disbursementamt)
-                                            </td>
+                                            
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.addedby)
                                             </td>
@@ -120,13 +109,7 @@
                                             Customer Id
                                         </th>
                                         <th>
-                                            Partner Id
-                                        </th>
-                                        <th>
-                                            Loan Amount
-                                        </th>
-                                        <th>
-                                            Disbursed Amount
+                                            Request Amount
                                         </th>
                                         <th>
                                             Created By

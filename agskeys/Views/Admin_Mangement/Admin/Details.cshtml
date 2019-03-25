@@ -103,16 +103,22 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
-                                                <th><i class="fa fa-calendar" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.dob)</td>
+                                            @if (!string.IsNullOrEmpty(Model.dob))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-calendar" aria-hidden="true"></i></th>
+                                                    <td>@Html.DisplayFor(model => model.dob)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.dob) )</span></td>
 
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-address-card" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.address)</td>
+                                                </tr>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.address))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-address-card" aria-hidden="true"></i></th>
+                                                    <td>@Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:#FFF;" } })</td>
 
-                                            </tr>
+                                                </tr>
+                                            }  
                                         </table>
                                     </div>
                                 </div>

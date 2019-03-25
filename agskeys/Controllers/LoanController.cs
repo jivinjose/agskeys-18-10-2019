@@ -78,7 +78,6 @@ namespace agskeys.Controllers
                     }
                 }
             }
-            
             return PartialView(customer_loans);
         }
 
@@ -173,69 +172,98 @@ namespace agskeys.Controllers
                 var allowedExtensions = new[] {
                     ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
-                string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
-                string fileName = sactionedFileName.Substring(0, 1);
-                string extension1 = Path.GetExtension(obj.sactionedCopyFile.FileName);
-                string extension = extension1.ToLower();
-                if (allowedExtensions.Contains(extension))
+                if (obj.sactionedCopyFile != null)
                 {
-                    fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
-                    obj.sactionedcopy = "~/sactionedcopyfile/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/sactionedcopyfile/"), fileName);
-                    obj.sactionedCopyFile.SaveAs(fileName);
+                    string sactionedFileName = Path.GetFileNameWithoutExtension(obj.sactionedCopyFile.FileName);
+                    string fileName = sactionedFileName.Substring(0, 1);
+                    string extension1 = Path.GetExtension(obj.sactionedCopyFile.FileName);
+                    string extension = extension1.ToLower();
+                    if (allowedExtensions.Contains(extension))
+                    {
+                        fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                        obj.sactionedcopy = "~/sactionedcopyfile/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/sactionedcopyfile/"), fileName);
+                        obj.sactionedCopyFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
+                        return View();
+                    }
                 }
-                else
+                if (obj.idCopyFile != null)
                 {
-                    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
-                    return View();
+                    string idCopyFileName = Path.GetFileNameWithoutExtension(obj.idCopyFile.FileName);
+                    string idFileName = idCopyFileName.Substring(0, 1);
+                    string extension2 = Path.GetExtension(obj.idCopyFile.FileName);
+                    string idExtension = extension2.ToLower();
+                    if (allowedExtensions.Contains(idExtension))
+                    {
+                        idFileName = idFileName + DateTime.Now.ToString("yyssmmfff") + extension2;
+                        obj.idcopy = "~/idcopyfile/" + idFileName;
+                        idFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), idFileName);
+                        obj.idCopyFile.SaveAs(idFileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
+                        return View();
+                    }
                 }
-
-                string idCopyFileName = Path.GetFileNameWithoutExtension(obj.idCopyFile.FileName);
-                string idFileName = idCopyFileName.Substring(0, 1);
-                string extension2 = Path.GetExtension(obj.idCopyFile.FileName);
-                string idExtension = extension2.ToLower();
-                if (allowedExtensions.Contains(idExtension))
+                if (obj.propertyDocumentsFile != null)
                 {
-                    idFileName = idFileName + DateTime.Now.ToString("yyssmmfff") + extension2;
-                    obj.idcopy = "~/idcopyfile/" + idFileName;
-                    idFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), idFileName);
-                    obj.idCopyFile.SaveAs(idFileName);
-                }
-                else
-                {
-                    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                    return View();
-                }
-
-                string propertyDocumentsFile = Path.GetFileNameWithoutExtension(obj.propertyDocumentsFile.FileName);
-                string propertyFileName = propertyDocumentsFile.Substring(0, 1);
-                string extension3 = Path.GetExtension(obj.propertyDocumentsFile.FileName);
-                string propertyExtension = extension3.ToLower();
-                if (allowedExtensions.Contains(propertyExtension))
-                {
-                    propertyFileName = propertyFileName + DateTime.Now.ToString("yyssmmfff") + extension3;
-                    obj.propertydocuments = "~/idcopyfile/" + propertyFileName;
-                    propertyFileName = Path.Combine(Server.MapPath("~/idcopyfile/"), propertyFileName);
-                    obj.propertyDocumentsFile.SaveAs(propertyFileName);
-                }
-                else
-                {
-                    TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                    return View();
+                    string propertyDocumentsFile = Path.GetFileNameWithoutExtension(obj.propertyDocumentsFile.FileName);
+                    string propertyFileName = propertyDocumentsFile.Substring(0, 1);
+                    string extension3 = Path.GetExtension(obj.propertyDocumentsFile.FileName);
+                    string propertyExtension = extension3.ToLower();
+                    if (allowedExtensions.Contains(propertyExtension))
+                    {
+                        propertyFileName = propertyFileName + DateTime.Now.ToString("yyssmmfff") + extension3;
+                        obj.propertydocuments = "~/propertyFile/" + propertyFileName;
+                        propertyFileName = Path.Combine(Server.MapPath("~/propertyFile/"), propertyFileName);
+                        obj.propertyDocumentsFile.SaveAs(propertyFileName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
+                        return View();
+                    }
                 }
                 loan_table loan = new loan_table();
                 loan.customerid = obj.customerid;
                 loan.partnerid = obj.partnerid;
                 loan.bankid = obj.bankid;
                 loan.loantype = obj.loantype;
-                loan.loanamt = obj.loanamt;
+                if (!string.IsNullOrEmpty(obj.loanamt))
+                {
+                    loan.loanamt = obj.loanamt;                    
+                }
+                else
+                {
+                    loan.loanamt = "0";
+                }
                 loan.requestloanamt = obj.requestloanamt;
-                loan.disbursementamt = obj.disbursementamt;
+                if (!string.IsNullOrEmpty(obj.disbursementamt))
+                {
+                    loan.disbursementamt = obj.disbursementamt;                   
+                }
+                else
+                {
+                    loan.disbursementamt = "0";
+                }                
                 loan.rateofinterest = obj.rateofinterest;
                 loan.sactionedcopy = obj.sactionedcopy;
                 loan.idcopy = obj.idcopy;
                 loan.propertydocuments = obj.propertydocuments;
-                loan.propertydocuments = obj.propertydetails;
+                loan.propertydetails = obj.propertydetails;
+                if (!string.IsNullOrEmpty(obj.loanstatus))
+                {
+                    loan.loanstatus = obj.loanstatus;
+                }
+                else
+                {
+                    loan.loanstatus = "Pending";
+                }                
                 loan.datex = DateTime.Now.ToString();
                 loan.addedby = Session["username"].ToString();
                 ags.loan_table.Add(loan);
@@ -531,7 +559,8 @@ namespace agskeys.Controllers
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 string partner = existing.partnerid;
-                if (existing.sactionedcopy == null)
+                
+                if (existing.sactionedcopy == null && loan_table.sactionedCopyFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.sactionedCopyFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -592,7 +621,7 @@ namespace agskeys.Controllers
 
                 //property documents
 
-                if (existing.propertydocuments == null)
+                if (existing.propertydocuments == null && loan_table.propertyDocumentsFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -653,7 +682,7 @@ namespace agskeys.Controllers
 
                 //DD Copy
 
-                if (existing.idcopy == null)
+                if (existing.idcopy == null && loan_table.idCopyFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.idCopyFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -674,7 +703,7 @@ namespace agskeys.Controllers
                 }
 
 
-                else if (existing.idcopy != null && loan_table.idcopy != null)
+                else if(existing.idcopy != null && loan_table.idcopy != null)
                 {
                     if (loan_table.idCopyFile != null)
                     {
@@ -724,7 +753,7 @@ namespace agskeys.Controllers
                 existing.idcopy = loan_table.idcopy;
                 existing.propertydocuments = loan_table.propertydocuments;
                 existing.propertydetails = loan_table.propertydetails;
-                existing.followupdate = loan_table.followupdate;
+                //existing.followupdate = loan_table.followupdate;
                 existing.loanstatus = loan_table.loanstatus;
 
                 if (existing.addedby == null)

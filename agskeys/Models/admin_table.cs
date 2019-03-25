@@ -13,7 +13,6 @@ namespace agskeys.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
-    using System.Web.Mvc;
     using System.Web.Security;
 
     public partial class admin_table
@@ -44,14 +43,14 @@ namespace agskeys.Models
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string dob { get; set; }
 
-       
+
 
         [Display(Name = "Address")]
         [Required(ErrorMessage = "You must provide a address")]
         [DataType(DataType.MultilineText)]
         public string address { get; set; }
 
-       
+
 
         [Required(ErrorMessage = "You must choose user role")]
         [Display(Name = "User Role")]

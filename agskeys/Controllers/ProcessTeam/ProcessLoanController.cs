@@ -115,7 +115,7 @@ namespace agskeys.Controllers.ProcessTeam
                                       join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                       where sa.employeeid == userid
                                       orderby sa.datex descending 
-                                      select s);
+                                      select s).Distinct().ToList();
                 if (form != null)
                 {
                     if (form["ongoing"] != null)
@@ -137,7 +137,7 @@ namespace agskeys.Controllers.ProcessTeam
                                               join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                               where (s.disbursementamt == "0" && sa.employeeid == userid)
                                               orderby sa.datex descending
-                                              select s);
+                                              select s).Distinct().ToList();
 
                     }
                     else if (SearchFor == "Partialydisbursed")
@@ -146,7 +146,7 @@ namespace agskeys.Controllers.ProcessTeam
                                               join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                               where (s.disbursementamt != s.loanamt && s.disbursementamt != "0" && sa.employeeid == userid)
                                               orderby sa.datex descending
-                                              select s);
+                                              select s).Distinct().ToList();
                         
 
                     }
@@ -156,7 +156,7 @@ namespace agskeys.Controllers.ProcessTeam
                                               join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
                                               where (s.disbursementamt == s.loanamt && sa.employeeid == userid)
                                               orderby sa.datex descending
-                                              select s);
+                                              select s).Distinct().ToList();
                     }
 
                 }
@@ -421,7 +421,7 @@ namespace agskeys.Controllers.ProcessTeam
                 };
                 loan_table existing = ags.loan_table.Find(loan_table.id);
                 string partner = existing.partnerid;
-                if (existing.sactionedcopy == null)
+                if (existing.sactionedcopy == null && loan_table.sactionedCopyFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.sactionedCopyFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -482,7 +482,7 @@ namespace agskeys.Controllers.ProcessTeam
 
                 //ID copy file
 
-                if (existing.idcopy == null)
+                if (existing.idcopy == null && loan_table.idCopyFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.idCopyFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -543,7 +543,7 @@ namespace agskeys.Controllers.ProcessTeam
 
                 //property documents
 
-                if (existing.propertydocuments == null)
+                if (existing.propertydocuments == null && loan_table.propertyDocumentsFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(loan_table.propertyDocumentsFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -657,6 +657,7 @@ namespace agskeys.Controllers.ProcessTeam
                     }
 
                     loan_track_employee.datex = DateTime.Now.ToString();
+                    loan_track_employee.followupdate = loan_table.followupdate;
                     loan_track_employee.addedby = Session["username"].ToString();
                     ags.loan_track_table.Add(loan_track_employee);
                     ags.SaveChanges();

@@ -84,7 +84,7 @@ namespace agskeys.Controllers.ProcessTeam
                 customer_profile_table existing = ags.customer_profile_table.Find(customer_profile_table.id);
                 var password = existing.password.ToString();
                 var newPassword = customer_profile_table.password.ToString();
-                if (existing.profileimg == null)
+                if (existing.profileimg == null && customer_profile_table.ImageFile != null)
                 {
                     string BigfileName = Path.GetFileNameWithoutExtension(customer_profile_table.ImageFile.FileName);
                     string fileName = BigfileName.Substring(0, 1);
@@ -147,6 +147,7 @@ namespace agskeys.Controllers.ProcessTeam
                 existing.phoneno = customer_profile_table.phoneno;
                 existing.alterphoneno = customer_profile_table.alterphoneno;
                 existing.dob = customer_profile_table.dob;
+                existing.weddingdate = customer_profile_table.weddingdate;
                 existing.address = customer_profile_table.address;
                 if (existing.customerid != customer_profile_table.customerid)
                 {
