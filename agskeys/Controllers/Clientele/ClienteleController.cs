@@ -34,6 +34,34 @@ namespace agskeys.Controllers.Clientele
                                   where s.customerid == userid
                                   orderby sa.datex descending
                                   select s).Distinct().ToList();
+            var requestamnt = customer_loans.Sum(t => Convert.ToDecimal(t.requestloanamt));
+            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(t.loanamt));
+            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(t.disbursementamt));
+            var balance = customer_loans.Sum(s => (Convert.ToDecimal(s.loanamt)) - (Convert.ToDecimal(s.disbursementamt)));
+            var interest = customer_loans.Sum(t => Convert.ToDecimal(t.rateofinterest));
+
+            ViewData["requestamnt"] = requestamnt;
+            ViewData["loanamnt"] = loanamnt;
+            ViewData["disbursementamnt"] = disbursementamnt;
+            ViewData["balance"] = balance;
+
+            var sanction_percentage = (loanamnt * 100) / requestamnt;
+            decimal sanction_percentages = Math.Round(sanction_percentage, 2);
+            ViewData["sanction_percentage"] = sanction_percentages;
+            var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
+            decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
+            ViewData["disbursement_percentage"] = disbursement_percentages;
+            var balance_percentage = (balance * 100) / loanamnt;           
+            decimal balance_percentages = Math.Round(balance_percentage, 2);            
+            ViewData["balance_percentage"] = balance_percentages;
+
+            ViewData["interest"] = interest / customer_loans.Count();
+
+
+
+
+
+
             var getbank = (from bank_table in ags.bank_table select bank_table).ToList();
 
             var bankid = "";

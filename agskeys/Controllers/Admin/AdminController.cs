@@ -22,6 +22,12 @@ namespace agskeys.Controllers.Admin
             {
                 return this.RedirectToAction("Logout","Account");
             }
+            var customerCount = ags.customer_profile_table.ToList().Count();
+            var partnerCount = ags.vendor_table.ToList().Count();
+            var employeeCount = ags.admin_table.Where(t => t.userrole != "super_admin").ToList().Count();            
+            ViewData["customerCount"] = customerCount.ToString();
+            ViewData["partnerCount"] = partnerCount.ToString();
+            ViewData["employeeCount"] = employeeCount.ToString();           
             return View("~/Views/Admin_Mangement/Admin/Index.cshtml");
         }
      

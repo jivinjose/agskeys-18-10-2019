@@ -35,8 +35,8 @@
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-sm-6 col-md-6">
                                         <center style="padding-bottom:30px;">
-                                            @{if (ViewBag.profileimg != null)
-                                                {
+                                            @if (!string.IsNullOrEmpty(ViewBag.profileimg))
+                                            {
                                                     <img class="rounded" width="150" height="150" src="@Url.Content(ViewBag.profileimg)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
                                                 }
                                                 else
@@ -101,20 +101,32 @@
                                                 <td>@Html.DisplayFor(model => model.disbursementamt)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.disbursementamt) )</span></td>
 
                                             </tr>
-                                            <tr>
-                                                <th><i class="fa fa-percent" aria-hidden="true"></i></th>
-                                                <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
+                                              @if (!string.IsNullOrEmpty(Model.rateofinterest))
+                                              {
+                                                <tr>
+                                                    <th><i class="fa fa-percent" aria-hidden="true"></i></th>
+                                                    <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
 
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a></td>
+                                                </tr>
+                                              }
 
-                                            </tr>
+                                           
+                                            @if (!string.IsNullOrEmpty(Model.sactionedcopy))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
+                                                </tr>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.idcopy))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a></td>
+
+                                                </tr>
+                                            }
+                                            
                                         </table>
                                     </div>
                                 </div>

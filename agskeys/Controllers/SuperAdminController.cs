@@ -26,6 +26,15 @@ namespace agskeys.Controllers
             }
             var name = Session["username"].ToString();
             var getEmployeeCategoty = ags.emp_category_table.ToList();
+
+            var customerCount = ags.customer_profile_table.ToList().Count();
+            var partnerCount = ags.vendor_table.ToList().Count();
+            var employeeCount = ags.admin_table.Where(t => t.userrole != "super_admin").ToList().Count();
+            var superAdminCount = ags.admin_table.Where(t=>t.userrole == "super_admin").ToList().Count();
+            ViewData["customerCount"] = customerCount.ToString();
+            ViewData["partnerCount"] = partnerCount.ToString();
+            ViewData["employeeCount"] = employeeCount.ToString();
+            ViewData["superAdminCount"] = superAdminCount.ToString();
             return View();
         }
 
