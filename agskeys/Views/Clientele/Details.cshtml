@@ -38,12 +38,10 @@
                                             @if (!string.IsNullOrEmpty(ViewBag.profileimg))
                                             {
                                                     <img class="rounded" width="150" height="150" src="@Url.Content(ViewBag.profileimg)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
-                                                }
-                                                else
-                                                {
-                                                    <img class="rounded" width="150" height="150" src="" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
-                                                }
-
+                                            }
+                                            else
+                                            {
+                                                <img class="rounded" width="150" height="150" src="" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
                                             }
                                             <div class="form-group prf row">
                                                 <label class="col-sm-12 col-form-label">@Html.DisplayFor(model => model.customerid)<span style="color:#808080"> ( Customer Id )</span></label>

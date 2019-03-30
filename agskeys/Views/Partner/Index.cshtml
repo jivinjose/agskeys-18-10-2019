@@ -104,23 +104,23 @@
 
                                         <h6>Sanctioned Amount</h6>
 
-                                        <h5 class="m-b-30 f-w-700">@Model.Sum(j => (Convert.ToInt64(j.loanamt)))<span class="text-c-green m-l-10"></span></h5>
+                                        <h5 class="m-b-30 f-w-700">@ViewData["loanamnt"]<span class="text-c-red m-l-10">100%</span></h5>
                                         <div class="progress">
-                                            <div class="progress-bar bg-c-red" style="width:25%"></div>
+                                            <div class="progress-bar bg-c-red" style="width:100%"></div>
                                         </div>
                                     </div>
                                     <div class="col-xl-4 col-md-4">
                                         <h6>Disbursed Amount</h6>
-                                        <h5 class="m-b-30 f-w-700">@Model.Sum(j => (Convert.ToInt64(j.disbursementamt)))<span class="text-c-red m-l-10"></span></h5>
+                                        <h5 class="m-b-30 f-w-700">@ViewData["disbursementamnt"]<span class="text-c-red m-l-10">@ViewData["disbursement_percentage"]%</span></h5>
                                         <div class="progress">
-                                            <div class="progress-bar bg-c-blue" style="width:65%"></div>
+                                            <div class="progress-bar bg-c-blue" style="width:@ViewData["disbursement_percentage"]%"></div>
                                         </div>
                                     </div>
                                     <div class="col-xl-4 col-md-4">
                                         <h6>Balance Loan Amount</h6>
-                                        <h5 class="m-b-30 f-w-700">@Model.Sum(s => (Convert.ToInt64(s.loanamt)) - (Convert.ToInt64(s.disbursementamt)))<span class="text-c-green m-l-10">+0.99%</span></h5>
+                                        <h5 class="m-b-30 f-w-700">@ViewData["balance"]<span class="text-c-green m-l-10">@ViewData["balance_percentage"]%</span></h5>
                                         <div class="progress">
-                                            <div class="progress-bar bg-c-green" style="width:85%"></div>
+                                            <div class="progress-bar bg-c-green" style="width:@ViewData["balance_percentage"]%"></div>
                                         </div>
                                     </div>
                                 </div>
