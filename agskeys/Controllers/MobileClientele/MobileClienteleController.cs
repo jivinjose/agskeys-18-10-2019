@@ -31,28 +31,65 @@ namespace agskeys.Controllers.MobileClientele
                                   orderby sa.datex descending
                                   select s).Distinct().ToList();
             ViewData["loancount"] = customer_loans.Count();
-            var requestamnt = customer_loans.Sum(t => Convert.ToDecimal(t.requestloanamt));
-            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(t.loanamt));
-            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(t.disbursementamt));
-            var balance = customer_loans.Sum(s => (Convert.ToDecimal(s.loanamt)) - (Convert.ToDecimal(s.disbursementamt)));
-            var interest = customer_loans.Sum(t => Convert.ToDecimal(t.rateofinterest));
 
+            //if (!string.IsNullOrEmpty(customer_loans.Sum(t=>t.requestloanamt)))
+            //{
+            //    
+            //}
+            //else
+            //{
+            //    var requestamnt = 0;
+            //}
+
+            var requestamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.requestloanamt)));
+            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.loanamt)));
+            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.disbursementamt)));
+            var balance = customer_loans.Sum(s => (Convert.ToDecimal(!string.IsNullOrEmpty((s.loanamt))) - (Convert.ToDecimal(!string.IsNullOrEmpty(s.disbursementamt)))));
+            var interest = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.rateofinterest)));
+
+           
             ViewData["requestamnt"] = requestamnt;
             ViewData["loanamnt"] = loanamnt;
             ViewData["disbursementamnt"] = disbursementamnt;
             ViewData["balance"] = balance;
 
-            var sanction_percentage = (loanamnt * 100) / requestamnt;
-            decimal sanction_percentages = Math.Round(sanction_percentage, 2);
-            ViewData["sanction_percentage"] = sanction_percentages;
-            var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
-            decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
-            ViewData["disbursement_percentage"] = disbursement_percentages;
-            var balance_percentage = (balance * 100) / loanamnt;
-            decimal balance_percentages = Math.Round(balance_percentage, 2);
-            ViewData["balance_percentage"] = balance_percentages;
+            if(requestamnt != 0)
+            {
+                var sanction_percentage = (loanamnt * 100) / requestamnt;
+                decimal sanction_percentages = Math.Round(sanction_percentage, 2);
+                ViewData["sanction_percentage"] = sanction_percentages;
+            }
+            else
+            {
+                ViewData["sanction_percentage"] = 0;
 
-            ViewData["interest"] = interest / customer_loans.Count();
+            }
+            if (loanamnt != 0)
+            {
+                var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
+                decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
+                ViewData["disbursement_percentage"] = disbursement_percentages;
+
+                var balance_percentage = (balance * 100) / loanamnt;
+                decimal balance_percentages = Math.Round(balance_percentage, 2);
+                ViewData["balance_percentage"] = balance_percentages;
+            }
+            else
+            {
+                ViewData["disbursement_percentage"] = 0;
+                ViewData["balance_percentage"] = 0;
+            }
+            
+            if(customer_loans.Count() != 0)
+            {
+                ViewData["interest"] = interest / customer_loans.Count();
+            }
+            else
+            {
+                ViewData["interest"] = 0;
+            }
+
+            
             var getbank = (from bank_table in ags.bank_table select bank_table).ToList();
 
             var bankid = "";

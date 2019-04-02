@@ -25,21 +25,30 @@ namespace agskeys.Controllers.MobileVendor
             var customer_loans = (from loan_table in ags.loan_table where loan_table.partnerid == userid orderby loan_table.id descending select loan_table).ToList();
 
 
-            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(t.loanamt));
-            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(t.disbursementamt));
-            var balance = customer_loans.Sum(s => (Convert.ToDecimal(s.loanamt)) - (Convert.ToDecimal(s.disbursementamt)));
+            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.loanamt)));
+            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.disbursementamt)));
+            var balance = customer_loans.Sum(s => (Convert.ToDecimal(!string.IsNullOrEmpty(s.loanamt))) - (Convert.ToDecimal(!string.IsNullOrEmpty(s.disbursementamt))));
 
             ViewData["loancount"] = customer_loans.Count();
             ViewData["loanamnt"] = loanamnt;
             ViewData["disbursementamnt"] = disbursementamnt;
             ViewData["balance"] = balance;
 
-            var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
-            decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
-            ViewData["disbursement_percentage"] = disbursement_percentages;
-            var balance_percentage = (balance * 100) / loanamnt;
-            decimal balance_percentages = Math.Round(balance_percentage, 2);
-            ViewData["balance_percentage"] = balance_percentages;
+            if (loanamnt != 0)
+            {
+                var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
+                decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
+                ViewData["disbursement_percentage"] = disbursement_percentages;
+
+                var balance_percentage = (balance * 100) / loanamnt;
+                decimal balance_percentages = Math.Round(balance_percentage, 2);
+                ViewData["balance_percentage"] = balance_percentages;
+            }
+            else
+            {
+                ViewData["disbursement_percentage"] = 0;
+                ViewData["balance_percentage"] = 0;
+            } 
 
             var getCustomer = ags.customer_profile_table.ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");

@@ -45,17 +45,55 @@ namespace agskeys.Controllers.Clientele
             ViewData["disbursementamnt"] = disbursementamnt;
             ViewData["balance"] = balance;
 
-            var sanction_percentage = (loanamnt * 100) / requestamnt;
-            decimal sanction_percentages = Math.Round(sanction_percentage, 2);
-            ViewData["sanction_percentage"] = sanction_percentages;
-            var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
-            decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
-            ViewData["disbursement_percentage"] = disbursement_percentages;
-            var balance_percentage = (balance * 100) / loanamnt;           
-            decimal balance_percentages = Math.Round(balance_percentage, 2);            
-            ViewData["balance_percentage"] = balance_percentages;
+            //var sanction_percentage = (loanamnt * 100) / requestamnt;
+            //decimal sanction_percentages = Math.Round(sanction_percentage, 2);
+            //ViewData["sanction_percentage"] = sanction_percentages;
+            //var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
+            //decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
+            //ViewData["disbursement_percentage"] = disbursement_percentages;
+            //var balance_percentage = (balance * 100) / loanamnt;           
+            //decimal balance_percentages = Math.Round(balance_percentage, 2);            
+            //ViewData["balance_percentage"] = balance_percentages;
 
-            ViewData["interest"] = interest / customer_loans.Count();
+            //ViewData["interest"] = interest / customer_loans.Count();
+
+            if (requestamnt != 0)
+            {
+                var sanction_percentage = (loanamnt * 100) / requestamnt;
+                decimal sanction_percentages = Math.Round(sanction_percentage, 2);
+                ViewData["sanction_percentage"] = sanction_percentages;
+            }
+            else
+            {
+                ViewData["sanction_percentage"] = 0;
+
+            }
+            if (loanamnt != 0)
+            {
+                var disbursement_percentage = (disbursementamnt * 100) / loanamnt;
+                decimal disbursement_percentages = Math.Round(disbursement_percentage, 2);
+                ViewData["disbursement_percentage"] = disbursement_percentages;
+
+                var balance_percentage = (balance * 100) / loanamnt;
+                decimal balance_percentages = Math.Round(balance_percentage, 2);
+                ViewData["balance_percentage"] = balance_percentages;
+            }
+            else
+            {
+                ViewData["disbursement_percentage"] = 0;
+
+                ViewData["balance_percentage"] = 0;
+            }
+           
+
+            if (customer_loans.Count() != 0)
+            {
+                ViewData["interest"] = interest / customer_loans.Count();
+            }
+            else
+            {
+                ViewData["interest"] = 0;
+            }
 
 
 

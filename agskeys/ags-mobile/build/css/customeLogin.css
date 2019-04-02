@@ -115,7 +115,7 @@ min-height: 100vh ;
 .card-body{
 	padding: 10px;
     border-radius: 5%;
-    background: #eeeeee;
+    background: #fff;
     box-shadow: 0 0 5px 0 rgba(43,43,43,0.1), 0 11px 6px -7px rgba(43,43,43,0.1);
 }
 
@@ -193,7 +193,7 @@ hr.style-two {
     margin: 10px 0px !important;
     }
 #mySidenav {
-    height: 100vh;
+    min-height:100%;
 }
 .card{
 	
