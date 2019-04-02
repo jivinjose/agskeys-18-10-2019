@@ -41,11 +41,11 @@ namespace agskeys.Controllers.MobileClientele
             //    var requestamnt = 0;
             //}
 
-            var requestamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.requestloanamt)));
-            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.loanamt)));
-            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.disbursementamt)));
-            var balance = customer_loans.Sum(s => (Convert.ToDecimal(!string.IsNullOrEmpty((s.loanamt))) - (Convert.ToDecimal(!string.IsNullOrEmpty(s.disbursementamt)))));
-            var interest = customer_loans.Sum(t => Convert.ToDecimal(!string.IsNullOrEmpty(t.rateofinterest)));
+            var requestamnt = customer_loans.Sum(t => Convert.ToDecimal(t.requestloanamt));
+            var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(t.loanamt));
+            var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(t.disbursementamt));
+            var balance = customer_loans.Sum(s => (Convert.ToDecimal((s.loanamt)) - (Convert.ToDecimal(s.disbursementamt))));
+            var interest = customer_loans.Sum(t => Convert.ToDecimal(t.rateofinterest));
 
            
             ViewData["requestamnt"] = requestamnt;

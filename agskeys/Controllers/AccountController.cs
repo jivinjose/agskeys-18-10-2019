@@ -59,7 +59,7 @@ namespace agskeys.Controllers
                         Session["username"] = vndr.username.ToString();
                         Session["userlevel"] = "partner";
                         FormsAuthentication.SetAuthCookie(vndr.username, false);
-                        return RedirectToAction("Index", "MobilePartner");
+                        return RedirectToAction("Index", "MobileVendor");
                     }
                     else
                     {

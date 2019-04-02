@@ -155,6 +155,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="customerImage\dummyvendor.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\agskeys.Context.tt">
@@ -529,7 +530,6 @@
     <Folder Include="ags-mobile\build\js\jQuery.Keyframes-master\" />
     <Folder Include="App_Data\" />
     <Folder Include="bankImage\" />
-    <Folder Include="customerImage\" />
     <Folder Include="idcopyfile\" />
     <Folder Include="propertyFile\" />
     <Folder Include="sactionedcopyfile\" />

@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="card  " style="width:50%">
-                    <div class="card-body crd-body1" style="    background-image: linear-gradient(to right, #882e6f, #4e2a4b);">
+                    <div class="card-body crd-body1" style="background-image: linear-gradient(to right, #882e6f, #4e2a4b);">
                         <div style="width:40%;padding: 8px;">
                             @*<i class="fa fa-angle-left"></i>*@
                             <img class="img-responsive" src="~/ags-mobile/images/int2.png" />
@@ -63,27 +63,45 @@
             <div class="card proj-progress-card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-xl-4 col-md-4">
+                        <div class="col-xl-3 col-md-12 col-sm-12 col-lg-12 col-xs-12">
 
                             <h6>Sanctioned Amount</h6>
 
-                            <h5 class="m-b-30 f-w-700">@ViewData["loanamnt"]<span class="text-c-red m-l-10" style="float:right !important">100%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-c-red" style="width:100%"></div>
+                            <h5 class="m-b-30 f-w-700">@ViewData["loanamnt"]</h5>
+                            <div class="progress blue">
+                                <span class="progress-left pleft1">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <span class="progress-right pright1">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <div class="progress-value p1">100%</div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-4">
+                        <div class="col-xl-3 col-md-12 col-sm-6 col-lg-6 col-xs-6">
                             <h6>Disbursed Amount</h6>
-                            <h5 class="m-b-30 f-w-700">@ViewData["disbursementamnt"]<span class="text-c-red m-l-10" style="float:right !important">@ViewData["disbursement_percentage"]%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-c-blue" style="width:@ViewData["disbursement_percentage"]%"></div>
+                            <h5 class="m-b-30 f-w-700">@ViewData["disbursementamnt"]</h5>
+                            <div class="progress green">
+                                <span class="progress-left pleft2">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <span class="progress-right pright2">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <div class="progress-value p2">@ViewData["disbursement_percentage"]%</div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-4">
+                        <div class="col-xl-3 col-md-6 col-sm-6 col-lg-6 col-xs-6">
                             <h6>Balance Loan Amount</h6>
-                            <h5 class="m-b-30 f-w-700">@ViewData["balance"]<span class="text-c-green m-l-10" style="float:right !important">@ViewData["balance_percentage"]%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-c-green" style="width:@ViewData["balance_percentage"]%"></div>
+                            <h5 class="m-b-30 f-w-700">@ViewData["balance"]</h5>
+                            <div class="progress yellow">
+                                <span class="progress-left pleft3">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <span class="progress-right pright3">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <div class="progress-value p3">@ViewData["balance_percentage"]%</div>
                             </div>
                         </div>
                     </div>

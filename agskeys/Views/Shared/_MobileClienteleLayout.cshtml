@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" style="display:flow-root;" onclick="closeNav()"><i class="fa fa-angle-left" style="font-size:22px; padding-right: 10px;"></i> back</a>
+        <a href="javascript:void(0)" class="closebtn" style="display:block;" onclick="closeNav()"><i class="fa fa-angle-left" style="font-size:22px; padding-right: 10px;"></i> back</a>
         <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")" href="~/MobileClientele/Loan"><i class="fa fa-bank"></i><span>LOAN</span></a>
         <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "RequestLoan" ? "active" : "")" href="~/MobileClientele/RequestLoan"><i class="fa fa-tasks "></i><span> REQUEST</span></a>
         <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Refer" ? "active" : "")" href="~/MobileClientele/Refer"><i class="fa fa-copy"></i><span>REFER</span></a>

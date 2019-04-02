@@ -23,21 +23,24 @@
 
 <div class="L1 main-page" id="L-body" style="min-height: 100%;">
     <div class="container">
-        <div class="page-body">
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
+        <div class="row" id="sec">
+
+            <div class="col-sm-12 col-xs-12 disp-name">               
+                    <img class="img-circle" width="104" height="104" src="~/customerImage/dummyvendor.jpg" style="margin-top: 20px;">            </div>
+            <div class="col-sm-12 col-xs-12 disp-name">
+                <p>@Html.DisplayFor(model => model.name)</p>
+            </div>
+        </div>
+
                     <!-- Basic Form Inputs card start -->
                     <div class="card">
                         <div class="card-block ">
 
                             <div class="row" style="padding-top: 20px;">
+                             
                                 <div class="col-sm-6 col-md-6">
-                                    <h4 style="margin-bottom:25px;">Main Information</h4>
+                                    <h4 style="margin-bottom:25px;">Additional Information</h4>
                                     <table class="table">
-                                        <tr>
-                                            <th><i class="fa fa-user" aria-hidden="true"></i></th>
-                                            <td>@Html.DisplayFor(model => model.name)<span style="color:#808080"> (Name)</span></td>
-                                        </tr>
                                         <tr>
                                             <th><i class="fa fa-user-secret" aria-hidden="true"></i></th>
                                             <td>@Html.DisplayFor(model => model.username)<span style="color:#808080"> (User name)</span></td>
@@ -47,11 +50,6 @@
                                             <td>@Html.DisplayFor(model => model.companyname)<span style="color:#808080"> (Company name)</span></td>
 
                                         </tr>
-                                    </table>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <h4 style="margin-bottom:25px;">Additional Information</h4>
-                                    <table class="table">
                                         <tr>
                                             <th><i class="fa fa-envelope" aria-hidden="true"></i></th>
                                             <td>@Html.DisplayFor(model => model.email)</td>
@@ -61,8 +59,8 @@
                                             <td>@Html.DisplayFor(model => model.phoneno)</td>
                                         </tr>
                                         <tr>
-                                            <th><i class="fa fa-address-card" aria-hidden="true"></i></th>
-                                            <td>@Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:#FFF;" } })</td>
+                                            <th><i class="fa fa-home" aria-hidden="true"></i></th>
+                                            <td>@Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:#FFF; border: 0;", @rows = 5 } })</td>
 
                                         </tr>
                                     </table>
@@ -73,9 +71,6 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
