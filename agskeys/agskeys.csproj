@@ -271,6 +271,7 @@
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\Manager\ManagerLoanController.cs" />
     <Compile Include="Controllers\MobileClientele\MobileClienteleController.cs" />
+    <Compile Include="Controllers\MobileVendor\MobileVendorController.cs" />
     <Compile Include="Controllers\Partner\PartnerController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
@@ -506,6 +507,15 @@
     <Content Include="Views\MobileClientele\profile.cshtml" />
     <Content Include="Views\MobileClientele\Details.cshtml" />
     <Content Include="Views\MobileClientele\Track.cshtml" />
+    <Content Include="Views\Shared\_MobileVendorLayout.cshtml" />
+    <Content Include="Views\MobileVendor\Enquiry.cshtml" />
+    <Content Include="Views\MobileVendor\Support.cshtml" />
+    <Content Include="Views\MobileVendor\Refer.cshtml" />
+    <Content Include="Views\MobileVendor\Create.cshtml" />
+    <Content Include="Views\MobileVendor\Details.cshtml" />
+    <Content Include="Views\MobileVendor\Profiles.cshtml" />
+    <Content Include="Views\MobileVendor\Loan.cshtml" />
+    <Content Include="Views\MobileVendor\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -515,6 +525,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="adminimage\" />
+    <Folder Include="ags-mobile\build\js\jQuery.Keyframes-master\" />
     <Folder Include="App_Data\" />
     <Folder Include="bankImage\" />
     <Folder Include="customerImage\" />

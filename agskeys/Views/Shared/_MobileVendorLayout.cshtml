@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGS</title>
+
+    <!-- Bootstrap -->
+    <link href="~/ags-mobile/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/ags-mobile/vendors/font-awesome/css/font-awesome.min1.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/ags-mobile/build/css/customeLogin.css" rel="stylesheet">
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" style="display:flow-root;" onclick="closeNav()"><i class="fa fa-angle-left" style="font-size:22px; padding-right: 10px;"></i> back</a>
+        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")" href="~/MobileVendor/Customer"><i class="fa fa-bank"></i><span>LOAN</span></a>
+      
+        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Refer" ? "active" : "")" href="~/MobileVendor/Refer"><i class="fa fa-copy"></i><span>REFER</span></a>
+        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Enquiry" ? "active" : "")" href="~/MobileVendor/Enquiry"><i class="fa fa-wpforms"></i><span>ENQUIRY</span></a>
+        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Support" ? "active" : "")" href="~/MobileVendor/Support"><i class="fa fa-globe"></i><span>SUPPORT</span></a>
+    </div>
+
+    @RenderBody()
+
+    <footer>
+
+        <div class="row disp-name11" id="sec1">
+
+
+            <a href="~/MobileVendor/Index" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"><i class="fa fa-home"></i><br> HOME </a>
+
+            <a href="~/MobileVendor/profile" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "profile" ? "active" : "")"><i class="fa fa-user"></i> <br> PROFILE </a>
+
+            <a href="#" data-toggle="modal" data-target="#myModal" class="col-sm-4 col-xs-4 "><i class="fa fa-sign-out"></i> <br>LOGOUT </a>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "40%";
+
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+
+        }
+        var box = document.getElementById("L-body")
+        var box1 = document.getElementById("L1-body")
+        box.onclick = function () {
+
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        box1.onclick = function () {
+
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- jQuery -->
+    <script src="~/ags-mobile/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/ags-mobile/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <!-- Custom Theme Scripts -->
+    <script src="~/ags-mobile/build/js/custom.min.js"></script>
+    @*<script>
+            if ($(".progress .progress-bar")[0]) {
+                $('.progress .progress-bar').progressbar(); // bootstrap 3
+            }
+        </script>*@
+
+    <div class="modal de fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modelContent1">
+            </div>
+        </div>
+    </div>
+    <script>
+        function createModal(url) {
+            $('#modelContent1').load(url);
+            $('.de').modal('show');
+        }
+    </script>
+
+
+
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modelContent">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Logout</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -24px;">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure want to Logout
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href="@Url.Content("/Account/MobileLogout/")" class="btn btn-success" role="button">Yes</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

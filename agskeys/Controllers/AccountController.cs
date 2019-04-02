@@ -23,11 +23,11 @@ namespace agskeys.Controllers
             // ags.admin_table = new admin_table();
             return View();
         }
-        //public ActionResult ClientLogin()
-        //{
-         
-        //    return View();
-        //}
+        public ActionResult MobileLogin()
+        {
+
+            return RedirectToAction("Index", "AgskeysMobile");
+        }
         [HttpPost]
         public ActionResult MobileLogin(FormCollection form, vendor_table obj)
         {
