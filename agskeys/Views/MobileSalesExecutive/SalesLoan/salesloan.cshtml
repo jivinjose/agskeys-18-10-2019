@@ -36,11 +36,6 @@
                             <table class="table ">
 
                                 <tbody class="loan-table">
-
-
-
-
-
                                     <tr style="background-image: linear-gradient(to right, #000, #ff9393);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
 
                                         <th colspan="2">@i. @Html.DisplayFor(modelItem => item.loantype)</th>
@@ -67,7 +62,14 @@
                                             Rate of Interset
                                         </th>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.rateofinterest)%
+                                             @if (!string.IsNullOrEmpty(item.rateofinterest))
+                                             {
+                                                @Html.DisplayFor(modelItem => item.rateofinterest)<span>%</span>
+                                             }
+                                             else
+                                             {
+                                                 <span>0%</span>
+                                             }
                                         </td>
 
                                     </tr>

@@ -91,7 +91,7 @@
                                             {
                                                 <tr>
                                                     <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
+                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" download>Download Sactioned Copy (Click here)</a></td>
                                                 </tr>
                                             }
                                             else
@@ -105,7 +105,7 @@
                                             {
                                                 <tr>
                                                     <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                    <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a></td>
+                                                    <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" download>Download ID Copy (Click here)</a></td>
                                                 </tr>
                                             }
                                             else
@@ -113,6 +113,20 @@
                                                 <tr>
                                                     <th><i class="fa fa-download" aria-hidden="true"></i></th>
                                                     <td> ID Copy Not Available Here</td>
+                                                </tr>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.propertydocuments))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldPropertyDocuments" href="@Url.Content(Model.propertydocuments)" download>Download Property Documents (Click here)</a></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td> Property Documents Not Available Here</td>
                                                 </tr>
                                             }
                                         </table>
