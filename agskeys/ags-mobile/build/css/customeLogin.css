@@ -88,14 +88,14 @@ min-height: 100vh ;
     
    
     border: 1px solid !important;
-    background-color: #000f7500 !important;
+    background-color: #000f75 !important;
 }
 
 
 
 .bk{
 	    color: #fff !important;
-    background-color: #75000000 !important;
+    background-color: #750000 !important;
     border-color: #ccc !important;
 }
 .utype select{
@@ -104,12 +104,12 @@ min-height: 100vh ;
     border-color: #d72027 !important;
     color: black !important;
     font-weight: 900;
-    background: #ffffff00 !important;
+    background: #ffffff !important;
 	font-size: 12px;
 }
 .utype options {
 	color: #9a9a9a !important;
-    background: #ffffff00 !important;
+    background: #ffffff !important;
 }
 
 .card-body{
@@ -391,6 +391,7 @@ padding-bottom: 6px;
     border: 0px;
     border-bottom: 1px solid;
     border-radius: 0px;
+      box-shadow: none !important;
 }
 
 /*progress bar start*/

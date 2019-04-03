@@ -273,6 +273,8 @@
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\Manager\ManagerLoanController.cs" />
     <Compile Include="Controllers\MobileClientele\MobileClienteleController.cs" />
+    <Compile Include="Controllers\MobileSalesExecutive\MobileSalesExecutiveController.cs" />
+    <Compile Include="Controllers\MobileSalesExecutive\MobileSalesLoanController.cs" />
     <Compile Include="Controllers\MobileVendor\MobileVendorController.cs" />
     <Compile Include="Controllers\Partner\PartnerController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessLoanController.cs" />
@@ -518,6 +520,17 @@
     <Content Include="Views\MobileVendor\Profiles.cshtml" />
     <Content Include="Views\MobileVendor\Loan.cshtml" />
     <Content Include="Views\MobileVendor\Index.cshtml" />
+    <Content Include="Views\Shared\_MobileSalesExecutiveLayout.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\SalesLoan\salesloan.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\SalesLoan\Details.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\SalesLoan\Edit.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\SalesLoan\Track.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\SalesLoan\Delete.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Customer.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Index.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Details.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\UserProfile.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Support.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
