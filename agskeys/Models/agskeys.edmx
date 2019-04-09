@@ -127,6 +127,19 @@
           <Property Name="addedby" Type="varchar" MaxLength="50" />
           <Property Name="datex" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="process_executive">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="loanid" Type="varchar" MaxLength="10" />
+          <Property Name="technical" Type="varchar" MaxLength="10" />
+          <Property Name="legal" Type="varchar" MaxLength="10" />
+          <Property Name="rcu" Type="varchar" MaxLength="10" />
+          <Property Name="comment" Type="varchar(max)" />
+          <Property Name="addedby" Type="varchar" MaxLength="50" />
+          <Property Name="datex" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="proof_customer_table">
           <Key>
             <PropertyRef Name="id" />
@@ -186,6 +199,7 @@
           <EntitySet Name="loan_table" EntityType="Self.loan_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loan_track_table" EntityType="Self.loan_track_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loantype_table" EntityType="Self.loantype_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="process_executive" EntityType="Self.process_executive" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="proof_customer_table" EntityType="Self.proof_customer_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="proof_table" EntityType="Self.proof_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendor_table" EntityType="Self.vendor_table" Schema="dbo" store:Type="Tables" />
@@ -243,6 +257,7 @@
           <EntitySet Name="assigned_table" EntityType="agsfinancialsModel.assigned_table" />
           <EntitySet Name="proof_customer_table" EntityType="agsfinancialsModel.proof_customer_table" />
           <EntitySet Name="external_comment_table" EntityType="agsfinancialsModel.external_comment_table" />
+          <EntitySet Name="process_executive" EntityType="agsfinancialsModel.process_executive" />
         </EntityContainer>
         <EntityType Name="emp_category_table">
           <Key>
@@ -380,6 +395,19 @@
           <Property Name="externalcomment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="process_executive">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="technical" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="legal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rcu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="addedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="loanid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -567,6 +595,20 @@
                 <ScalarProperty Name="datex" ColumnName="datex" />
                 <ScalarProperty Name="addedby" ColumnName="addedby" />
                 <ScalarProperty Name="externalcomment" ColumnName="externalcomment" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="process_executive">
+            <EntityTypeMapping TypeName="agsfinancialsModel.process_executive">
+              <MappingFragment StoreEntitySet="process_executive">
+                <ScalarProperty Name="loanid" ColumnName="loanid" />
+                <ScalarProperty Name="datex" ColumnName="datex" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="rcu" ColumnName="rcu" />
+                <ScalarProperty Name="legal" ColumnName="legal" />
+                <ScalarProperty Name="technical" ColumnName="technical" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -277,6 +277,8 @@
     <Compile Include="Controllers\MobileSalesExecutive\MobileSalesLoanController.cs" />
     <Compile Include="Controllers\MobileVendor\MobileVendorController.cs" />
     <Compile Include="Controllers\Partner\PartnerController.cs" />
+    <Compile Include="Controllers\ProcessExecutive\ProcessExecutiveController.cs" />
+    <Compile Include="Controllers\ProcessExecutive\ProcessExecutiveLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessLoanController.cs" />
     <Compile Include="Controllers\ProcessTeam\ProcessTeamController.cs" />
     <Compile Include="Controllers\ProofsController.cs" />
@@ -338,6 +340,10 @@
     <Compile Include="Models\MultipleEmpClass.cs" />
     <Compile Include="Models\Multiple_proofs_customer.cs" />
     <Compile Include="Models\partner_customer.cs" />
+    <Compile Include="Models\ProcessExecutiveLoan.cs" />
+    <Compile Include="Models\process_executive.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\proof_customer_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
@@ -531,6 +537,15 @@
     <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Details.cshtml" />
     <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\UserProfile.cshtml" />
     <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Support.cshtml" />
+    <Content Include="Views\Shared\_ProcessExecutiveLayout.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutive\Index.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutive\Customer.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutive\Details.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\ProcessExecutiveLoan.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Details.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Edit.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Track.cshtml" />
+    <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
