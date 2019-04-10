@@ -131,7 +131,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="loanid" Type="varchar" MaxLength="10" />
           <Property Name="technical" Type="varchar" MaxLength="10" />
           <Property Name="legal" Type="varchar" MaxLength="10" />

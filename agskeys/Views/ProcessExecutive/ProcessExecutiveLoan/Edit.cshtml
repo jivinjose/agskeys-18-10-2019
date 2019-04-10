@@ -242,8 +242,8 @@
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label class="float-label">Technical</label><br />
-                                                        Yes <input id="technical" name="technical" type="radio" value="Yes" />
-                                                        No <input id="technical" name="technical" type="radio" value="No" />
+                                                        Yes <input id="technical" name="technical" type="radio" value="Yes" @if (ViewBag.technical == "Yes"){<text>checked</text> } />
+                                                        No <input id="technical" name="technical" type="radio" value="No" @if (ViewBag.technical == "No"){<text>checked</text> }  />
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,8 +251,8 @@
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label class="float-label">Legal</label><br />
-                                                        Yes <input id="legal" name="legal" type="radio" value="Yes" />
-                                                        No <input id="legal" name="legal" type="radio" value="No" />
+                                                        Yes <input id="legal" name="legal" type="radio" value="Yes" @if (ViewBag.legal == "Yes"){<text>checked</text> }/>
+                                                        No <input id="legal" name="legal" type="radio" value="No" @if (ViewBag.legal == "No"){<text>checked</text> }/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -260,8 +260,8 @@
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label class="float-label">RCU</label><br />
-                                                        Yes <input id="rcu" name="rcu" type="radio" value="Yes" />
-                                                        No <input id="rcu" name="rcu" type="radio" value="No" />
+                                                        Yes <input id="rcu" name="rcu" type="radio" value="Yes" @if (ViewBag.rcu == "Yes"){<text>checked</text> }/>
+                                                        No <input id="rcu" name="rcu" type="radio" value="No" @if (ViewBag.rcu == "No"){<text>checked</text> }/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,7 +306,7 @@
                                     </div>
                                 }
                                 <div>
-                                    @Html.ActionLink("Back to List", "managerloan")
+                                    @Html.ActionLink("Back to List", "ProcessExecutiveLoan")
                                 </div>
                             </div>
                         </div>

@@ -116,7 +116,7 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "process_executive" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -163,6 +163,8 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
 
+               
+
                 List<emp_category_table> categoryList = ags.emp_category_table.ToList();
                 ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
 
@@ -170,7 +172,7 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
-                var empCategory = ags.emp_category_table.ToList();
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "process_executive" && x.emp_category_id != "super_admin").ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 
@@ -455,7 +457,7 @@ namespace agskeys.Controllers.SaleExecutive
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "process_executive" && x.emp_category_id != "super_admin").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -516,7 +518,7 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
-                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "process_executive" && x.emp_category_id != "super_admin").ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 

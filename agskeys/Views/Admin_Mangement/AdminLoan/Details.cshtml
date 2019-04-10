@@ -150,6 +150,21 @@
                                             }
 
                                         </table>
+                                        @if (ViewBag.loan_count == 1)
+                                        {
+                                            <table class="table" style="min-width:100%">
+                                                <tr>
+                                                    <th style="min-width:33.33%">Technical</th>
+                                                    <th style="min-width:33.33%">Legal</th>
+                                                    <th style="min-width:33.34%">RCU</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>@ViewBag.technical</td>
+                                                    <td>@ViewBag.legal</td>
+                                                    <td>@ViewBag.rcu</td>
+                                                </tr>
+                                            </table>
+                                        }
                                     </div>
                                 </div>
 

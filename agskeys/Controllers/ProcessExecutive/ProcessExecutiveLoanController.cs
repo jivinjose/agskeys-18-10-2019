@@ -202,6 +202,17 @@ namespace agskeys.Controllers.ProcessExecutive
             }
             user.loantype = loan;
 
+            string loanid = Id.ToString();
+            int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
+            if(loan_count == 1)
+            {
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+
+                ViewBag.loan_count = loan_count;
+                ViewBag.technical = process_executive.technical;
+                ViewBag.legal = process_executive.legal;
+                ViewBag.rcu = process_executive.rcu;
+            }
             return PartialView("~/Views/ProcessExecutive/ProcessExecutiveLoan/Details.cshtml", user);
         }
 
@@ -234,7 +245,7 @@ namespace agskeys.Controllers.ProcessExecutive
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id == "process_team").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -248,7 +259,11 @@ namespace agskeys.Controllers.ProcessExecutive
 
             //List<emp_category_table> categoryList = ags.emp_category_table.ToList();
             //ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
-
+            string loanid = Id.ToString();
+            process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+            ViewBag.technical = process_executive.technical;
+            ViewBag.legal = process_executive.legal;
+            ViewBag.rcu = process_executive.rcu;
 
             loan_table loan_table = ags.loan_table.Find(Id);
             if (loan_table == null)
@@ -280,7 +295,7 @@ namespace agskeys.Controllers.ProcessExecutive
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
-                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id == "process_team").ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 
@@ -493,8 +508,9 @@ namespace agskeys.Controllers.ProcessExecutive
 
                     }
                 }
-
-                process_executive process_executive = new process_executive();
+                string loanid =  latestloanid.ToString();
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+                //process_executive process_executive = new process_executive();
                 if (latestloanid.ToString() != null)
                 {
                     process_executive.loanid = latestloanid.ToString();
@@ -505,7 +521,7 @@ namespace agskeys.Controllers.ProcessExecutive
                     process_executive.comment = loan_table.internalcomment;
                     process_executive.datex = DateTime.Now.ToString();
                     process_executive.addedby = Session["username"].ToString();
-                    ags.process_executive.Add(process_executive);
+                    //ags.process_executive.Add(process_executive);
                     ags.SaveChanges();
                 }
 
@@ -550,7 +566,7 @@ namespace agskeys.Controllers.ProcessExecutive
                 }
                 ags.SaveChanges();
 
-                return RedirectToAction("managerloan");
+                return RedirectToAction("ProcessExecutiveLoan");
             }
             return PartialView("~/Views/ProcessExecutive/ProcessExecutiveLoan/Edit.cshtml", loan_table);
         }

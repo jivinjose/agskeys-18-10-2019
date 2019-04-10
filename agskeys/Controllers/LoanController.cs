@@ -466,6 +466,18 @@ namespace agskeys.Controllers
             }
             user.loantype = loan;
 
+            string loanid = Id.ToString();
+            int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
+            if (loan_count == 1)
+            {
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+
+                ViewBag.loan_count = loan_count;
+                ViewBag.technical = process_executive.technical;
+                ViewBag.legal = process_executive.legal;
+                ViewBag.rcu = process_executive.rcu;
+            }
+
             return PartialView(user);
         }
 
@@ -970,6 +982,18 @@ namespace agskeys.Controllers
             }
             user.loantype = loan;
 
+            string loanid = Id.ToString();
+            int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
+            if (loan_count == 1)
+            {
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+
+                ViewBag.loan_count = loan_count;
+                ViewBag.technical = process_executive.technical;
+                ViewBag.legal = process_executive.legal;
+                ViewBag.rcu = process_executive.rcu;
+            }
+
             return PartialView(user);
         }
         // POST: vendor_table/Delete/5
@@ -1000,6 +1024,13 @@ namespace agskeys.Controllers
             ags.vendor_track_table.RemoveRange(vendor_track);
             var assigned = ags.assigned_table.Where(x => x.loanid == loan_table.id.ToString());
             ags.assigned_table.RemoveRange(assigned);
+
+            int loan_count = ags.process_executive.Where(x => x.loanid == loan_table.id.ToString()).Count();
+            if(loan_count != 0)
+            {
+                var process_loan = ags.process_executive.Where(x => x.loanid == loan_table.id.ToString());
+                ags.process_executive.RemoveRange(process_loan);
+            }
             ags.loan_table.Remove(loan_table);
             ags.SaveChanges();
 

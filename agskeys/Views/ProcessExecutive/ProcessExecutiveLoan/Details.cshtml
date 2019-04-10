@@ -136,9 +136,37 @@
                                                 </tr>
 
                                             }
+                                            @if ((Model.sactionedcopy == null && Model.sactionedCopyFile == null) || (Model.sactionedcopy == ""))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldSactionedCopy"> Sactioned Copy is not updated</a></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
+                                                </tr>
 
-
+                                            } 
                                         </table>
+                                        @if (ViewBag.loan_count == 1)
+                                        {
+                                            <table class="table" style="min-width:100%">
+                                                <tr >
+                                                    <th style="min-width:33.33%">Technical</th>
+                                                    <th style="min-width:33.33%">Legal</th>
+                                                    <th style="min-width:33.34%">RCU</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>@ViewBag.technical</td>
+                                                    <td>@ViewBag.legal</td>
+                                                    <td>@ViewBag.rcu</td>
+                                                </tr>
+                                            </table>
+                                        }
                                     </div>
                                 </div>
 

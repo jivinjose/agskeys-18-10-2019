@@ -328,6 +328,17 @@ namespace agskeys.Controllers.ProcessTeam
             }
             user.loantype = loan;
 
+            string loanid = Id.ToString();
+            int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
+            if(loan_count == 1)
+            {
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+
+                ViewBag.loan_count = loan_count;
+                ViewBag.technical = process_executive.technical;
+                ViewBag.legal = process_executive.legal;
+                ViewBag.rcu = process_executive.rcu;
+            }
             return PartialView("~/Views/ProcessTeam/ProcessLoan/Details.cshtml", user);
         }
         public ActionResult Edit(int? Id)
@@ -637,13 +648,35 @@ namespace agskeys.Controllers.ProcessTeam
 
                 ags.SaveChanges();
 
-                int latestloanid = loan_table.id;
+                if(loan_table.employee != null)
+                {
+                    admin_table admin_table_executive = ags.admin_table.Where(x => x.id.ToString() == loan_table.employee).FirstOrDefault();
+                    string userrole_check = admin_table_executive.userrole;
+                    if(userrole_check == "process_executive")
+                    {
+                        int latestloanid_check = loan_table.id;
+                        process_executive process_executive = new process_executive();
+                        if (latestloanid_check.ToString() != null)
+                        {
+                            process_executive.loanid = latestloanid_check.ToString();
+                            process_executive.technical = "No";
+                            process_executive.legal = "No";
+                            process_executive.rcu = "No";
+                            process_executive.comment = loan_table.internalcomment;
+                            process_executive.datex = DateTime.Now.ToString();
+                            process_executive.addedby = Session["username"].ToString();
+                            ags.process_executive.Add(process_executive);
+                            ags.SaveChanges();
+                        }
+                    }
+                }
 
+                int latestloanid = loan_table.id;
                 ///Assigned Employee
                 loan_track_table loan_track_employee = new loan_track_table();
                 if (loan_table.employee != null)
                 {
-                    loan_track_employee.loanid = latestloanid.ToString();
+                    loan_track_employee.loanid = latestloanid.ToString();                    
                     loan_track_employee.employeeid = loan_table.employee;
                     loan_track_employee.tracktime = DateTime.Now.ToString();
 
