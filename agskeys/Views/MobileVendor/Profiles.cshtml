@@ -23,8 +23,17 @@
 
 <div class="L1 main-page" id="L-body" style="min-height: 100%;">
     <div class="container">
-        <div class="row" id="sec">
-
+        <div class="row" id="sec" style="padding-top: 20px;">
+            <div class="col-sm-6 col-md-6 col-xs-6">
+                <a id="edit" class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" href="@Url.Action("EditProfile","MobileVendor", new {id=Model.id })">
+                    <i class="fa fa-edit" style="padding-right: 4px;"></i>Edit Profile
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xs-6">
+                <a class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" onclick="createModal('@Url.Action("Password","MobileVendor")')">
+                    <i class="fa fa-lock" style="padding-right: 4px;"></i>Change Password
+                </a>
+            </div>
             <div class="col-sm-12 col-xs-12 disp-name">               
                     <img class="img-circle" width="104" height="104" src="~/customerImage/dummyvendor.jpg" style="margin-top: 20px;">            </div>
             <div class="col-sm-12 col-xs-12 disp-name">

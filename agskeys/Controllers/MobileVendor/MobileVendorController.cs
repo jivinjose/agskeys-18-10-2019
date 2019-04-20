@@ -436,5 +436,150 @@ namespace agskeys.Controllers.MobileVendor
             return View("~/Views/MobileVendor/Enquiry.cshtml", user);
         }
 
+        public ActionResult EditProfile(int? Id)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
+            {
+                return this.RedirectToAction("MobileLogout", "Account");
+            }
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            vendor_table vendor_table = ags.vendor_table.Find(Id);
+
+            if (vendor_table == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(vendor_table);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(vendor_table vendor_table, FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+
+                vendor_table existing = ags.vendor_table.Find(vendor_table.id);
+                var password = existing.password.ToString();
+                var newPassword = vendor_table.password.ToString();
+
+
+
+                existing.name = vendor_table.name;
+                existing.email = vendor_table.email;
+                existing.phoneno = vendor_table.phoneno;
+                existing.companyname = vendor_table.companyname;
+                existing.address = vendor_table.address;
+
+
+                if (existing.username != vendor_table.username)
+                {
+                    var userCount = (from u in ags.vendor_table where u.username == vendor_table.username select u).Count();
+                    if (userCount == 0)
+                    {
+                        existing.username = vendor_table.username;
+                    }
+                    else
+                    {
+                        //existing.username = admin_table.username;
+                        TempData["AE"] = "This user name is already exist";
+                        //return PartialView("Edit", "SuperAdmin");
+                        return RedirectToAction("Index", "MobileVendor");
+                    }
+                }
+
+
+
+
+                if (existing.datex == null)
+                {
+                    existing.datex = DateTime.Now.ToString();
+                }
+                else
+                {
+                    existing.datex = existing.datex;
+                }
+                if (password.Equals(newPassword))
+                {
+                    existing.password = vendor_table.password;
+                }
+                else
+                {
+                    existing.password = PasswordStorage.CreateHash(vendor_table.password);
+                }
+
+                ags.SaveChanges();
+                return RedirectToAction("Index", "MobileVendor");
+            }
+            return RedirectToAction("Index", "MobileVendor");
+        }
+
+        public ActionResult Password()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
+            {
+                return this.RedirectToAction("MobileLogout", "Account");
+            }
+            var model = new agskeys.Models.ChangePassword();
+            return PartialView(model);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Password(ChangePassword changePwd)
+        {
+            if (ModelState.IsValid)
+            {
+                string userid = Session["userid"].ToString();
+                if (userid != null)
+                {
+                    vendor_table existing = ags.vendor_table.Where(x => x.id.ToString() == userid).FirstOrDefault();
+
+                    var password = existing.password.ToString();
+                    var oldPassword = changePwd.password;
+                    var newPassword = changePwd.newpassword;
+                    var retypePassword = changePwd.retypepassword;
+                    bool result = PasswordStorage.VerifyPassword(oldPassword, password);
+                    if (result)
+                    {
+                        if (newPassword == retypePassword)
+                        {
+                            existing.password = PasswordStorage.CreateHash(newPassword);
+                        }
+                        else
+                        {
+                            TempData["NotEqual"] = "<script>alert('password dosen't match');</script>";
+                            return RedirectToAction("Index", "MobileVendor");
+                        }
+                    }
+                    else
+                    {
+                        TempData["logAgain"] = "Oops.! Please Provide Valid Credentials.";
+                        return RedirectToAction("MobileLogout", "Account");
+                    }
+                    ags.SaveChanges();
+
+
+
+                    return RedirectToAction("Index", "MobileVendor");
+
+
+                }
+                else
+                {
+                    TempData["logAgain"] = "Oops.! Something Went Wrong.";
+                    return RedirectToAction("MobileLogout", "Account");
+                }
+            }
+            return RedirectToAction("Index", "MobileVendor");
+        }
+
     }
 }
