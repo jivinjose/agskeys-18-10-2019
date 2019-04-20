@@ -352,11 +352,6 @@ namespace agskeys.Controllers
             return View();
 
         }
-
-
-
-
-
         [Authorize]
         public ActionResult Logout()
         {
@@ -674,11 +669,197 @@ namespace agskeys.Controllers
             }
             return View();
         }
+        /// froount end forgot password section
+        public ActionResult ForgotPasswordfront()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPasswordfront(FormCollection form)
+        {
+            string userlevel = form["userlevel"].ToString();
+            if(userlevel == "sales_executive")
+            {
+                string userName = form["userName"].ToString();
+                if (userName != null)
+                {
+                    int EmployeeCount = ags.admin_table.Where(x => x.username == userName).Count();
+                    if (EmployeeCount != 0)
+                    {
+                        admin_table employees = ags.admin_table.Where(x => x.username == userName).FirstOrDefault();
 
-        //public ActionResult SendEmail()
-        //{
-            
-        //}
-        
+                        string AutoGenPwd = Membership.GeneratePassword(12, 1);
+                        string EmpEmail = employees.email;
+                        if (EmpEmail != null)
+                        {
+                            string EncryptPassword = PasswordStorage.CreateHash(AutoGenPwd);
+                            employees.password = EncryptPassword;
+
+                            //////////////////////////////////
+
+                            MailMessage MyMailMessage = new MailMessage();
+                            MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                            MyMailMessage.To.Add(EmpEmail);
+                            MyMailMessage.Subject = "AGSKEYS - Auto Generated Password";
+                            MyMailMessage.IsBodyHtml = true;
+
+                            MyMailMessage.Body = "<div style='font - family: Arial; font - size: 12px; '>You have requested a password reset, please use this password to open your account.</div><br><table border='0' ><tr><td style='padding:25px;'>Your New Password</td><td style='padding:25px;'>" + AutoGenPwd + "</table></tr></td>";
+
+                            SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                            SMTPServer.Port = 587;
+                            SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                            SMTPServer.EnableSsl = true;
+                            try
+                            {
+                                SMTPServer.Send(MyMailMessage);
+                                ags.SaveChanges();
+                                TempData["mail"] = "New Password Successfully Send to Your Registered Email";
+                                return RedirectToAction("ForgotPassword", "Account");
+                            }
+                            catch (Exception ex)
+                            {
+                                TempData["mail"] = ex.Message;
+                                TempData["mail"] = "Oops.! Somethig Went Wrong.";
+                                return RedirectToAction("ForgotPassword", "Account");
+                            }
+                        }
+                        else
+                        {
+                            TempData["email"] = "Oops.! Somethig Went Wrong.";
+                        }
+
+
+                        //////////////////////////////////
+                    }
+                    else
+                    {
+                        TempData["NotExst"] = "Oops.! Something Went Wrong.";
+                    }
+                }
+                return View();
+            }
+            else if (userlevel == "partner")
+            {
+                string vendorName = form["userName"].ToString();
+                if (vendorName != null)
+                {
+                    int vendorCount = ags.vendor_table.Where(x => x.username == vendorName).Count();
+                    if (vendorCount != 0)
+                    {
+                        vendor_table vendors = ags.vendor_table.Where(x => x.username == vendorName).FirstOrDefault();
+
+                        string AutoGenPwd = Membership.GeneratePassword(12, 1);
+                        string EmpEmail = vendors.email;
+                        if (EmpEmail != null)
+                        {
+                            string EncryptPassword = PasswordStorage.CreateHash(AutoGenPwd);
+                            vendors.password = EncryptPassword;
+
+                            //////////////////////////////////
+
+                            MailMessage MyMailMessage = new MailMessage();
+                            MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                            MyMailMessage.To.Add(EmpEmail);
+                            MyMailMessage.Subject = "AGSKEYS - Auto Generated Password";
+                            MyMailMessage.IsBodyHtml = true;
+
+                            MyMailMessage.Body = "<div style='font - family: Arial; font - size: 12px; '>You have requested a password reset, please use this password to open your account.</div><br><table border='0' ><tr><td style='padding:25px;'>Your New Password</td><td style='padding:25px;'>" + AutoGenPwd + "</table></tr></td>";
+
+                            SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                            SMTPServer.Port = 587;
+                            SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                            SMTPServer.EnableSsl = true;
+                            try
+                            {
+                                SMTPServer.Send(MyMailMessage);
+                                ags.SaveChanges();
+                                TempData["mail"] = "New Password Successfully Send to Your Registered Email";
+                                return RedirectToAction("ForgotPasswordfront", "Account");
+                            }
+                            catch (Exception ex)
+                            {
+                                TempData["mail"] = ex.Message;
+                                TempData["mail"] = "Oops.! Somethig Went Wrong.";
+                                return RedirectToAction("ForgotPasswordfront", "Account");
+                            }
+                        }
+                        else
+                        {
+                            TempData["email"] = "Oops.! Somethig Went Wrong.";
+                        }
+
+
+                        //////////////////////////////////
+                    }
+                    else
+                    {
+                        TempData["NotExst"] = "Oops.! Something Went Wrong.";
+                    }
+                }
+                return View();
+            }
+            else if (userlevel == "clientele")
+            {
+                string clientName = form["userName"].ToString();
+                if (clientName != null)
+                {
+                    int vendorCount = ags.customer_profile_table.Where(x => x.customerid == clientName).Count();
+                    if (vendorCount != 0)
+                    {
+                        customer_profile_table customers = ags.customer_profile_table.Where(x => x.customerid == clientName).FirstOrDefault();
+
+                        string AutoGenPwd = Membership.GeneratePassword(12, 1);
+                        string CusEmail = customers.email;
+                        if (CusEmail != null)
+                        {
+                            string EncryptPassword = PasswordStorage.CreateHash(AutoGenPwd);
+                            customers.password = EncryptPassword;
+
+                            //////////////////////////////////
+
+                            MailMessage MyMailMessage = new MailMessage();
+                            MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                            MyMailMessage.To.Add(CusEmail);
+                            MyMailMessage.Subject = "AGSKEYS - Auto Generated Password";
+                            MyMailMessage.IsBodyHtml = true;
+
+                            MyMailMessage.Body = "<div style='font - family: Arial; font - size: 12px; '>You have requested a password reset, please use this password to open your account.</div><br><table border='0' ><tr><td style='padding:25px;'>Your New Password</td><td style='padding:25px;'>" + AutoGenPwd + "</table></tr></td>";
+
+                            SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                            SMTPServer.Port = 587;
+                            SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                            SMTPServer.EnableSsl = true;
+                            try
+                            {
+                                SMTPServer.Send(MyMailMessage);
+                                ags.SaveChanges();
+                                TempData["mail"] = "New Password Successfully Send to Your Registered Email";
+                                return RedirectToAction("ForgotPasswordfront", "Account");
+                            }
+                            catch (Exception ex)
+                            {
+                                TempData["mail"] = ex.Message;
+                                TempData["mail"] = "Oops.! Somethig Went Wrong.";
+                                return RedirectToAction("ForgotPasswordfront", "Account");
+                            }
+                        }
+                        else
+                        {
+                            TempData["email"] = "Oops.! Somethig Went Wrong.";
+                        }
+
+
+                        //////////////////////////////////
+                    }
+                    else
+                    {
+                        TempData["NotExst"] = "Oops.! Something Went Wrong.";
+                    }
+                }
+                return View();
+            }
+            return View();
+        }
+       
     }
 }
