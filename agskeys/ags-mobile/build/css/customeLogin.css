@@ -394,10 +394,16 @@ padding-bottom: 6px;
       box-shadow: none !important;
 }
 
+.profileedit {
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    border-bottom: 1px solid white !important;
+    border-radius: 0px !important;
+    margin-bottom: 10px;
+}
 /*progress bar start*/
-
-
-    .progress{
+.progress {
     width: 150px;
     height: 150px;
     line-height: 150px;

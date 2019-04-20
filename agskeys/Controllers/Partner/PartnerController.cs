@@ -93,7 +93,7 @@ namespace agskeys.Controllers.partner
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
             {
-                return this.RedirectToAction("Logout", "Account");
+                return this.RedirectToAction("ClientLogout", "Account");
             }
             var getloantype = ags.loantype_table.ToList();
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
@@ -108,7 +108,7 @@ namespace agskeys.Controllers.partner
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
             {
-                return this.RedirectToAction("Logout", "Account");
+                return this.RedirectToAction("ClientLogout", "Account");
             }
             var getloantype = ags.loantype_table.ToList();
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
@@ -243,7 +243,7 @@ namespace agskeys.Controllers.partner
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
             {
-                return this.RedirectToAction("Logout", "Account");
+                return this.RedirectToAction("ClientLogout", "Account");
             }
             if (Id == null)
             {
@@ -341,5 +341,170 @@ namespace agskeys.Controllers.partner
             return PartialView("~/Views/Partner/Details.cshtml", user);
         }
 
+
+
+
+
+
+        public ActionResult UserProfile()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
+            {
+                return this.RedirectToAction("ClientLogout", "Account");
+            }
+            else
+            {
+                var intId = Session["userid"].ToString();
+                var Id = Convert.ToInt32(intId);
+                var user = ags.vendor_table.Where(x => x.id == Id).FirstOrDefault();
+                return PartialView(user);
+            }
+
+        }
+
+        public ActionResult EditProfile(int? Id)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
+            {
+                return this.RedirectToAction("ClientLogout", "Account");
+            }
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            vendor_table vendor_table = ags.vendor_table.Find(Id);
+
+            if (vendor_table == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(vendor_table);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(vendor_table vendor_table, FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+
+                vendor_table existing = ags.vendor_table.Find(vendor_table.id);
+                var password = existing.password.ToString();
+                var newPassword = vendor_table.password.ToString();
+
+               
+    
+                existing.name = vendor_table.name;
+                existing.email = vendor_table.email;
+                existing.phoneno = vendor_table.phoneno;
+                existing.companyname = vendor_table.companyname;
+                existing.address = vendor_table.address;
+
+
+                if (existing.username != vendor_table.username)
+                {
+                    var userCount = (from u in ags.vendor_table where u.username == vendor_table.username select u).Count();
+                    if (userCount == 0)
+                    {
+                        existing.username = vendor_table.username;
+                    }
+                    else
+                    {
+                        //existing.username = admin_table.username;
+                        TempData["AE"] = "This user name is already exist";
+                        //return PartialView("Edit", "SuperAdmin");
+                        return RedirectToAction("Index", "Partner");
+                    }
+                }
+
+                
+
+               
+                if (existing.datex == null)
+                {
+                    existing.datex = DateTime.Now.ToString();
+                }
+                else
+                {
+                    existing.datex = existing.datex;
+                }
+                if (password.Equals(newPassword))
+                {
+                    existing.password = vendor_table.password;
+                }
+                else
+                {
+                    existing.password = PasswordStorage.CreateHash(vendor_table.password);
+                }
+
+                ags.SaveChanges();
+                return RedirectToAction("Index", "Partner");
+            }
+            return RedirectToAction("Index", "Partner");
+        }
+
+        public ActionResult Password()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
+            {
+                return this.RedirectToAction("ClientLogout", "Account");
+            }
+            var model = new agskeys.Models.ChangePassword();
+            return PartialView(model);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Password(ChangePassword changePwd)
+        {
+            if (ModelState.IsValid)
+            {
+                string userid = Session["userid"].ToString();
+                if (userid != null)
+                {
+                    vendor_table existing = ags.vendor_table.Where(x => x.id.ToString() == userid).FirstOrDefault();
+
+                    var password = existing.password.ToString();
+                    var oldPassword = changePwd.password;
+                    var newPassword = changePwd.newpassword;
+                    var retypePassword = changePwd.retypepassword;
+                    bool result = PasswordStorage.VerifyPassword(oldPassword, password);
+                    if (result)
+                    {
+                        if (newPassword == retypePassword)
+                        {
+                            existing.password = PasswordStorage.CreateHash(newPassword);
+                        }
+                        else
+                        {
+                            TempData["NotEqual"] = "<script>alert('password dosen't match');</script>";
+                            return RedirectToAction("Index", "Partner");
+                        }
+                    }
+                    else
+                    {
+                        TempData["logAgain"] = "Oops.! Please Provide Valid Credentials.";
+                        return RedirectToAction("ClientLogout", "Account");
+                    }
+                    ags.SaveChanges();
+
+
+
+                    return RedirectToAction("Index", "Partner");
+
+
+                }
+                else
+                {
+                    TempData["logAgain"] = "Oops.! Something Went Wrong.";
+                    return RedirectToAction("ClientLogout", "Account");
+                }
+            }
+            return RedirectToAction("Index", "Partner");
+        }
     }
 }

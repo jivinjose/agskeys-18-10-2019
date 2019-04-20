@@ -273,6 +273,8 @@
     <Compile Include="Controllers\Manager\ManagerController.cs" />
     <Compile Include="Controllers\Manager\ManagerLoanController.cs" />
     <Compile Include="Controllers\MobileClientele\MobileClienteleController.cs" />
+    <Compile Include="Controllers\MobileManager\MobileManagerLoanController.cs" />
+    <Compile Include="Controllers\MobileManager\MobileManagerController.cs" />
     <Compile Include="Controllers\MobileSalesExecutive\MobileSalesExecutiveController.cs" />
     <Compile Include="Controllers\MobileSalesExecutive\MobileSalesLoanController.cs" />
     <Compile Include="Controllers\MobileVendor\MobileVendorController.cs" />
@@ -318,6 +320,7 @@
     <Compile Include="Models\bank_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\customer_profile_table.cs">
       <DependentUpon>agskeys.tt</DependentUpon>
     </Compile>
@@ -546,6 +549,29 @@
     <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Edit.cshtml" />
     <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Track.cshtml" />
     <Content Include="Views\ProcessExecutive\ProcessExecutiveLoan\Delete.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\userprofile\Edit.cshtml" />
+    <Content Include="Views\userprofile\Password.cshtml" />
+    <Content Include="Views\Partner\UserProfile.cshtml" />
+    <Content Include="Views\Partner\EditProfile.cshtml" />
+    <Content Include="Views\Partner\Password.cshtml" />
+    <Content Include="Views\Clientele\UserProfile.cshtml" />
+    <Content Include="Views\Clientele\EditProfile.cshtml" />
+    <Content Include="Views\Clientele\Password.cshtml" />
+    <Content Include="Views\MobileClientele\EditProfile.cshtml" />
+    <Content Include="Views\MobileClientele\Password.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\EditProfile.cshtml" />
+    <Content Include="Views\MobileSalesExecutive\MobileSalesExecutive\Password.cshtml" />
+    <Content Include="Views\Shared\_MobileManagerLayout.cshtml" />
+    <Content Include="Views\MobileManager\MobileManager\Customer.cshtml" />
+    <Content Include="Views\MobileManager\MobileManager\UserProfile.cshtml" />
+    <Content Include="Views\MobileManager\MobileManager\Support.cshtml" />
+    <Content Include="Views\MobileManager\MobileManager\Details.cshtml" />
+    <Content Include="Views\MobileManager\MobileManagerLoan\managerloan.cshtml" />
+    <Content Include="Views\MobileManager\MobileManagerLoan\Details.cshtml" />
+    <Content Include="Views\MobileManager\MobileManagerLoan\Edit.cshtml" />
+    <Content Include="Views\MobileManager\MobileManagerLoan\Track.cshtml" />
+    <Content Include="Views\MobileManager\MobileManagerLoan\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

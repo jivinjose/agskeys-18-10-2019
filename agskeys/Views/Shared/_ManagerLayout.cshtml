@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>AGS Financial | Manager Template</title>
+    <title>AGS Financial | Manager</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html" />
@@ -134,14 +134,14 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="header-notification">
+                            @*<li class="header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                         <i class="feather icon-message-square"></i>
                                         <span class="badge bg-c-green">3</span>
                                     </div>
                                 </div>
-                            </li>
+                            </li>*@
                             <li class="user-profile header-notification">
 
                                 <div class="dropdown-primary dropdown">
@@ -151,12 +151,12 @@
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                        <li>
+                                        @*<li>
                                             <a href="#!">
                                                 <i class="feather icon-settings"></i> Settings
 
                                             </a>
-                                        </li>
+                                        </li>*@
                                         <li>
                                             <a onclick="createModal('@Url.Action("userprofile","UserProfile")')">
 
@@ -164,12 +164,12 @@
 
                                             </a>
                                         </li>
-                                        <li>
+                                        @*<li>
                                             <a href="email-inbox.html">
                                                 <i class="feather icon-mail"></i> My Messages
 
                                             </a>
-                                        </li>
+                                        </li>*@
                                         <li>
                                             <a href="@Url.Content("/Account/Logout/")">
                                                 <i class="feather icon-log-out"></i> Logout

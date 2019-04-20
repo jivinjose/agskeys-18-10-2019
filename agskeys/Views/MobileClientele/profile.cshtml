@@ -25,7 +25,17 @@
 <div class="L1 main-page" id="L-body" style="min-height: 100%;">
     <div class="container">
        
-        <div class="row" id="sec">
+        <div class="row" id="sec" style="padding-top: 20px;">
+            <div class="col-sm-6 col-md-6 col-xs-6">
+                <a id="edit" class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" href="@Url.Action("EditProfile","MobileClientele", new {id=Model.id })">
+                    <i class="fa fa-edit" style="padding-right: 4px;"></i>Edit Profile
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xs-6">
+                <a class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" onclick="createModal('@Url.Action("Password","MobileClientele")')">
+                    <i class="fa fa-lock" style="padding-right: 4px;"></i>Change Password
+                </a>
+            </div>
 
             <div class="col-sm-12 col-xs-12 disp-name">
 
@@ -47,9 +57,20 @@
                     <div class="card">
                         <div class="card-block ">
 
-                            <div class="row" style="padding-top: 20px;">
-                               
-                                <div class="col-sm-6 col-md-6">
+                            <div class="row" >
+                                
+                                    @*<div class="col-sm-6 col-md-6 col-xs-6" >
+                                        <button id="edit" class="btn btn-out waves-effect waves-light btn-info btn-square" onclick="createModal('@Url.Action("EditProfile", "Clientele" , new {id=Model.id })')">
+                                            <i class="fa fa-edit" style="padding-right: 4px;"></i>Edit Profile
+                                        </button>
+                                        </div>
+                                  <div class="col-sm-6 col-md-6 col-xs-6">
+                                        <button  class="btn btn-out waves-effect waves-light btn-danger btn-square" onclick="createModal('@Url.Action("Password","Clientele")')">
+                                            <i class="fa fa-lock" style="padding-right: 4px;"></i>Change Password
+                                        </button>
+                                    </div>*@
+                                                               
+                                <div class="col-sm-12 col-md-12 col-xs-12" style="padding-top: 20px;">
                                     <h4 style="margin-bottom:25px;">Additional Information</h4>
                                     <table class="table">
                                         <tr>

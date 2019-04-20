@@ -1,8 +1,7 @@
-﻿
-@model agskeys.Models.admin_table
+﻿@model agskeys.Models.admin_table
 @{
     ViewBag.Title = "Profile";
-    Layout = "~/Views/Shared/_MobileSalesExecutiveLayout.cshtml";
+    Layout = "~/Views/Shared/_MobileManagerLayout.cshtml";
 }
 
 <div class="L1 navbar-header">
@@ -23,18 +22,7 @@
 
 <div class="L1 main-page" id="L-body" style="min-height: 100%;">
     <div class="container">
-        <div class="row" id="sec" style="padding-top: 20px;">
-            <div class="col-sm-6 col-md-6 col-xs-6">
-                <a id="edit" class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" href="@Url.Action("EditProfile","MobileSalesExecutive", new {id=Model.id })">
-                    <i class="fa fa-edit" style="padding-right: 4px;"></i>Edit Profile
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-6 col-xs-6">
-                <a class="btn btn-out waves-effect waves-light btn-default btn-square" style="border:none;color: white;background: transparent;" onclick="createModal('@Url.Action("Password", "MobileSalesExecutive")')">
-                    <i class="fa fa-lock" style="padding-right: 4px;"></i>Change Password
-                </a>
-            </div>
-
+        <div class="row" id="sec">
 
             <div class="col-sm-12 col-xs-12 disp-name">
                 @if (!string.IsNullOrEmpty(Model.photo))
@@ -83,7 +71,7 @@
                             <tr>
                                 <th><i class="fa fa-user-secret" aria-hidden="true"></i></th>
                                 <td>@Html.DisplayFor(model => model.username)<span style="color:#808080"> (User name)</span></td>
-                            </tr>                            
+                            </tr>
                             <tr>
                                 <th><i class="fa fa-envelope" aria-hidden="true"></i></th>
                                 <td>@Html.DisplayFor(model => model.email)</td>
@@ -92,18 +80,6 @@
                                 <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
                                 <td>@Html.DisplayFor(model => model.phoneno)</td>
                             </tr>
-                            <tr>
-                                <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
-                                <td>
-                                    @{if (Model.alternatephone == null)
-                                        {
-                                            Model.alternatephone = "Not Updated";
-                                        }
-                                    }
-                                    @Html.DisplayFor(model => model.alternatephone)
-                                </td>
-                            </tr>
-
                             <tr>
                                 <th><i class="fa fa-home" aria-hidden="true"></i></th>
                                 <td>@Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "background-color:#FFF; border: 0;", @rows = 5 } })</td>
@@ -122,3 +98,4 @@
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

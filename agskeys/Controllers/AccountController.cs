@@ -1,6 +1,8 @@
 ﻿using agskeys.Models;
 using PasswordSecurity;
+using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
@@ -17,7 +19,7 @@ namespace agskeys.Controllers
         }
         public ActionResult Login()
         {
-            var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish").ToList();
+            var getEmployeeCategoty = ags.emp_category_table.Where(x => x.status == "publish" && x.emp_category_id != "partner" && x.emp_category_id != "clientele").ToList();
             SelectList list = new SelectList(getEmployeeCategoty, "emp_category_id", "emp_category");
             ViewBag.categoryList = list;
             // ags.admin_table = new admin_table();
@@ -140,6 +142,55 @@ namespace agskeys.Controllers
                         {
                             Session["userlevel"] = form["userlevel"].ToString();
                             return RedirectToAction("Index", "MobileSalesExecutive");
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Enter the valid user credentials";
+                            return RedirectToAction("Index", "AgskeysMobile");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Enter the valid user credentials";
+                        return RedirectToAction("Index", "AgskeysMobile");
+                    }
+                }
+                else
+                {
+                    TempData["Message"] = "username or password is wrong";
+                    return RedirectToAction("Index", "AgskeysMobile");
+                }
+
+            }
+
+            else if (form["userlevel"].ToString() == "manager")
+            {
+                string userName = form["userName"].ToString();
+                string passwordfrom = form["password"].ToString();
+                string userlevel = form["userlevel"].ToString();
+                var manager = (from u in ags.admin_table where u.username == userName && u.isActive == true select u).FirstOrDefault();
+                if (manager == null)
+                {
+                    //TempData["Message"] = "<script>alert('username or password is wrong');</script>";
+                    TempData["Message"] = "username or password is wrong";
+                    return RedirectToAction("Index", "AgskeysMobile");
+                }
+                else if (manager != null)
+                {
+                    var model = ags.admin_table.Where(x => x.username == userName).SingleOrDefault();
+                    bool result = PasswordStorage.VerifyPassword(passwordfrom, model.password);
+                    var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == userlevel && x.status == "publish").SingleOrDefault();
+
+
+                    if (result)
+                    {
+                        Session["userid"] = manager.id.ToString();
+                        Session["username"] = manager.username.ToString();
+                        FormsAuthentication.SetAuthCookie(manager.username, false);
+                        if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
+                        {
+                            Session["userlevel"] = form["userlevel"].ToString();
+                            return RedirectToAction("Index", "MobileManager");
                         }
                         else
                         {
@@ -558,9 +609,76 @@ namespace agskeys.Controllers
         {
             return View();
         }
+        public ActionResult ForgotPassword()
+        {            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(FormCollection form)
+        {
+            string userName = form["userName"].ToString();
+            if(userName != null)
+            {
+                int EmployeeCount = ags.admin_table.Where(x => x.username == userName).Count();                
+                if(EmployeeCount != 0)
+                {
+                    admin_table employees = ags.admin_table.Where(x => x.username == userName).FirstOrDefault();
+                    
+                    string AutoGenPwd = Membership.GeneratePassword(12, 1);
+                    string EmpEmail = employees.email;
+                    if(EmpEmail != null)
+                    {
+                        string EncryptPassword = PasswordStorage.CreateHash(AutoGenPwd);
+                        employees.password = EncryptPassword;
 
+                        //////////////////////////////////
 
+                        MailMessage MyMailMessage = new MailMessage();
+                        MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                        MyMailMessage.To.Add(EmpEmail);
+                        MyMailMessage.Subject = "AGSKEYS - Auto Generated Password";
+                        MyMailMessage.IsBodyHtml = true;
 
+                        MyMailMessage.Body = "<div style='font - family: Arial; font - size: 12px; '>You have requested a password reset, please use this password to open your account.</div><br><table border='0' ><tr><td style='padding:25px;'>Your New Password</td><td style='padding:25px;'>" + AutoGenPwd + "</table></tr></td>";
 
+                        SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                        SMTPServer.Port = 587;
+                        SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                        SMTPServer.EnableSsl = true;
+                        try
+                        {
+                            SMTPServer.Send(MyMailMessage);
+                            ags.SaveChanges();
+                            TempData["mail"] = "New Password Successfully Send to Your Registered Email";
+                            return RedirectToAction("ForgotPassword", "Account");
+                        }
+                        catch (Exception ex)
+                        {
+                            TempData["mail"] = ex.Message;
+                            TempData["mail"] = "Oops.! Somethig Went Wrong.";
+                            return RedirectToAction("ForgotPassword", "Account");
+                        }
+                    }
+                    else
+                    {
+                        TempData["email"] = "Oops.! Somethig Went Wrong.";
+                    }
+                    
+
+                    //////////////////////////////////
+                }
+                else
+                {
+                    TempData["NotExst"] = "Oops.! Something Went Wrong.";
+                }
+            }
+            return View();
+        }
+
+        //public ActionResult SendEmail()
+        //{
+            
+        //}
+        
     }
 }
