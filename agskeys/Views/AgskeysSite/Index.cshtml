@@ -441,6 +441,13 @@
                             <option class="opt-1" value="clientele">Customer</option>
                             <option class="opt-1" value="sales_executive">Sales Executive</option>
                         </select>
+                        <div class="row text-left" style="padding: 14px 14px 0px 14px;">
+                            <div class="col-md-12">
+                                <div class="forgot-phone">
+                                    <a  onclick="createModal('@Url.Action("ForgotPasswordfront","Account")')" class="text-right" style="font-size: 12px;color:white;"> Forgot Password?</a>
+                                </div>
+                            </div>
+                        </div>
                         <input type="submit" class="btn_sbmt" value="Login">
                     </form>
 </div>
@@ -532,9 +539,20 @@
             $('#login_fix').css('top', $(this).scrollTop() + 100 + "px");
         });
     </script>
+    <div class="modal de fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg" style="margin-top: 170px;">
+            <div class="modal-content" id="modelContent1">
+            </div>
+        </div>
+    </div>
+    <script>
+        function createModal(url) {
+            $('#modelContent1').load(url);
+            $('.de').modal('show');
+        }
+    </script>
 
 
-    
-</body>
+</body >
 
-</html>
+</html >

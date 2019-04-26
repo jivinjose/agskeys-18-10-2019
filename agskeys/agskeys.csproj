@@ -577,6 +577,9 @@
     <Content Include="Views\MobileVendor\Password.cshtml" />
     <Content Include="Views\MobileManager\MobileManager\EditProfile.cshtml" />
     <Content Include="Views\MobileManager\MobileManager\Password.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordfront.cshtml" />
+    <Content Include="Views\Account\privacypolicy.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordMobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

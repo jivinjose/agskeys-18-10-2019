@@ -928,13 +928,13 @@ footer {
 	-webkit-border-radius:20px;
 	opacity:.2;	
 	}
-	.modal-body h3{
+	/*.modal-body h3{
 		    font-size: 20px;
     font-weight: 800;
 	}
 		.modal-body p{
     padding: 15px 0px;
-	}
+	}*/
 	.de_light header.side-header .social-icons-2 a{
 	background:#fff;
 	color:#333;
@@ -3320,7 +3320,7 @@ border:solid 1px #ddd;
 	margin-bottom:30px;
 	}
 
-		.modal-dialog {
+		/*.modal-dialog {
     width: 90% !important;
 }
 .modal-body img{
@@ -3337,7 +3337,7 @@ border:solid 1px #ddd;
    
       
     border-bottom: none  !important;
-}
+}*/
 .btn-round{
 	    border-radius: 20px !important;
 		    width: 40px;
@@ -6764,7 +6764,7 @@ you can use the generic selector below, but it's slower:
 }
 
 
-.modal-header-index {
+/*.modal-header-index {
     min-height: 16.42857143px;
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
@@ -6793,7 +6793,7 @@ height:650px;
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
-}
+}*/
 .section-header__title-index {
     position: relative;
     z-index: 2;
@@ -6987,11 +6987,11 @@ and (orientation : portrait)
 		text-align: center;
 	}
 
-	.modal-content-index{
+	/*.modal-content-index{
 		height: 780px !important;
 		width: 333px !important;
 		margin-left: 10px;
-	}
+	}*/
 	.homePopup button.close{
 		right: -6px !important;
 		top: -6px !important;
@@ -7161,9 +7161,9 @@ and (max-device-width : 731px)
 and (orientation : portrait) 
 {
 
-	#myModal{
+	/*#myModal{
 		padding-left: 26px !important;
-	}
+	}*/
 	.homePopup button.close {
     right: -15px !important;
     top: -13px !important;
@@ -7192,9 +7192,9 @@ and (min-device-width : 414px)
 and (max-device-width : 736px) 
 and (orientation : portrait) 
 {
-	.modal-content-index {
+	/*.modal-content-index {
     margin-left: 0px;
-	}
+	}*/
 	.mar-22{
 		margin-top: 22px;
 	}
@@ -7222,12 +7222,12 @@ and (orientation : portrait)
 	#mainmenu{
 		text-align: center;
 			}
-	.modal-content-index {
+	/*.modal-content-index {
 		height: 779px ;
 		width: 333px ;
 		margin-top: 27px !important;
 
-	}
+	}*/
 	.form-inline > *{
 		margin-left: -18px !important;
 	}
@@ -7664,7 +7664,7 @@ and (orientation : portrait)
 	    margin-top: -96.5px !important;
 }
 
-	.modal-content-index{
+	/*.modal-content-index{
 		height: 872px !important;
 		width: 285px !important;
 		margin-top: 39px;
@@ -7674,7 +7674,7 @@ and (orientation : portrait)
 .modal-body {
     
     margin-left: -23px;
-}
+}*/
 h2.style-4 {
     font-size: 38px;
    }
@@ -8390,11 +8390,13 @@ margin-top: -11px;
     font-family: serif;
     font-weight: 900;
     }
-    
+.fade:not(.show) {
+    opacity:.88 !important;
+}
 .main-agile {
 	
 		text-align: center;
-		padding: 22px;
+		padding: 20px;
 		border-style: solid;
 		background: #d7262acc;
 	}
@@ -8402,7 +8404,7 @@ margin-top: -11px;
 		color: #bb2b2f;
 		background: #e2e2e2;
 		border: none;
-		margin-bottom: 25px;
+		margin-bottom: 0px !important;
 		margin-top: 0px;
 		outline: none;
 		padding: 10px 65px;
@@ -8413,8 +8415,8 @@ margin-top: -11px;
 		-moz-transition: .5s ease-in;
 		-o-transition: .5s ease-in;
 		-ms-transition: .5s ease-in;
-		margin-top: 18px;
-		margin-right: 30px;
+		margin-top: 15px;
+		/*margin-right: 30px;*/
 	}
 	.main-agile input[type="text"], select {
 		border: none;
@@ -8521,13 +8523,13 @@ select option {
 
 .icon-bar a:hover {
 }
-.modal-title img{
+/*.modal-title img{
 	
 	text-align:center;
 }
 .modal-header .close {
     margin: 0rem 0rem 0rem 0em !important;
-}
+}*/
 .slide-out-div {
 	right: -58px ;
 }
