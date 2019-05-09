@@ -40,7 +40,7 @@
                             <table class="table ">
 
                                 <tbody class="loan-table">
-                                    <tr style="background-image: linear-gradient(to right, #000, #ff9393);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
+                                    <tr style="background-image: linear-gradient(to right, #000, #fa4e5a);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
 
                                         <th colspan="2">@i. @Html.DisplayFor(modelItem => item.name)</th>
                                     </tr>
@@ -63,7 +63,7 @@
                                     <tr style="background:#e4e0e0;">
 
                                         <td colspan="2">
-                                            <a class="btn btn-primary" href="#" id="details" onclick="createModal('@Url.Action("Details", "MobileSalesExecutive" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> Details</a>
+                                            <a class="btn btn-primary" href="#" id="details" data-toggle="tooltip"  data-html="true" title="Details" onclick="createModal('@Url.Action("Details", "MobileSalesExecutive" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> </a>
 
                                         </td>
                                     </tr>

@@ -69,11 +69,11 @@
                             @Html.HiddenFor(model => model.photo)
                             <img class="img-circle" width="104" height="104" id="oldPhoto" src="@Url.Content(Model.photo)" />
                             <img id="blah" src="#" alt="Your Photo" hidden />
-                            <input type="file" name="ImageFile" onchange="readURL(this);" style="color: white;padding: 15px 10px 0px 70px;" />
+                            @*<input type="file" name="ImageFile" onchange="readURL(this);" style="color: white;padding: 15px 10px 0px 70px;" />*@
                         }
                         else
                         {
-                            <input type="file" name="ImageFile" style="color: white;padding: 15px 10px 0px 70px;" />
+                            @*<input type="file" name="ImageFile" style="color: white;padding: 15px 10px 0px 70px;" />*@
                         }
 
                     }

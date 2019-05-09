@@ -92,9 +92,9 @@
                                                         <td style="text-align: left;">
 
 
-                                                            <a class="btn btn-success" href="#" id="Track" onclick="createModal('@Url.Action("Track", "MobileClientele" , new {id=item.id })')"> <i class="fa fa-map-marker" style="color:#fff;"></i> Track</a>
+                                                            <a class="btn btn-success" href="#" id="Track" data-toggle="tooltip"  data-html="true" title="Track" onclick="createModal('@Url.Action("Track", "MobileClientele" , new {id=item.id })')"> <i class="fa fa-map-marker" style="color:#fff;"></i> </a>
 
-
+                                                            <a class="btn btn-primary" href="#" id="details" data-toggle="tooltip"  data-html="true" title="Details" onclick="createModal('@Url.Action("Details", "MobileClientele" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> </a>
                                                           
 
                                                         </td>
@@ -102,7 +102,7 @@
 
 
 
-                                                            <a class="btn btn-primary" href="#" id="details" onclick="createModal('@Url.Action("Details", "MobileClientele" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> Details</a>
+                                                        
 
 
 

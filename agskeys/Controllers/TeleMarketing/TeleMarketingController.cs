@@ -21,6 +21,9 @@ namespace agskeys.Controllers.TeleMarketing
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            var name = Session["username"].ToString();
+            var photo = ags.admin_table.Where(t => t.userrole == "tele_marketing" && t.username == name).ToList();
+            ViewData["photo"] = photo.FirstOrDefault().photo;
             return View("~/Views/TeleMarketing/TeleMarketing/Index.cshtml");
         }
         public ActionResult Customer()

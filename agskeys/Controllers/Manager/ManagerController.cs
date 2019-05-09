@@ -19,6 +19,9 @@ namespace agskeys.Controllers.Manager
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            var name = Session["username"].ToString();
+            var photo = ags.admin_table.Where(t => t.userrole == "manager" && t.username == name).ToList();
+            ViewData["photo"] = photo.FirstOrDefault().photo;
             return View("~/Views/Manager/Manager/Index.cshtml");
         }
 

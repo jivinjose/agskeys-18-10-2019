@@ -28,6 +28,17 @@
         margin-top: 0;
         margin-bottom: 0rem;
     }
+
+    /*track*/
+
+    .i-track {
+        padding: 5px 40px;
+        font-size: 20px;
+        width: 30%;
+        margin-right: 20px;
+    }
+
+
 </style>
 <div class="modal-body">
     <div class="row align-items-end">
@@ -59,15 +70,16 @@
                                 @foreach (var item in Model.employee_track)
                                 {
                                     i++;
-                                    <tr>
+                                    @*<tr>
                                         <td>@i</td>
+                                    </tr>*@
+                                    <tr style=" background: #fa4e5a;">
+                                        <td style=" background: #fa4e5a;color:white;"> <i class="fa fa-calendar" style=" margin-right: 20px;"> </i>  @Html.DisplayFor(modelItem => item.tracktime)</td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
+                                        <td><i class="fa fa-map-marker i-track"> </i>@Html.DisplayFor(modelItem => item.employeeid)</td>
                                     </tr>
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
-                                    </tr>
+                                  
                                 }
                             </tbody>                            
                         </table>

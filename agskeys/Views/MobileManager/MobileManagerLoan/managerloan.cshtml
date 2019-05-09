@@ -32,11 +32,11 @@
                 i++;
                 <div class="col-md-12" style="margin-top:20px;">
                     <div class="card-block p-b-0">
-                        <div class="table-responsive">
+                        <div class="">
                             <table class="table ">
 
                                 <tbody class="loan-table">
-                                    <tr style="background-image: linear-gradient(to right, #000, #ff9393);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
+                                    <tr style="background-image: linear-gradient(to right, #000, #fa4e5a);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
 
                                         <th colspan="2">@i. @Html.DisplayFor(modelItem => item.loantype)</th>
                                     </tr>
@@ -91,18 +91,20 @@
                                     </tr>
                                     <tr style="background:#e4e0e0;width:100%">
                                         <td style="float:left">
-                                            <a class="btn btn-success" href="#" id="Track" onclick="createModal('@Url.Action("Track", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-map-marker" style="color:#fff;"></i> Track</a>
-                                            <a class="btn btn-primary" href="#" id="details" onclick="createModal('@Url.Action("Details", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> Details</a>
-                                        </td>
-                                        <td>
+                                            <a class="btn btn-success" href="#" id="Track" data-toggle="tooltip"  data-html="true" title="Track" onclick="createModal('@Url.Action("Track", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-map-marker" style="color:#fff;"></i> </a>
+                                            <a class="btn btn-primary" href="#" id="details" data-toggle="tooltip"  data-html="true" title="Details" onclick="createModal('@Url.Action("Details", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-info-circle" style="color:#fff;"></i> </a>
+
                                             @foreach (var loan in ViewBag.assigned_loan)
                                             {
                                                 if (loan.loanid == item.id.ToString())
                                                 {
-                                                    <a class="btn btn-warning" href="#" id="Edit" onclick="createModal('@Url.Action("Edit", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-pencil" style="color:#fff;"></i> Edit</a>
-                                                    <a class="btn btn-danger" href="#" id="Delete" onclick="createModal('@Url.Action("Delete", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-trash" style="color:#fff;"></i> Delete</a>
+                                                    <a class="btn btn-warning" href="#" id="Edit" data-toggle="tooltip"  data-html="true" title="Edit" onclick="createModal('@Url.Action("Edit", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-pencil" style="color:#fff;"></i> </a>
+                                                    <a class="btn btn-danger" href="#" id="Delete" data-toggle="tooltip"  data-html="true" title="Delete" onclick="createModal('@Url.Action("Delete", "MobileManagerLoan" , new {id=item.id })')"> <i class="fa fa-trash" style="color:#fff;"></i> </a>
                                                 }
                                             }
+                                        </td>
+                                        <td>
+                                           
 
 
                                         </td>

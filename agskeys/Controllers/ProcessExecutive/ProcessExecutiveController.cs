@@ -18,6 +18,9 @@ namespace agskeys.Controllers.ProcessExecutive
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            var name = Session["username"].ToString();
+            var photo = ags.admin_table.Where(t => t.userrole == "process_executive" && t.username == name).ToList();
+            ViewData["photo"] = photo.FirstOrDefault().photo;
             return View("~/Views/ProcessExecutive/ProcessExecutive/Index.cshtml");
         }
         public ActionResult Customer()

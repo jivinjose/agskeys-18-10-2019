@@ -21,6 +21,9 @@ namespace agskeys.Controllers.ProcessTeam
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            var name = Session["username"].ToString();
+            var photo = ags.admin_table.Where(t => t.userrole == "process_team" && t.username == name).ToList();
+            ViewData["photo"] = photo.FirstOrDefault().photo;
             return View("~/Views/ProcessTeam/ProcessTeam/Index.cshtml");
         }
         public ActionResult Customer()

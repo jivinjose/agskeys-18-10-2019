@@ -29,6 +29,16 @@
         margin-top: 0;
         margin-bottom: 0rem;
     }
+
+    /*track*/
+
+    .i-track {
+        padding: 5px 40px;
+        font-size: 20px;
+        width: 30%;
+        margin-right: 20px;
+    }
+
 </style>
 <div class="modal-body">
     <div class="row align-items-end">
@@ -60,35 +70,40 @@
                                 @foreach (var item in Model.employee_track)
                                 {
                                     i++;
+                                    @*<tr>
+                                            <td>@i</td>
+                                        </tr>*@
+                                    <tr style=" background: #fa4e5a;">
+                                        <td style=" background: #fa4e5a;color:white;"> <i class="fa fa-calendar" style=" margin-right: 20px;"> </i> @Html.DisplayFor(modelItem => item.tracktime)</td>
+                                    </tr>
+                                   
                                     <tr>
-                                        <td>@i</td>
+                                        
+                                        <td ><i class="fa fa-map-marker i-track"> </i>@Html.DisplayFor(modelItem => item.employeeid)</td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td > <i class="fa fa-comments i-track" > </i> @Html.DisplayFor(modelItem => item.internalcomment)</td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.internalcomment)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                        <td >
+                                            <i class="fa fa-hourglass-end  i-track" > </i> 
                                             @if (!string.IsNullOrEmpty(item.externalcomment))
                                             {
-                                                @Html.DisplayFor(modelItem => item.externalcomment)<br />
-                                            }
-                                            else
-                                            {
-                                                <p>Not Updated</p><br />
+                                                <p style="padding-left: 38%;">
+                                                    @Html.DisplayFor(modelItem => item.externalcomment) </p> <br />
+                                                    }
+                                                    else
+                                                    {
+<p style="padding-left: 38%;">Not Updated</p><br />
                                             }
                                             @if (!string.IsNullOrEmpty(item.followupdate))
                                             {
-                                                <p style="margin-top:8px;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
+                                                <p style="margin-top:8px; padding-left: 38%;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
                                             }
                                             else
                                             {
-                                                <p style="margin-top:1px;"><span style="margin-top:1px;">(Follow up Date)</span><br />Not Updated</p><br />
+                                                <p style="margin-top:1px; padding-left: 38%;"><span style="margin-top:1px;">(Follow up Date)</span><br />Not Updated</p><br />
                                             }
                                         </td>
                                     </tr>

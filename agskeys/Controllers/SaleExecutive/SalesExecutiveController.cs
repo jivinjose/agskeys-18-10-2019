@@ -21,6 +21,9 @@ namespace agskeys.Controllers.SaleExecutive
             {
                 return this.RedirectToAction("Logout", "Account");
             }
+            var name = Session["username"].ToString();
+            var photo = ags.admin_table.Where(t => t.userrole == "sales_executive" && t.username == name).ToList();
+            ViewData["photo"] = photo.FirstOrDefault().photo;
             return View("~/Views/SalesExecutive/SalesExecutive/Index.cshtml");
         }
         public ActionResult Customer()

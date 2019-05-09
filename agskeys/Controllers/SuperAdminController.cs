@@ -31,6 +31,10 @@ namespace agskeys.Controllers
             var partnerCount = ags.vendor_table.ToList().Count();
             var employeeCount = ags.admin_table.Where(t => t.userrole != "super_admin").ToList().Count();
             var superAdminCount = ags.admin_table.Where(t=>t.userrole == "super_admin").ToList().Count();
+            var photo = ags.admin_table.Where(t => t.userrole == "super_admin" && t.username==name).ToList();
+
+            ViewData["photo"] = photo.FirstOrDefault().photo;
+
             ViewData["customerCount"] = customerCount.ToString();
             ViewData["partnerCount"] = partnerCount.ToString();
             ViewData["employeeCount"] = employeeCount.ToString();
