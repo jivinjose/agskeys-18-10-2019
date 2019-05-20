@@ -57,24 +57,39 @@ namespace agskeys.Controllers
 
                 if (usr == null)
                 {
-                    var max= ags.proof_table.GroupBy(x => x.porder).Select(g => g.OrderByDescending(x => x.porder).FirstOrDefault());
-                    
-                    ags.proof_table.Add(new proof_table
-                    {
-                        proofname = obj.proofname,
-                        porder = obj.porder,
-                        status = obj.status,
-                        datex = DateTime.Now.ToString(),
-                        addedby = Session["username"].ToString()
-                    });
+                    var max = ags.proof_table.GroupBy(x => x.porder).Select(g => g.OrderByDescending(x => x.porder).FirstOrDefault());
+                    proof_table proof = new proof_table();
+
+                    proof.proofname = obj.proofname;
+                    proof.porder = obj.porder;
+                    proof.status = obj.status;
+                    proof.datex = DateTime.Now.ToString();
+                    proof.addedby = Session["username"].ToString();
+                    ags.proof_table.Add(proof);
                     ags.SaveChanges();
+                    //int last_insert_id = proof.id;
+                    //var customerLoans = (from s in ags.customer_profile_table select s).Distinct().ToList();
+
+                    ////int countLoan = ags.customer_profile_table.ToList().Distinct().Count();
+                    //foreach (var loans in customerLoans)
+                    //{
+                    //    ags.proof_customer_table.Add(new proof_customer_table
+                    //    {
+                    //        customerid = loans.customerid,
+                    //        proofid = last_insert_id.ToString(),
+                    //        datex = DateTime.Now.ToString(),
+                    //        addedby = Session["username"].ToString()
+
+                    //    });
+                    //}
+                    //ags.SaveChanges();
                     return RedirectToAction("Proof");
                 }
                 else
                 {
                     TempData["AE"] = "This Proof is already exist";
-                    return View();
-                  //  return Json(new { success = true, responseText = TempData["AE"] }, JsonRequestBehavior.AllowGet);
+                    return RedirectToAction("Proof");
+                    //  return Json(new { success = true, responseText = TempData["AE"] }, JsonRequestBehavior.AllowGet);
 
                 }
             }
@@ -104,23 +119,23 @@ namespace agskeys.Controllers
 
         //}
 
-       // [HttpPost]
-       // public JsonResult UsernameExists(string proofname, int id)
-       //{
-       //     return Json(IsUnique(proofname, id));
-       // }
+        // [HttpPost]
+        // public JsonResult UsernameExists(string proofname, int id)
+        //{
+        //     return Json(IsUnique(proofname, id));
+        // }
 
-       // private bool IsUnique(string proofname, int id)
-       // {
-       //     if (id == 0) // its a new object
-       //     {
-       //         return !ags.proof_table.Any(x => x.proofname == proofname);
-       //     }
-       //     else // its an existing object so exclude existing objects with the id
-       //     {
-       //         return !ags.proof_table.Any(x => x.proofname == proofname && x.id != id);
-       //     }
-       // }
+        // private bool IsUnique(string proofname, int id)
+        // {
+        //     if (id == 0) // its a new object
+        //     {
+        //         return !ags.proof_table.Any(x => x.proofname == proofname);
+        //     }
+        //     else // its an existing object so exclude existing objects with the id
+        //     {
+        //         return !ags.proof_table.Any(x => x.proofname == proofname && x.id != id);
+        //     }
+        // }
 
 
 
@@ -182,7 +197,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This Proof is already exist";
-                        return View();
+                        return RedirectToAction("Proof");
                     }
                 }
 
@@ -193,11 +208,25 @@ namespace agskeys.Controllers
                     if (userCount == 0)
                     {
                         existing.porder = proof.porder;
+
+                        int last_insert_id = proof.id;
+                        var customerLoans = ags.proof_customer_table.GroupBy(x => x.customerid).Select(t => t.FirstOrDefault()).ToList();
+                        foreach (var loans in customerLoans)
+                        {
+                            ags.proof_customer_table.Add(new proof_customer_table
+                            {
+                                customerid = loans.customerid,
+                                proofid = last_insert_id.ToString(),
+                                datex = DateTime.Now.ToString(),
+                                addedby = Session["username"].ToString()
+
+                            });
+                        }
                     }
                     else
                     {
                         TempData["AE"] = "This Order Number is already exist";
-                        return View();
+                        return RedirectToAction("Proof");
                     }
                 }
 
@@ -213,7 +242,7 @@ namespace agskeys.Controllers
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Proofs");
+                return RedirectToAction("Proof");
             }
             return PartialView(proof);
 

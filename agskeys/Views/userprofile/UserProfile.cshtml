@@ -99,19 +99,17 @@
                                                     <tr>
                                                         <th><i class="fa fa-phone-square" aria-hidden="true"></i></th>
                                                         <td>
-                                                            @if (!string.IsNullOrEmpty(Model.alternatephone))
-                                                            {
-                                                                Model.alternatephone = "Not Updated";
-                                                            }
-                                                            else if (Model.alternatephone == null || Model.alternatephone == "")
-                                                            {
-                                                                Model.alternatephone = "Not Updated";
-                                                            }
-                                                            else
-                                                            {
-                                                                @Html.DisplayFor(model => model.alternatephone)
+                                            
 
+                                                            @{if (Model.alternatephone == null)
+                                                                {
+                                                                    Model.alternatephone = "Not Updated";
+                                                                }
                                                             }
+                                                            @Html.DisplayFor(model => model.alternatephone)
+
+
+
 
                                                         </td>
                                                     </tr>

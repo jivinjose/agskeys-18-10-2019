@@ -46,7 +46,7 @@
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        @if (TempData["Message"] != null)
+                                        @*@if (TempData["Message"] != null)
                                         {
 
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -54,7 +54,7 @@
                                                 @TempData["Message"].ToString()
                                             </div>
 
-                                        }
+                                        }*@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.id)
                                         <div class="row">

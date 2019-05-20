@@ -44,7 +44,7 @@
                                         {
                                             @ViewData["customerCount"]
                                         }
-                                        else{
+                                        else {
                                             <span>0</span>
                                         }</h3>
                                     </div>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                     <!-- product profit end -->
-                    <!-- lattest update, new client start -->
+                    <!-- lattest update, new client start 
                    
                     <div class="col-xl-6 col-md-12">
                         <div class="card new-cust-card">
@@ -182,17 +182,112 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-lg-6">
+                    </div>-->
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Pie Chart</h5>
+                                <h5>Current Month Transaction</h5>
                             </div>
                             <div class="card-block">
-                                <div id="chart3"></div>
+                                <div id="chart10"></div>
                             </div>
                         </div>
                     </div>
+
+
+                    <table class="table table-bordered table-responsive table-hover" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>Total Loan Amount </th>
+                                <th>Total Disbursement Amount </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int Totallmt = 0;}
+                            @{int Totaldmt = 0;}
+                            @foreach (var currentmonth in ViewBag.currentmonth)
+                            {
+                                //var Totallmt = currentmonth.loanamt.ToString();
+                                <tr>
+                                    <td>@currentmonth.loanamt</td>
+                                    <td>@currentmonth.disbursementamt</td>
+                                </tr>
+                                Totallmt = Totallmt + Convert.ToInt32(@currentmonth.loanamt);
+                                Totaldmt = Totaldmt + Convert.ToInt32(@currentmonth.disbursementamt);
+                                //Totallmt = @currentmonth.loanamt;
+                                //Totaldmt = @currentmonth.disbursementamt;
+                            }
+
+                        </tbody>
+                        <tfoot>
+
+                            @{int Totaldpmt = (Totaldmt * 100) / Totallmt;}
+                            @{int Totalbpmt = 100 - Totaldpmt; }
+                            <tr>
+                                <td id="balanceamt">@Totalbpmt</td>
+                                <td id="disbursementamt">@Totaldpmt</td>
+
+                            </tr>
+
+                        </tfoot>
+                    </table>  
+
+
+                    @{int fulllmt = 0;}
+                    @{int fulldmt = 0;}
+                    @foreach (var fulltrans in ViewBag.fulltrans)
+                    {
+                        //var Totallmt = currentmonth.loanamt.ToString();
+
+                        fulllmt = fulllmt + Convert.ToInt32(@fulltrans.loanamt);
+                        fulldmt = fulldmt + Convert.ToInt32(@fulltrans.disbursementamt);
+                        //Totallmt = @currentmonth.loanamt;
+                        //Totaldmt = @currentmonth.disbursementamt;
+                    }
+
+
+
+
+                    <div class="col-xl-6 col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="margin-bottom:12px;">
+                                <h5>Total Transaction</h5>
+                            </div><br />
+                            <div class="card prod-p-card card-red">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Total Loan Amount</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white">@fulllmt /-</h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-money text-c-red f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white"><span class="label label-danger m-r-10"></span>Full Loan Amount</p>
+                                </div>
+                            </div>
+                            <div class="card prod-p-card card-blue">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Total Disbursement Amount</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white">@fulldmt /-</h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-rupee text-c-blue f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white"><span class="label label-primary m-r-10"></span>Full Disbursed Amount</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
                     <!-- lattest update, new client end -->
                 </div>
                 <!-- [ page content ] end -->
@@ -202,4 +297,3 @@
         </div>
     </div>
 </div>
-

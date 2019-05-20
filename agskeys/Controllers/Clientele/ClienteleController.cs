@@ -237,8 +237,8 @@ namespace agskeys.Controllers.Clientele
                     {
                         if (item.employeeid.ToString() == items.id.ToString())
                         {
-                            string concatenated = items.name + " ( " + items.userrole + " ) ";
-                            employeeid = concatenated;
+                            //string concatenated = items.name + " ( " + items.userrole + " ) ";
+                            employeeid = items.userrole;
                             break;
                         }
                         else if (items.id.ToString() != item.employeeid)

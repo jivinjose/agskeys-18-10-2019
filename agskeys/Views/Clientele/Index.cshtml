@@ -36,19 +36,7 @@
             <div class="page-body">
                 <!-- [ page content ] start -->
                 <div class="row">
-
-                    <!-- sale revenue card start -->
-                    <div class="col-md-12 col-xl-8">
-                        <div class="card sale-card">
-                            <div class="card-header">
-                                <h5>Deals Analytics</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="sales-analytics" class="chart-shadow" style="height:380px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-xl-4">
+                    <div class="col-xl-4 col-md-4">
                         <div class="card comp-card">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -63,6 +51,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4">
                         <div class="card comp-card">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -72,16 +62,18 @@
                                         <p class="m-b-0">@DateTime.Now.ToString()</p>
                                     </div>
                                     <div class="col-auto">
-                                       <i class="fa fa-university bg-c-green"></i>
+                                        <i class="fa fa-university bg-c-green"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4">
                         <div class="card comp-card">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h6 class="m-b-25">Average Rate Of Interest</h6>
+                                        <h6 class="m-b-25">Avg Rate Of Interest</h6>
                                         <h3 class="f-w-700 text-c-yellow">@ViewData["interest"]%</h3>
                                         <p class="m-b-0">@DateTime.Now.ToString()</p>
                                     </div>
@@ -92,8 +84,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
                     <!-- sale revenue card end -->
                     <!-- Project statustic start -->
+                <div class="row">
                     <div class="col-xl-12">
                         <div class="card proj-progress-card">
                             <div class="card-block">
@@ -101,7 +96,7 @@
                                     <div class="col-xl-3 col-md-6">
                                         <h6>Requeted Loan Amount</h6>
                                         @*@{
-                                            int requestloan = @Model.Sum(j => (Convert.ToInt64(j.requestloanamt)));
+                                        int requestloan = @Model.Sum(j => (Convert.ToInt64(j.requestloanamt)));
                                         }*@
                                         <h5 class="m-b-30 f-w-700">@ViewData["requestamnt"]<span class="text-c-green m-l-10">100%</span></h5>
                                         <div class="progress">
@@ -132,129 +127,77 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- lattest update, new client start -->
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card latest-update-card" style="line-height: 3.4;">
-                            <div class="card-header">
-                                <h5>What’s New</h5>
-                                <div class="card-header-right">
-                                    <ul class="list-unstyled card-option">
-                                        <li class="first-opt"><i class="feather icon-chevron-left open-card-option"></i></li>
-                                        <li><i class="feather icon-maximize full-card"></i></li>
-                                        <li><i class="feather icon-minus minimize-card"></i></li>
-                                        <li><i class="feather icon-refresh-cw reload-card"></i></li>
-                                        <li><i class="feather icon-trash close-card"></i></li>
-                                        <li><i class="feather icon-chevron-left open-card-option"></i></li>
-                                    </ul>
+                        <!-- lattest update, new client start
+            <div class="col-xl-6 col-md-12">
+                <div class="card latest-update-card" style="line-height: 3.4;">
+                    <div class="card-header">
+                        <h5>What’s New</h5>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li class="first-opt"><i class="feather icon-chevron-left open-card-option"></i></li>
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather icon-minus minimize-card"></i></li>
+                                <li><i class="feather icon-refresh-cw reload-card"></i></li>
+                                <li><i class="feather icon-trash close-card"></i></li>
+                                <li><i class="feather icon-chevron-left open-card-option"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="latest-update-box">
+                            <div class="row p-t-20 p-b-30">
+                                <div class="col-auto text-right update-meta p-r-0">
+                                    <img src="~/files/assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15 update-icon">
+                                </div>
+                                <div class="col p-l-5">
+                                    <a href="#!">
+                                        <h6>Your Manager Posted.</h6>
+                                    </a>
+                                    <p class="text-muted m-b-0">Jonny michel</p>
                                 </div>
                             </div>
-                            <div class="card-block">
-                                <div class="latest-update-box">
-                                    <div class="row p-t-20 p-b-30">
-                                        <div class="col-auto text-right update-meta p-r-0">
-                                            <img src="~/files/assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15 update-icon">
-                                        </div>
-                                        <div class="col p-l-5">
-                                            <a href="#!">
-                                                <h6>Your Manager Posted.</h6>
-                                            </a>
-                                            <p class="text-muted m-b-0">Jonny michel</p>
-                                        </div>
-                                    </div>
-                                    <div class="row p-b-30">
-                                        <div class="col-auto text-right update-meta p-r-0">
-                                            <i class="feather icon-briefcase bg-c-red update-icon"></i>
-                                        </div>
-                                        <div class="col p-l-5">
-                                            <a href="#!">
-                                                <h6>You have 3 pending Task.</h6>
-                                            </a>
-                                            <p class="text-muted m-b-0">Hemilton</p>
-                                        </div>
-                                    </div>
-                                    <div class="row p-b-30">
-                                        <div class="col-auto text-right update-meta p-r-0">
-                                            <i class="feather icon-check f-w-600 bg-c-green update-icon"></i>
-                                        </div>
-                                        <div class="col p-l-5">
-                                            <a href="#!">
-                                                <h6>New Order Received.</h6>
-                                            </a>
-                                            <p class="text-muted m-b-0">Hemilton</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-auto text-right update-meta p-r-0">
-                                            <img src="~/files/assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15 update-icon">
-                                        </div>
-                                        <div class="col p-l-5">
-                                            <a href="#!">
-                                                <h6>Your Manager Posted.</h6>
-                                            </a>
-                                            <p class="text-muted m-b-0">Jonny michel</p>
-                                        </div>
-                                    </div>
+                            <div class="row p-b-30">
+                                <div class="col-auto text-right update-meta p-r-0">
+                                    <i class="feather icon-briefcase bg-c-red update-icon"></i>
+                                </div>
+                                <div class="col p-l-5">
+                                    <a href="#!">
+                                        <h6>You have 3 pending Task.</h6>
+                                    </a>
+                                    <p class="text-muted m-b-0">Hemilton</p>
+                                </div>
+                            </div>
+                            <div class="row p-b-30">
+                                <div class="col-auto text-right update-meta p-r-0">
+                                    <i class="feather icon-check f-w-600 bg-c-green update-icon"></i>
+                                </div>
+                                <div class="col p-l-5">
+                                    <a href="#!">
+                                        <h6>New Order Received.</h6>
+                                    </a>
+                                    <p class="text-muted m-b-0">Hemilton</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto text-right update-meta p-r-0">
+                                    <img src="~/files/assets/images/avatar-4.jpg" alt="user image" class="img-radius img-40 align-top m-r-15 update-icon">
+                                </div>
+                                <div class="col p-l-5">
+                                    <a href="#!">
+                                        <h6>Your Manager Posted.</h6>
+                                    </a>
+                                    <p class="text-muted m-b-0">Jonny michel</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                      
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Send Enquiry</h5>
-                                <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
-                            </div>
-                            <div class="card-block">
-                                <form id="main" method="post" action="#" novalidate>
-@foreach (var custprf in ViewBag.customer_profile_table)
-{
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name" id="name" placeholder="Text Input Validation" value="@custprf.name">
-                                            <span class="messages"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter valid e-mail address"  value="@custprf.email">
-                                            <span class="messages"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Mobile</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="numeric" id="numeric" placeholder="Mobile Numbers Only"  value="@custprf.phoneno">
-                                            <span class="messages"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Message</label>
-                                        <div class="col-sm-10">
-                                            <textarea  class="form-control" id="message" name="message" placeholder="Message"></textarea>
-                                            <span class="messages"></span>
-                                        </div>
-                                    </div>
+                </div>
+            </div>-->
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2"></label>
-                                        <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary m-b-0">Submit</button>
-                                        </div>
-                                    </div>
-}
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Basic Inputs Validation end -->
-                        </div>
                     </div>
 
-                   
+                    <div class="col-md-12">
                         <div class="card table-card">
                             <div class="card-header">
                                 <h5>Loan Details</h5>
@@ -288,9 +231,7 @@
                                                     <th>
                                                         Disbursement Amount
                                                     </th>
-                                                    <th>
-                                                        Created By
-                                                    </th>
+                                                   
                                                     <th>
                                                         Status
                                                     </th>
@@ -299,51 +240,49 @@
                                             </thead>
                                             <tbody>
                                                 @{
-                                                    int i = 0;
+                                                int i = 0;
                                                 }
                                                 @foreach (var item in Model)
                                                 {
-                                                    i++;
-                                                    <tr>
-                                                        <td>@i</td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.bankid)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.loanamt)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.rateofinterest)%
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.disbursementamt)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.addedby)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.loanstatus)
-                                                        </td>
-                                                        <td>
+                                                i++;
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.bankid)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.loanamt)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.rateofinterest)%
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.disbursementamt)
+                                                    </td>
+                                                   
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.loanstatus)
+                                                    </td>
+                                                    <td>
 
 
-                                                            <a href="#" id="Track" onclick="createModal('@Url.Action("Track", "Clientele" , new {id=item.id })')"><i class="icon feather icon-map-pin f-w-600 f-16 m-r-15" style="color:#fb8d00;"></i></a>
+                                                        <a href="#" id="Track" onclick="createModal('@Url.Action("Track", "Clientele" , new {id=item.id })')"><i class="icon feather icon-map-pin f-w-600 f-16 m-r-15" style="color:#fb8d00;"></i></a>
 
 
-                                                            <a href="#" id="details" onclick="createModal('@Url.Action("Details", "Clientele" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
+                                                        <a href="#" id="details" onclick="createModal('@Url.Action("Details", "Clientele" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
 
 
 
-                                                            @*@foreach (var loan in ViewBag.assigned_loan)
-                                    {
-                                        if (loan.loanid == item.id.ToString())
-                                        {
+                                                        @*@foreach (var loan in ViewBag.assigned_loan)
+                                                        {
+                                                        if (loan.loanid == item.id.ToString())
+                                                        {
 
-                                            <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ProcessLoan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
-                                        }
-                                    }*@
-                                                        </td>
-                                                    </tr>
+                                                        <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ProcessLoan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
+                                                        }
+                                                        }*@
+                                                    </td>
+                                                </tr>
                                                 }
                                             </tbody>
                                             <tfoot>
@@ -362,9 +301,7 @@
                                                     <th>
                                                         Disbursement Amount
                                                     </th>
-                                                    <th>
-                                                        Created By
-                                                    </th>
+                                                   
                                                     <th>
                                                         Status
                                                     </th>
@@ -374,9 +311,63 @@
                                         </table>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                   
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-md-12">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Send Enquiry</h5>
+                                <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                            </div>
+                            <div class="card-block">
+                                <form id="main" method="post" action="#" novalidate>
+                                    @foreach (var custprf in ViewBag.customer_profile_table)
+                                    {
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Text Input Validation" value="@custprf.name">
+                                            <span class="messages"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter valid e-mail address" value="@custprf.email">
+                                            <span class="messages"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Mobile</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="numeric" id="numeric" placeholder="Mobile Numbers Only" value="@custprf.phoneno">
+                                            <span class="messages"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Message</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="message" name="message" placeholder="Message"></textarea>
+                                            <span class="messages"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2"></label>
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary m-b-0">Submit</button>
+                                        </div>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Basic Inputs Validation end -->
+                    </div>
+                </div>
                     <!-- testimonial and top selling end -->
                     <!-- lattest update, new client end -->
                 </div>

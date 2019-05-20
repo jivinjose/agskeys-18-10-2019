@@ -580,6 +580,8 @@
     <Content Include="Views\Account\ForgotPasswordfront.cshtml" />
     <Content Include="Views\Account\privacypolicy.cshtml" />
     <Content Include="Views\Account\ForgotPasswordMobile.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessTeam\Create.cshtml" />
+    <Content Include="Views\ProcessTeam\ProcessLoan\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

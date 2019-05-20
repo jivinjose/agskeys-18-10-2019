@@ -33,7 +33,7 @@
                         <div class="card">
                             <div class="card-block">
 
-                                @if (TempData["AE"] != null)
+                                @*@if (TempData["AE"] != null)
                                 {
 
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -41,14 +41,14 @@
                                         @TempData["AE"].ToString()
                                     </div>
 
-                                }
+                                }*@
 
                                 @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        @if (TempData["Message"] != null)
+                                        @*@if (TempData["Message"] != null)
                                         {
 
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -56,7 +56,7 @@
                                                 @TempData["Message"].ToString()
                                             </div>
 
-                                        }
+                                        }*@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="row">
                                            
@@ -161,7 +161,7 @@
                                 }
 
                                 <div>
-                                    @Html.ActionLink("Back to List", "Vendor")
+                                    @Html.ActionLink("Back to List", "Customer")
                                 </div>
 
                             </div>

@@ -28,8 +28,10 @@ namespace agskeys.Controllers
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        customerid = items.customerid;
+                        string concatenated = items.name.ToString() +" ( " + items.customerid + " ) ";
+                        customerid = concatenated;
                         break;
+                       
                     }
                     else if (items.id.ToString() != item.customerid)
                     {
@@ -40,6 +42,7 @@ namespace agskeys.Controllers
                 item.employeetype = customerid;
 
             }
+
 
             var getVendor = ags.vendor_table.ToList();
             var partnerid = "";
@@ -188,7 +191,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' images formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Loan");
                     }
                 }
                 if (obj.idCopyFile != null)
@@ -207,7 +210,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Loan");
                     }
                 }
                 if (obj.propertyDocumentsFile != null)
@@ -226,7 +229,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg','png','jpeg','docx','doc','pdf' formats are alllowed..!";
-                        return View();
+                        return RedirectToAction("Loan");
                     }
                 }
                 loan_table loan = new loan_table();

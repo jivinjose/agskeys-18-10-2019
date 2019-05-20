@@ -3,6 +3,7 @@ using agskeys.Models;
 using PasswordSecurity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,6 +40,32 @@ namespace agskeys.Controllers
             ViewData["partnerCount"] = partnerCount.ToString();
             ViewData["employeeCount"] = employeeCount.ToString();
             ViewData["superAdminCount"] = superAdminCount.ToString();
+
+
+
+            // Current Month Transaction //
+          
+            DateTime now = DateTime.Now;
+            var startDate = new DateTime(now.Year, now.Month, 1);
+
+            List<loan_table> currentmonth = new List<loan_table>();
+
+
+            // Full  Transaction //
+            var fulltrans = currentmonth;
+            ViewBag.fulltrans = fulltrans;
+
+            foreach (var items in ags.loan_table)
+            {
+                DateTime dueDate = DateTime.Parse(items.datex);
+                if ((dueDate >= startDate) && (dueDate <= now))
+                {
+                    currentmonth.Add(items);
+                }
+            }
+            ViewBag.currentmonth = currentmonth;
+
+            // Current Month Transaction end //
             return View();
         }
 
@@ -139,7 +166,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Admin");
                         }
                     }
                     obj.password = PasswordStorage.CreateHash(obj.password);
@@ -165,7 +192,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This user name is already exist";
-                    //return RedirectToAction("Admin");
+                    return RedirectToAction("Admin");
                 }
             }
             return View(obj);
@@ -289,7 +316,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("SuperAdmin");
+                        return RedirectToAction("Admin");
                     }
                 }
 
@@ -318,7 +345,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("SuperAdmin");
+                            return RedirectToAction("Admin");
                         }
 
                     }
@@ -350,7 +377,7 @@ namespace agskeys.Controllers
                         //existing.username = admin_table.username;
                         TempData["AE"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("SuperAdmin");
+                        return RedirectToAction("Admin");
                     }
                 }
 

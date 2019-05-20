@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="card-block">
 
-                                @if (TempData["AE"] != null)
+                                @*@if (TempData["AE"] != null)
                                 {
 
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -40,7 +40,7 @@
                                         @TempData["AE"].ToString()
                                     </div>
 
-                                }
+                                }*@
 
                                 @using (Html.BeginForm("Create", "Vendor", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {

@@ -41,3 +41,23 @@ font-weight: 600 !important;
 .ui_tpicker_second_label, .ui_tpicker_second, .ui_tpicker_millisec_label, .ui_tpicker_millisec, .ui_tpicker_microsec_label, .ui_tpicker_microsec, .ui_tpicker_timezone_label, .ui_tpicker_timezone {
     display: none !important;
 }
+.colour-red{
+    color:red;
+}
+.colour-green {
+    color: forestgreen;
+}
+.colour-yellow {
+    color: yellow;
+}
+.colour-blue {
+    color: #4099ff;
+}
+
+.colour-orange {
+    color: orange;
+}
+
+.colour-pink {
+    color: hotpink;
+}

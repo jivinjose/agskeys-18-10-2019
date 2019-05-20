@@ -27,7 +27,8 @@ namespace agskeys.Controllers.Admin
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        customerid = items.customerid;
+                        string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        customerid = concatenated;
                         break;
                     }
                     else if (items.id.ToString() != item.customerid)
@@ -40,26 +41,26 @@ namespace agskeys.Controllers.Admin
 
             }
 
-            var getVendor = ags.vendor_table.ToList();
-            var partnerid = "";
-            foreach (var item in customer_loans)
-            {
-                foreach (var items in getVendor)
-                {
-                    if (item.partnerid == items.id.ToString())
-                    {
-                        partnerid = items.companyname;
-                        break;
-                    }
-                    else if (items.id.ToString() != item.partnerid)
-                    {
-                        partnerid = "Not Updated";
-                        continue;
-                    }
+            //var getVendor = ags.vendor_table.ToList();
+            //var partnerid = "";
+            //foreach (var item in customer_loans)
+            //{
+            //    foreach (var items in getVendor)
+            //    {
+            //        if (item.partnerid == items.id.ToString())
+            //        {
+            //            partnerid = items.companyname;
+            //            break;
+            //        }
+            //        else if (items.id.ToString() != item.partnerid)
+            //        {
+            //            partnerid = "Not Updated";
+            //            continue;
+            //        }
 
-                }
-                item.employee = partnerid;
-            }
+            //    }
+            //    item.employee = partnerid;
+            //}
 
             var getloantype = ags.loantype_table.ToList();
             foreach (var item in customer_loans)

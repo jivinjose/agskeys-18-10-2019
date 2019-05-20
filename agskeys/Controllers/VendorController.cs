@@ -67,7 +67,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This vendor user name is already exist";
-                    return View();
+                    return RedirectToAction("Vendor");
                 }
             }
             return View(obj);
@@ -122,7 +122,7 @@ namespace agskeys.Controllers
                     else
                     {
                         TempData["AE"] = "This user name is already exist";
-                        return View();
+                        return RedirectToAction("Vendor");
                     }
                 }
 

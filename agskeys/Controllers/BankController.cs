@@ -66,7 +66,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Bank");
                         }
                     }
                    
@@ -83,7 +83,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This bank name is already exist";
-                    return View();
+                    return RedirectToAction("Bank");
                 }
             }
             return View(obj);

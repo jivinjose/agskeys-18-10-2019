@@ -163,7 +163,7 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList banks = new SelectList(getBank, "id", "bankname");
                 ViewBag.bankList = banks;
 
-               
+
 
                 List<emp_category_table> categoryList = ags.emp_category_table.ToList();
                 ViewBag.empCategories = new SelectList(categoryList, "emp_category_id", "emp_category");
@@ -432,7 +432,7 @@ namespace agskeys.Controllers.SaleExecutive
         }
 
 
-        public ActionResult Edit(int? Id)
+        public ActionResult Edit(int? Id, FormCollection form)
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "sales_executive")
             {
@@ -476,22 +476,67 @@ namespace agskeys.Controllers.SaleExecutive
             List<proof_table> prooftable = ags.proof_table.ToList();
             ViewBag.prooflists = prooftable;
 
-            List<proof_customer_table> proofcus = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
-            ViewBag.proofcus = proofcus;
+            //List<proof_customer_table> proofcusAns = ags.proof_customer_table.Where(x => x.customerid == Id.ToString()).ToList();
 
-            //List<emp_category_table> categoryList = ags.emp_category_table.ToList();
-            //ViewBag.empCategories = new (caSelectListtegoryList, "emp_category_id", "emp_category");
+            //if (proofcusAns != null)
+            //{
+            //    var proofcus = ags.proof_customer_table.Where(x => x.customerid == userid).SingleOrDefault();
+            //    ViewBag.proofCusAns = proofcus.proofans;
+            //}
+
+            /////Proof
+            int proofcusAns = ags.proof_customer_table.Where(x => x.customerid == Id.ToString()).Count();
+            if (proofcusAns != 0)
+            {
+                var proofCount = ags.proof_table.ToList().Count();
+
+                if (proofCount != 0)
+                {
+                    int proofId;
+                    var getProofId = ags.proof_table.ToList();
+                    int getProofCount = ags.proof_table.Count();
+                    int getLoanProofCount = ags.proof_customer_table.Where(x => x.customerid == Id.ToString()).Count();
+
+                    List<proof_customer_table> proofAnsDoc = new List<proof_customer_table>();
+
+                    foreach (var items in getProofId)
+                    {
+                        proofId = items.id;
+                        foreach (var itemsproof in ags.proof_customer_table.Where(x => x.customerid == Id.ToString()))
+                        {
+                            if (itemsproof.proofid == proofId.ToString())
+                            {
+                                proofAnsDoc.Add(itemsproof);
+                            }
+
+                        }
+                    }
+                    //List<proof_customer_table> IdProofs = new List<proof_customer_table>();
+                    //if (getProofCount != getLoanProofCount)
+                    //{
+                    //    foreach (var items in getProofId)
+                    //    {
+                    //        proofId = items.id;
+                    //        if (ags.proof_customer_table.Any(x => x.proofid.ToString() != proofId.ToString()))
+                    //        {                               
+                    //            foreach(var proofs in ags.proof_table)
+                    //            {
+                    //                IdProofs.Add(proofs);
+                    //            }
+
+                    //        }
 
 
-            //List<loan_table> loan = ags.loan_table.Where(x => x.id == Id).ToList();
-            //List<proof_table> proof_table = ags.proof_table.ToList();
-            //List<proof_customer_table> proof_customer = ags.proof_customer_table.Where(x => x.customerid == userid).ToList();
+
+                    //    }
+
+                    //}
+                    ViewBag.proofQstnIdAdd = proofAnsDoc;
+                    //ViewBag.IdProofs = IdProofs;
+                }
+            }
 
 
-            //Multiple_proofs_customer Multiple_pc = new Multiple_proofs_customer();
-            //Multiple_pc.loan_table = loan.ToList();
-            //Multiple_pc.proof_table = proof_table.ToList();
-            //Multiple_pc.proof_customer_table = proof_customer.ToList();
             loan_table loan_table = ags.loan_table.Find(Id);
             if (loan_table == null)
             {
@@ -502,7 +547,7 @@ namespace agskeys.Controllers.SaleExecutive
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(loan_table loan_table)
+        public ActionResult Edit(loan_table loan_table, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -530,6 +575,9 @@ namespace agskeys.Controllers.SaleExecutive
                 SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
                 ViewBag.commentList = commentlist;
 
+                List<proof_table> prooftable = ags.proof_table.ToList();
+                ViewBag.prooflists = prooftable;
+
                 var allowedExtensions = new[] {
                     ".png", ".jpg", ".jpeg",".doc",".docx",".pdf"
                 };
@@ -539,7 +587,7 @@ namespace agskeys.Controllers.SaleExecutive
                 existing.customerid = loan_table.customerid;
                 existing.bankid = loan_table.bankid;
                 existing.loantype = loan_table.loantype;
-                existing.requestloanamt = loan_table.requestloanamt;               
+                existing.requestloanamt = loan_table.requestloanamt;
                 existing.followupdate = loan_table.followupdate;
 
                 if (existing.addedby == null)
@@ -588,22 +636,65 @@ namespace agskeys.Controllers.SaleExecutive
                 }
 
                 /////Proof
-                //proof_customer_table proof_customer_table = new proof_customer_table();
 
-                //if (loan_table.proofid != null)
-                //{
-                //    proof_customer_table.customerid = loan_table.customerid;
-                //    proof_customer_table.proofid = loan_table.proofid;
-                //    proof_customer_table.proofans = loan_table.proofans;
+                string loanid_proof = loan_table.id.ToString();
+                int proof_customer_table_Count = ags.proof_customer_table.Where(x => x.customerid == loanid_proof).Count();
+                //int proof_customer_table_Count = ags.customer_profile_table.Where(x => x.customerid == "1075").Count();
+                var coumc = proof_customer_table_Count;
+                if (proof_customer_table_Count != 0)
+                {
+                    var proofCount = ags.proof_table.ToList().Count();
 
-                //    List<proof_customer_table> proofcus = ags.proof_customer_table.ToList();
-                //    proofcus.ForEach(x => ags.proof_customer_table.Add(x));
+                    if (proofCount != 0)
+                    {
+                        List<proof_customer_table> existing_proof = ags.proof_customer_table.ToList();
+                        int k = 1;
+                        foreach (var exitpf in existing_proof)
+                        {
+                            if (exitpf.customerid == loan_table.id.ToString())
+                            {
+                                var proofans = "proofans" + k.ToString();
+                                var questions = "questions" + k.ToString();
+                                //string proofid = exitpf.id.ToString();
+                                //proof_customer_table proofAns = ags.proof_customer_table.Where(x => x.id == exitpf.id).FirstOrDefault();
+                                //loan id - in database its customerid
+                                exitpf.customerid = loan_table.id.ToString();
+                                exitpf.proofid = form[questions].ToString();
+                                exitpf.proofans = form[proofans].ToString();
+                                exitpf.datex = DateTime.Now.ToString();
+                                exitpf.addedby = Session["username"].ToString();
+                                //ags.proof_customer_table.Add(proof_customer_table);
+                                ags.SaveChanges();
+                                k++;
+                            }
+                        }
 
-                //    proof_customer_table.datex = DateTime.Now.ToString();
-                //    proof_customer_table.addedby = Session["username"].ToString();
-                //    ags.proof_customer_table.Add(proof_customer_table);
-                //    ags.SaveChanges();
-                //}
+                    }
+                }
+
+                else if (proof_customer_table_Count == 0)
+                {
+                    var proofCount = ags.proof_table.ToList().Count();
+
+                    if (proofCount != 0)
+                    {
+                        proof_customer_table proof_customer_table = new proof_customer_table();
+                        for (int j = 1; j <= proofCount; j++)
+                        {
+                            var proofans = "proofans" + j.ToString();
+                            var questions = "questions" + j.ToString();
+
+                            //loan id - in database its customerid
+                            proof_customer_table.customerid = loan_table.id.ToString();
+                            proof_customer_table.proofid = form[questions].ToString();
+                            proof_customer_table.proofans = form[proofans].ToString();
+                            proof_customer_table.datex = DateTime.Now.ToString();
+                            proof_customer_table.addedby = Session["username"].ToString();
+                            ags.proof_customer_table.Add(proof_customer_table);
+                            ags.SaveChanges();
+                        }
+                    }
+                }
 
 
                 vendor_track_table vendor_track = new vendor_track_table();

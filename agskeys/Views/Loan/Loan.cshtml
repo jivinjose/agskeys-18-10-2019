@@ -40,6 +40,40 @@
             <div class="page-body">
                 <div class="card">
                     <div class="card-block">
+
+
+
+                        @if (TempData["AE"] != null)
+                        {
+
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close"
+                                        data-dismiss="alert">
+                                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                </button>
+                                @TempData["AE"].ToString()
+                            </div>
+
+                        }
+
+
+                        @if (TempData["Message"] != null)
+                        {
+
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button"
+                                        class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                </button>
+                                @TempData["Message"].ToString()
+                            </div>
+
+                        }
+
+
+
+
+
                         <div class="dt-responsive table-responsive">
                             <p>
                                 <button onclick="createModal('@Url.Action("Create", "Loan")')" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-user-plus"></i>Create</button>
@@ -49,11 +83,11 @@
                                     <tr>
                                         <th>#</th>
                                         <th>
-                                            Customer Id
+                                            Customer Name (ID)
                                         </th>
-                                        <th>
+                                        @*<th>
                                             Partner Id
-                                        </th>
+                                        </th>*@
                                         <th>
                                             Loan Amount
                                         </th>
@@ -79,9 +113,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.employeetype)
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => item.employee)
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.loanamt)
                                             </td>
@@ -108,11 +142,11 @@
 
                                         <th>#</th>
                                         <th>
-                                            Customer Id
+                                                 Customer Name (ID)
                                         </th>
-                                        <th>
+                                        @*<th>
                                             Partner Id
-                                        </th>
+                                        </th>*@
                                         <th>
                                             Loan Amount
                                         </th>

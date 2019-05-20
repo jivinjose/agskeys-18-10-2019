@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="~/files/assets/icon/icofont/css/icofont.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="~/files/assets/icon/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/files/bower_components/chartist/css/chartist.css" type="text/css" media="all">
+    @*<link rel="stylesheet" href="~/files/bower_components/chartist/css/chartist.css" type="text/css" media="all">*@
     <!-- animation nifty modal window effects css -->
     <link rel="stylesheet" type="text/css" href="~/files/assets/css/component.css">
 
@@ -179,7 +179,7 @@
                                             </a>
                                         </li>*@
                                         <li>
-                                            <a onclick="createModal('@Url.Action("userprofile","UserProfile")')">
+                                            <a onclick="createModal('@Url.Action("userprofile", "UserProfile")')">
                                            
                                                 <i class="feather icon-user"></i> Profile
 
@@ -339,7 +339,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                                         <a href="~/SuperAdmin/Index" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="feather icon-home"></i>
+                                                <i class="feather icon-home colour-red"></i>
                                             </span>
                                             <span class="pcoded-mtext">Dashboard</span>
                                         </a>
@@ -347,7 +347,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Emp" ? "active" : "")">
                                         <a href="~/EmpCategory/Emp" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-list" aria-hidden="true"></i>
+                                                <i class="fa fa-list colour-green" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Employee Category</span>
                                         </a>
@@ -355,7 +355,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Admin" ? "active" : "")">
                                         <a href="~/SuperAdmin/Admin" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="feather icon-users"></i>
+                                                <i class="feather icon-users colour-yellow"></i>
                                             </span>
                                             <span class="pcoded-mtext">Employees</span>
                                         </a>
@@ -364,7 +364,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Vendor" ? "active" : "")">
                                         <a href="~/Vendor/Vendor" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                                <i class="fa fa-user-secret colour-blue" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Vendor</span>
                                         </a>
@@ -372,7 +372,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Proof" ? "active" : "")">
                                         <a href="~/Proofs/Proof" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                                <i class="fa fa-file-text-o colour-orange" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Proofs</span>
                                         </a>
@@ -380,7 +380,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Bank" ? "active" : "")">
                                         <a href="~/Bank/Bank" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-hourglass-half" aria-hidden="true"></i>
+                                                <i class="fa fa-hourglass-half colour-pink" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Bank</span>
                                         </a>
@@ -388,7 +388,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ExternalComment" ? "active" : "")">
                                         <a href="~/ExternalComment/ExternalComment" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                                <i class="fa fa-commenting-o colour-red" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">External Comment</span>
                                         </a>
@@ -396,7 +396,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customer" ? "active" : "")">
                                         <a href="~/Customer/Customer" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <i class="fa fa-users colour-green" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Customer Management</span>
                                         </a>
@@ -404,7 +404,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "loantype" ? "active" : "")">
                                         <a href="~/LoanType/loantype" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-hdd-o" aria-hidden="true"></i>
+                                                <i class="fa fa-hdd-o colour-yellow" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Loan Type</span>
                                         </a>
@@ -412,7 +412,7 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")">
                                         <a href="~/Loan/Loan" class=" waves-dark">
                                             <span class="pcoded-micon">
-                                                <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                                <i class="fa fa-handshake-o colour-blue" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Loan Management</span>
                                         </a>
@@ -428,6 +428,7 @@
                     <div class="pcoded-content">
                         <!-- [ breadcrumb ] start -->
                         @RenderBody()
+                       
                     </div>
                 </div>
             </div>
@@ -504,5 +505,73 @@
 
         gtag('config', 'UA-23581568-13');
     </script>-->
+
+
+
+
+
+
+
+  
+
+
+
+
+    <script>
+
+
+
+        $(document).ready(function () {
+            /*Pie Chart*/
+            var dsbamt = $("#disbursementamt").text();
+            var balamt = $("#balanceamt").text();
+           
+            var chart = c3.generate({
+                bindto: '#chart10',
+                data: {
+                    // iris data from R
+                    columns: [
+                        ['Disbursed Amount', dsbamt],
+                        ['Balance Amount', balamt],
+                    ],
+                    type: 'pie',
+                    onclick: function (d, i) { console.log("onclick", d, i); },
+                    onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+                    onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+                },
+                color: {
+                    pattern: ['#536dfe', '#11c15b', '#448aff', '#ff5252']
+                },
+            });
+
+            //setTimeout(function () {
+            //    chart.load({
+            //        columns: [
+                      
+            //            ["Disbursed Amount", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+            //            ["Balance Amount", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+
+            //        ]
+            //    });
+            //}, 1500);
+
+            setTimeout(function () {
+                chart.load({
+                    ids: 'Disbursed Amount'
+                });
+                chart.load({
+                    ids: 'Balance Amount'
+                });
+            }, 2500);
+
+
+
+
+
+        });
+
+
+    </script>
+
 </body>
 </html>

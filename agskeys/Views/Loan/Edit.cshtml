@@ -33,7 +33,7 @@
                         <!-- Basic Form Inputs card start -->
                         <div class="card">
                             <div class="card-block">
-                                @if (TempData["AE"] != null)
+                                @*@if (TempData["AE"] != null)
                                 {
 
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -41,7 +41,7 @@
                                         @TempData["AE"].ToString()
                                     </div>
 
-                                }
+                                }*@
                                 <script>
                                     function readSactioned(input) {
                                         $('#oldSactionedCopy').hide();
@@ -99,7 +99,7 @@
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        @if (TempData["Message"] != null)
+                                        @*@if (TempData["Message"] != null)
                                         {
 
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -107,7 +107,7 @@
                                                 @TempData["Message"].ToString()
                                             </div>
 
-                                        }
+                                        }*@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.id)
                                         <div class="row">

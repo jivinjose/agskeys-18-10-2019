@@ -36,11 +36,13 @@ namespace agskeys.Controllers.ProcessTeam
             //var customers = (from customer in ags.customer_profile_table orderby customer.id descending select customer).ToList();
             string userid = Session["userid"].ToString();
             var customers = (from s in ags.customer_profile_table
-                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid
-                             join sb in ags.loan_track_table on sa.id.ToString() equals sb.loanid
-                             where sb.employeeid == userid
-                             orderby sb.datex descending
-                             select s).Distinct().ToList();
+                             join sa in ags.loan_table on s.id.ToString() equals sa.customerid into rd
+                             from rt in rd.DefaultIfEmpty()
+                             join sb in ags.loan_track_table on rt.id.ToString() equals sb.loanid into rb
+                             from rc in rb.DefaultIfEmpty()
+                             where rc.employeeid == userid || s.addedby == username
+                             orderby rc.datex
+                             select s).Distinct().OrderByDescending(t => t.id).ToList();
 
             return PartialView("~/Views/ProcessTeam/ProcessTeam/Customer.cshtml", customers);
         }
@@ -203,6 +205,110 @@ namespace agskeys.Controllers.ProcessTeam
             }
             return PartialView("~/Views/ProcessTeam/ProcessTeam/Edit.cshtml", customer_profile_table);
         }
+
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "process_team")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            var model = new agskeys.Models.customer_profile_table();
+            return PartialView("~/Views/ProcessTeam/ProcessTeam/Create.cshtml", model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(customer_profile_table obj)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "process_team")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            if (ModelState.IsValid)
+            {
+                var usr = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
+                var allowedExtensions = new[] {
+                    ".Jpg", ".png", ".jpg", ".jpeg"
+                };
+                var customer = (from u in ags.customer_profile_table where u.customerid == obj.customerid select u).FirstOrDefault();
+
+
+                if (customer == null)
+                {
+                    //bool filename = string.IsNullOrEmpty(obj.ImageFile.FileName);
+                    if (obj.ImageFile != null)
+                    {
+                        string BigfileName = Path.GetFileNameWithoutExtension(obj.ImageFile.FileName);
+                        string fileName = BigfileName.Substring(0, 1);
+                        string extension1 = Path.GetExtension(obj.ImageFile.FileName);
+
+                        string extension = extension1.ToLower();
+                        if (allowedExtensions.Contains(extension))
+                        {
+                            fileName = fileName + DateTime.Now.ToString("yyssmmfff") + extension;
+                            obj.profileimg = "~/customerImage/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/customerImage/"), fileName);
+                            obj.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
+                            return RedirectToAction("Customer");
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(obj.password))
+                    {
+                        obj.password = PasswordStorage.CreateHash(obj.password);
+                    }
+                    ags.customer_profile_table.Add(new customer_profile_table
+                    {
+                        customerid = obj.customerid,
+                        name = obj.name,
+                        email = obj.email,
+                        phoneno = obj.phoneno,
+                        alterphoneno = obj.alterphoneno,
+                        dob = obj.dob,
+                        weddingdate = obj.weddingdate,
+                        profileimg = obj.profileimg,
+                        password = obj.password,
+                        address = obj.address,
+                        datex = DateTime.Now.ToString(),
+                        addedby = Session["username"].ToString()
+                    });
+                    ags.SaveChanges();
+                    return RedirectToAction("Customer");
+                }
+                else
+                {
+                    TempData["AE"] = "This customer user name is already exist";
+                    return RedirectToAction("Customer");
+                }
+            }
+            return View(obj);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

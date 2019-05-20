@@ -71,7 +71,7 @@ namespace agskeys.Controllers
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return View();
+                            return RedirectToAction("Customer");
                         }
                     }
                     if (!string.IsNullOrEmpty(obj.password))
@@ -99,7 +99,7 @@ namespace agskeys.Controllers
                 else
                 {
                     TempData["AE"] = "This customer user name is already exist";
-                    return View();
+                    return RedirectToAction("Customer");
                 }
             }
             return View(obj);

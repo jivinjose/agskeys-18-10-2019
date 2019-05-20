@@ -49,9 +49,9 @@
                                         <th>
                                             Customer Id
                                         </th>
-                                        <th>
+                                        @*<th>
                                             Added By
-                                        </th>
+                                        </th>*@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -71,12 +71,12 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.customerid)
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => item.addedby)
-                                            </td>
+                                            </td>*@
                                             <td>
 
-                                                <a href="#" id="details" onclick="createModal('@Url.Action("Details", "Manager" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
+                                                <a href="#" id="details" onclick="createModal('@Url.Action("Details", "ProcessExecutive" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>
 
                                             </td>
                                         </tr>
@@ -84,17 +84,16 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-
                                         <th>#</th>
                                         <th>
-                                            Name
+                                            Customer Name
                                         </th>
                                         <th>
-                                            User Name
+                                            Customer Id
                                         </th>
-                                        <th>
-                                            Company Name
-                                        </th>
+                                        @*<th>
+                Added By
+            </th>*@
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>

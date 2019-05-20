@@ -41,7 +41,8 @@ namespace agskeys.Controllers.Manager
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        customerid = items.customerid;
+                        string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        customerid = concatenated;
                         break;
                     }
                     else if (items.id.ToString() != item.customerid)

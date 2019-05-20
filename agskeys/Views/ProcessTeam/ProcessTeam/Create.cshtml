@@ -1,5 +1,6 @@
 ﻿@model agskeys.Models.customer_profile_table
 
+
 <div class="modal-body">
     <!-- [ breadcrumb ] start -->
     <div class="page-header card">
@@ -8,7 +9,7 @@
                 <div class="page-header-title">
                     <i class="feather icon-user bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Edit Customer</h5>
+                        <h5>Create Customer</h5>
                         <span>Agskeys</span>
                     </div>
                 </div>
@@ -20,8 +21,7 @@
             </div>
         </div>
     </div>
-
-
+    <!-- [ breadcrumb ] end -->
     <!-- Main-body start -->
     <div class="main-body">
         <div class="page-wrapper">
@@ -32,51 +32,32 @@
                         <!-- Basic Form Inputs card start -->
                         <div class="card">
                             <div class="card-block">
-                                @if (TempData["AE"] != null)
-                                {
 
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                        @TempData["AE"].ToString()
-                                    </div>
+                                @*@if (TempData["AE"] != null)
+                                    {
 
-                                }
-                                <script>
-                                    function readURL(input) {
-                                        $('#oldPhoto').hide();
-                                        $('#blah').removeAttr('hidden');
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["AE"].ToString()
+                                        </div>
 
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
+                                    }*@
 
-                                            reader.onload = function (e) {
-                                                $('#blah')
-                                                    .attr('src', e.target.result)
-                                                    .width(150)
-                                                    .height(150);
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
-                                </script>
-
-                                @using (Html.BeginForm("Edit", "ProcessTeam", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("Create", "ProcessTeam", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        @if (TempData["Message"] != null)
-                                        {
+                                        @*@if (TempData["Message"] != null)
+                                            {
 
-                                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                                @TempData["Message"].ToString()
-                                            </div>
+                                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                    @TempData["Message"].ToString()
+                                                </div>
 
-                                        }
+                                            }*@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        @Html.HiddenFor(model => model.id)
                                         <div class="row">
 
                                             <div class="col-md-6">
@@ -151,7 +132,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -161,45 +141,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.profileimg, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @{if (Model.profileimg != null || Model.profileimg == "")
-                                                            {
-                                                                @Html.HiddenFor(model => model.profileimg)
-                                                                <img id="oldPhoto" src="@Url.Content(Model.profileimg)" width="150" height="150" />
-                                                                <img id="blah" src="#" alt="Your Photo" hidden />
-                                                                <input type="file" name="ImageFile" onchange="readURL(this);" />
-
-                                                                @*<button name="delete" class="btn btn-danger" OnClick="btnDelete_Click()"> Delete </button>*@
-                                                            }
-                                                            else
-                                                            {
-                                                                <input type="file" name="ImageFile"/>
-                                                            }
-
-                                                        }
+                                                        <input type="file" name="ImageFile" />
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-12">
-                                                        <input type="submit" value="Save" class="btn btn-default" />
+                                                        <input type="submit" value="Create" class="btn btn-default" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                                            }
+                                }
 
                                 <div>
-                                    @Html.ActionLink("Back to List", "ProcessTeam")
+                                    @Html.ActionLink("Back to List", "Customer")
                                 </div>
+
                             </div>
                         </div>
 
@@ -209,10 +173,5 @@
         </div>
     </div>
 </div>
-
-
-
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-
