@@ -45,7 +45,8 @@ namespace agskeys.Controllers.MobileSalesExecutive
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        customerid = items.customerid;
+                        string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        customerid = concatenated;
                         break;
                     }
                     else if (items.id.ToString() != item.customerid)
@@ -551,7 +552,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
                         }
                         else if (items.id.ToString() != item.externalcomment)
                         {
-                            extComment = "Not Updated";
+                            extComment = "External Comment Not Updated";
                             continue;
                         }
                     }

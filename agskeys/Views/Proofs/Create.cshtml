@@ -84,16 +84,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" style="display:none;">
                                                 <div class="form-group">
                                                     <div class="control-label col-md-12">
                                                         Status
                                                     </div><br />
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.status, new List<SelectListItem>
-
-                                             { new SelectListItem{Text="Publish", Value="publish"},
-                                               new SelectListItem{Text="UnPublish", Value="unpublish"}}, "Please select", new { @class = "form-control" })
+                                                        @Html.TextBoxFor(model => model.status, new {@Value = "unpublish" })
                                                         @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>

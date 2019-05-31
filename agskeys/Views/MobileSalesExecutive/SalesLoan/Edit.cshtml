@@ -257,39 +257,35 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
 <script type="text/javascript">
-                                    $('.datetimepicker').datetimepicker({
-                                        showAnim: 'slideDown',
-                                        dateFormat: 'dd/mm/yy',
-                                    });
-
-
+    $('.datetimepicker').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'dd/mm/yy',
+    });
 </script>
 <script type="text/javascript">
-
-                                    $(".datetimepicker").click(function (event) {
-                                        event.preventDefault();
-                                        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
-                                    });
-
+    $(".datetimepicker").click(function (event) {
+        event.preventDefault();
+        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
+    });
 </script>
 
 <script>
-                                    $(document).ready(function () {
-                                        $("#employeetype").change(function () {
-                                            $.get("/Loan/GetEmployeeList", {
-                                                categoryId:
-                                                $("#employeetype").val()
-                                            }, function (data) {
-                                                $("#employee").empty();
-                                                $("#employee").append("<option>Please Select Employee Name</option> ");
-                                                $.each(data, function (create, row) {
-                                                    $("#employee").append("<option value='" + row.id + "'>" +
-                                                        row.name + "</option>")
-                                                    $("#employee").removeAttr("disabled");
-                                                });
-                                            });
-                                        })
-                                    });
+    $(document).ready(function () {
+        $("#employeetype").change(function () {
+            $.get("/Loan/GetEmployeeList", {
+                categoryId:
+                $("#employeetype").val()
+            }, function (data) {
+                $("#employee").empty();
+                $("#employee").append("<option>Please Select Employee Name</option> ");
+                $.each(data, function (create, row) {
+                    $("#employee").append("<option value='" + row.id + "'>" +
+                        row.name + "</option>")
+                    $("#employee").removeAttr("disabled");
+                });
+            });
+        })
+    });
 </script>
 
 
@@ -357,12 +353,12 @@
         }
 </style>
 <script>
-                                    $('.a-div').hide();
-                                    $('#switch_right').click(function () {
-                                        $('.a-div').show(500);
-                                    });
-                                    $('#switch_left').click(function () {
-                                        if ($('.a-div').is(":visible"))
-                                            $('.a-div').hide(500);
-                                    });
+    $('.a-div').hide();
+    $('#switch_right').click(function () {
+        $('.a-div').show(500);
+    });
+    $('#switch_left').click(function () {
+        if ($('.a-div').is(":visible"))
+            $('.a-div').hide(500);
+    });
 </script>

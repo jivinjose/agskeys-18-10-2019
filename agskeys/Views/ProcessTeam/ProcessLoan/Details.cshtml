@@ -106,15 +106,48 @@
                                                 <td>@Html.DisplayFor(model => model.rateofinterest)<span style="color:#808080"> ( @Html.DisplayNameFor(model => model.rateofinterest) )</span></td>
 
                                             </tr>
-                                            <tr>
-                                                <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fa fa-download" aria-hidden="true"></i></th>
-                                                <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download ID Copy (Click here)</a></td>
-
-                                            </tr>
+                                            @if (!string.IsNullOrEmpty(Model.sactionedcopy))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldSactionedCopy" href="@Url.Content(Model.sactionedcopy)" target="_blank">Download Sactioned Copy (Click here)</a></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td>Sactioned Copy Not Available Here</td>
+                                                </tr>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.idcopy))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldIdCopy" href="@Url.Content(Model.idcopy)" target="_blank">Download DD Copy (Click here)</a></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td> DD Copy Not Available Here</td>
+                                                </tr>
+                                            }
+                                            @if (!string.IsNullOrEmpty(Model.propertydocuments))
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td><a id="oldPropertyDocuments" href="@Url.Content(Model.propertydocuments)" target="_blank">Download Property Documents (Click here)</a></td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <th><i class="fa fa-download" aria-hidden="true"></i></th>
+                                                    <td> Property Documents Not Available Here</td>
+                                                </tr>
+                                            }
                                         </table>
                                         @if (ViewBag.loan_count == 1)
                                         {
@@ -128,6 +161,10 @@
                                                     <td>@ViewBag.technical</td>
                                                     <td>@ViewBag.legal</td>
                                                     <td>@ViewBag.rcu</td>
+                                                </tr>
+                                                <tr>
+                                                    <th><i class="fa fa-rupee" aria-hidden="true"></i></th>
+                                                    <td colspan="2">@ViewBag.comment ( Technical Value )</td>
                                                 </tr>
                                             </table>
                                         }

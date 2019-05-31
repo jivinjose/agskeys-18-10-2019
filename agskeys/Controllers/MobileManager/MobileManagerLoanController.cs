@@ -601,7 +601,7 @@ namespace agskeys.Controllers.MobileManager
                         }
                         else if (items.id.ToString() != item.employeeid)
                         {
-                            employeeid = "Not Updated";
+                            employeeid = "Employee Not Updated";
                             continue;
                         }
                     }
@@ -624,7 +624,7 @@ namespace agskeys.Controllers.MobileManager
                         }
                         else if (items.id.ToString() != item.externalcomment)
                         {
-                            extComment = "Not Updated";
+                            extComment = "External Comment Not Updated";
                             continue;
                         }
                     }

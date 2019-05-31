@@ -56,10 +56,6 @@
                                         <th>
                                             Status
                                         </th>
-
-                                        <th>
-                                            Added By
-                                        </th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -82,10 +78,7 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.status)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.addedby)
-                                            </td>
+                                            </td>                                            
                                             <td>
                                                 <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "AdminProofs" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
                                                 @*<a href="#" id="details" onclick="createModal('@Url.Action("Details", "SuperAdmin" , new {id=item.id })')"><i class="icon feather icon-info f-w-600 f-16 m-r-15" style="color:#0042fb;"></i></a>*@
@@ -105,10 +98,6 @@
                                         </th>
                                         <th>
                                             Status
-                                        </th>
-
-                                        <th>
-                                            Added By
                                         </th>
                                         <th>Actions</th>
                                     </tr>

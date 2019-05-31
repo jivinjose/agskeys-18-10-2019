@@ -89,6 +89,9 @@
                                             Partner Id
                                         </th>*@
                                         <th>
+                                            Requested Amount
+                                        </th>
+                                        <th>
                                             Loan Amount
                                         </th>
                                         <th>
@@ -113,9 +116,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.employeetype)
                                             </td>
-                                            @*<td>
-                                                @Html.DisplayFor(modelItem => item.employee)
-                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.requestloanamt)
+                                            </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.loanamt)
                                             </td>
@@ -147,6 +150,9 @@
                                         @*<th>
                                             Partner Id
                                         </th>*@
+                                        <th>
+                                            Requested Amount
+                                        </th>
                                         <th>
                                             Loan Amount
                                         </th>

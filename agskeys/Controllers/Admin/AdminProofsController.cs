@@ -183,6 +183,28 @@ namespace agskeys.Controllers.Admin
                     if (userCount == 0)
                     {
                         existing.porder = proof.porder;
+
+                        int last_insert_id = proof.id;
+                        int totalProofCount = ags.proof_table.Count();
+                        var customerProofs = ags.proof_customer_table.GroupBy(x => x.proofid).Select(t => t.FirstOrDefault()).ToList();
+                        int customerProofsCount = customerProofs.Count();
+                        var customerLoans = ags.proof_customer_table.GroupBy(x => x.customerid).Select(t => t.FirstOrDefault()).ToList();
+
+                        if (customerProofsCount < totalProofCount)
+                        {
+                            foreach (var loans in customerLoans)
+                            {
+                                ags.proof_customer_table.Add(new proof_customer_table
+                                {
+                                    customerid = loans.customerid,
+                                    proofid = last_insert_id.ToString(),
+                                    proofans = "NotApplicable",
+                                    datex = DateTime.Now.ToString(),
+                                    addedby = Session["username"].ToString()
+
+                                });
+                            }
+                        }
                     }
                     else
                     {
@@ -242,8 +264,8 @@ namespace agskeys.Controllers.Admin
         public ActionResult DeleteConfirmed(int id)
         {
             proof_table proof_table = ags.proof_table.Find(id);
-
-
+            var customerProof = ags.proof_customer_table.Where(x => x.proofid == id.ToString());
+            ags.proof_customer_table.RemoveRange(customerProof);
             ags.proof_table.Remove(proof_table);
             ags.SaveChanges();
             return RedirectToAction("Proof");

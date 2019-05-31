@@ -38,7 +38,10 @@
                                 <tbody class="loan-table">
                                     <tr style="background-image: linear-gradient(to right, #000, #fa4e5a);margin-top: 10px !important;color: white; font-size: 18px;font-weight: bold;">
 
-                                        <th colspan="2">@i. @Html.DisplayFor(modelItem => item.loantype)</th>
+                                        <th >@i. @Html.DisplayFor(modelItem => item.loantype)</th>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.customerid)
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>

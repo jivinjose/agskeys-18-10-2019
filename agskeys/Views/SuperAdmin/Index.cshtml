@@ -215,20 +215,20 @@
                                 Totallmt = Totallmt + Convert.ToInt32(@currentmonth.loanamt);
                                 Totaldmt = Totaldmt + Convert.ToInt32(@currentmonth.disbursementamt);
                                 //Totallmt = @currentmonth.loanamt;
-                                //Totaldmt = @currentmonth.disbursementamt;
+                                //Totaldmt = @currentmonth.disbursementamt;                                
                             }
 
                         </tbody>
                         <tfoot>
+                            @if(Totallmt > 0 && Totaldmt > 0){
+                                int Totaldpmt = (Totaldmt * 100) / Totallmt;
+                                int Totalbpmt = 100 - Totaldpmt;
+                                <tr>
+                                    <td id="balanceamt">@Totalbpmt</td>
+                                    <td id="disbursementamt">@Totaldpmt</td>
 
-                            @{int Totaldpmt = (Totaldmt * 100) / Totallmt;}
-                            @{int Totalbpmt = 100 - Totaldpmt; }
-                            <tr>
-                                <td id="balanceamt">@Totalbpmt</td>
-                                <td id="disbursementamt">@Totaldpmt</td>
-
-                            </tr>
-
+                                </tr>
+                            }
                         </tfoot>
                     </table>  
 

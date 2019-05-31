@@ -213,6 +213,16 @@ namespace agskeys.Controllers.ProcessExecutive
                 ViewBag.technical = process_executive.technical;
                 ViewBag.legal = process_executive.legal;
                 ViewBag.rcu = process_executive.rcu;
+                if (process_executive.comment == null)
+                {
+                    process_executive.comment = "0";
+                    ViewBag.comment = process_executive.comment;
+                }
+                else
+                {
+                    ViewBag.comment = process_executive.comment;
+                }
+                
             }
             return PartialView("~/Views/ProcessExecutive/ProcessExecutiveLoan/Details.cshtml", user);
         }
@@ -268,6 +278,7 @@ namespace agskeys.Controllers.ProcessExecutive
                 ViewBag.technical = process_executive.technical;
                 ViewBag.legal = process_executive.legal;
                 ViewBag.rcu = process_executive.rcu;
+                ViewBag.comment = process_executive.comment;
             }
             loan_table loan_table = ags.loan_table.Find(Id);
             if (loan_table == null)
@@ -525,7 +536,7 @@ namespace agskeys.Controllers.ProcessExecutive
                         process_executive.technical = form["technical"].ToString();
                         process_executive.legal = form["legal"].ToString();
                         process_executive.rcu = form["rcu"].ToString();
-                        process_executive.comment = loan_table.internalcomment;
+                        process_executive.comment = form["technicalValue"].ToString();
                         process_executive.datex = DateTime.Now.ToString();
                         process_executive.addedby = Session["username"].ToString();
                         //ags.process_executive.Add(process_executive);

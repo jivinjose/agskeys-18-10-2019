@@ -72,34 +72,44 @@
                                         <td>@i</td>
                                     </tr>*@
                                     <tr style=" background: #fa4e5a;">
-                                        <td style=" background: #fa4e5a;color:white;"> <i class="fa fa-calendar" style=" margin-right: 20px;"> </i> @Html.DisplayFor(modelItem => item.tracktime)</td>
+                                        <td colspan="2" style=" background: #fa4e5a;color:white;"> <i class="fa fa-calendar" style=" margin-right: 20px;"> </i> @Html.DisplayFor(modelItem => item.tracktime)</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-map-marker i-track"> </i>@Html.DisplayFor(modelItem => item.employeeid)</td>
+                                        <td max-width="10%"><i class="fa fa-map-marker i-track"></i></td>
+                                        <td min-width="90%"> @Html.DisplayFor(modelItem => item.employeeid)</td>
                                     </tr>
                                    
                                     <tr>
-                                        <td><i class="fa fa-comments i-track"> </i> @Html.DisplayFor(modelItem => item.internalcomment)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-hourglass-end  i-track"> </i> 
-                                            @if (!string.IsNullOrEmpty(item.externalcomment))
+                                        <td width="10%"> <i class="fa fa-comments i-track"> </i></td>
+                                        <td width="90%">
+                                            @if (!string.IsNullOrEmpty(item.internalcomment))
                                             {
-                                                <p style="padding-left: 38%;">
-                                                    @Html.DisplayFor(modelItem => item.externalcomment) </p><br />
-                                                }
-                                                else
-                                                {
-<p style="padding-left: 38%;">Not Updated</p><br />
-                                            }
-                                            @if (!string.IsNullOrEmpty(item.followupdate))
-                                            {
-                                                <p style="margin-top:8px; padding-left: 38%;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
+                                                @Html.DisplayFor(modelItem => item.internalcomment)
                                             }
                                             else
                                             {
-                                                <p style="margin-top:1px; padding-left: 38%;"><span style="margin-top:1px;">(Follow up Date)</span><br />Not Updated</p><br />
+                                                <p>Internal Comment Not Updated</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%"><i class="fa fa-hourglass-end  i-track"> </i> </td>
+                                        <td width="90%">
+                                            @if (!string.IsNullOrEmpty(item.externalcomment))
+                                            {
+                                                @Html.DisplayFor(modelItem => item.externalcomment)
+                                            }
+                                            else
+                                            {
+                                                <p>External Comment Not Updated</p>
+                                            }
+                                            @if (!string.IsNullOrEmpty(item.followupdate))
+                                            {
+                                                <p style="margin-top:8px;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
+                                            }
+                                            else
+                                            {
+                                                <p style="margin-top:1px;"><span style="margin-top:1px;">Follow up Date Not Updated</span></p><br />
                                             }
                                         </td>
                                     </tr>

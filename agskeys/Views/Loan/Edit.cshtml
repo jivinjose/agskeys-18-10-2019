@@ -360,24 +360,11 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
  <script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
-<script type="text/javascript">
-    $('.datetimepicker').datetimepicker({
-        showAnim: 'slideDown',
-        dateFormat: 'dd/mm/yy',
-    });
 
-
-</script>
-<script type="text/javascript">
-
-    $(".datetimepicker").click(function (event) {
-        event.preventDefault();
-        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
-    });
-
-</script>
 
 <script>
+
+
     $(document).ready(function () {
         $("#employeetype").change(function () {
             $.get("/Loan/GetEmployeeList", {
@@ -470,4 +457,19 @@
             $('.a-div').hide(500);
     });
 </script>
+<script type="text/javascript">
+    $('.datetimepicker').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'dd/mm/yy',
+    });
 
+
+</script>
+<script type="text/javascript">
+
+    $(".datetimepicker").click(function (event) {
+        event.preventDefault();
+        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
+    });
+
+</script>

@@ -40,7 +40,8 @@ namespace agskeys.Controllers.Clientele
             var loanamnt = customer_loans.Sum(t => Convert.ToDecimal(t.loanamt));
             var disbursementamnt = customer_loans.Sum(t => Convert.ToDecimal(t.disbursementamt));
             var balance = customer_loans.Sum(s => (Convert.ToDecimal(s.loanamt)) - (Convert.ToDecimal(s.disbursementamt)));
-            var interest = customer_loans.Sum(t => Convert.ToDecimal(t.rateofinterest));
+            var interest = customer_loans.Sum(t => Convert.ToDecimal(t.rateofinterest));           
+           
 
             ViewData["requestamnt"] = requestamnt;
             ViewData["loanamnt"] = loanamnt;
@@ -90,17 +91,12 @@ namespace agskeys.Controllers.Clientele
 
             if (customer_loans.Count() != 0)
             {
-                ViewData["interest"] = interest / customer_loans.Count();
+                ViewData["interest"] = Math.Round((interest / customer_loans.Count()),2);
             }
             else
             {
                 ViewData["interest"] = 0;
             }
-
-
-
-
-
 
             var getbank = (from bank_table in ags.bank_table select bank_table).ToList();
 
@@ -237,8 +233,9 @@ namespace agskeys.Controllers.Clientele
                     {
                         if (item.employeeid.ToString() == items.id.ToString())
                         {
+                            var employeeType = ags.emp_category_table.Where(x => x.emp_category_id == items.userrole).FirstOrDefault();
                             //string concatenated = items.name + " ( " + items.userrole + " ) ";
-                            employeeid = items.userrole;
+                            employeeid = employeeType.emp_category;
                             break;
                         }
                         else if (items.id.ToString() != item.employeeid)

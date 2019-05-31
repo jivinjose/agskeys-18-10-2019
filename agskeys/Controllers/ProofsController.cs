@@ -204,24 +204,33 @@ namespace agskeys.Controllers
 
                 if (existing.porder != proof.porder)
                 {
-                    var userCount = (from u in ags.proof_table where u.porder == proof.porder select u).Count();
-                    if (userCount == 0)
+                    var proofCount = (from u in ags.proof_table where u.porder == proof.porder select u).Count();
+                    if (proofCount == 0)
                     {
                         existing.porder = proof.porder;
 
                         int last_insert_id = proof.id;
+                        int totalProofCount = ags.proof_table.Count();
+                        var customerProofs = ags.proof_customer_table.GroupBy(x => x.proofid).Select(t => t.FirstOrDefault()).ToList();
+                        int customerProofsCount = customerProofs.Count();
                         var customerLoans = ags.proof_customer_table.GroupBy(x => x.customerid).Select(t => t.FirstOrDefault()).ToList();
-                        foreach (var loans in customerLoans)
+                        
+                        if(customerProofsCount < totalProofCount)
                         {
-                            ags.proof_customer_table.Add(new proof_customer_table
+                            foreach (var loans in customerLoans)
                             {
-                                customerid = loans.customerid,
-                                proofid = last_insert_id.ToString(),
-                                datex = DateTime.Now.ToString(),
-                                addedby = Session["username"].ToString()
+                                ags.proof_customer_table.Add(new proof_customer_table
+                                {
+                                    customerid = loans.customerid,
+                                    proofid = last_insert_id.ToString(),
+                                    proofans = "NotApplicable",
+                                    datex = DateTime.Now.ToString(),
+                                    addedby = Session["username"].ToString()
 
-                            });
+                                });
+                            }
                         }
+                        
                     }
                     else
                     {
@@ -281,9 +290,9 @@ namespace agskeys.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             proof_table proof_table = ags.proof_table.Find(id);
-
-
             ags.proof_table.Remove(proof_table);
+            var customerProof = ags.proof_customer_table.Where(x => x.proofid == id.ToString());
+            ags.proof_customer_table.RemoveRange(customerProof);
             ags.SaveChanges();
             return RedirectToAction("Proof");
         }

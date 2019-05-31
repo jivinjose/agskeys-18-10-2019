@@ -141,7 +141,7 @@ namespace agskeys.Controllers
                         if (emp.emp_category_id == "sales_executive" && emp.emp_category_id == model.userrole)
                         {
                             Session["userlevel"] = form["userlevel"].ToString();
-                            return RedirectToAction("Index", "MobileSalesExecutive");
+                            return RedirectToAction("salesloan", "MobileSalesLoan");
                         }
                         else
                         {
@@ -190,7 +190,7 @@ namespace agskeys.Controllers
                         if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
                         {
                             Session["userlevel"] = form["userlevel"].ToString();
-                            return RedirectToAction("Index", "MobileManager");
+                            return RedirectToAction("managerloan", "MobileManagerLoan");
                         }
                         else
                         {
@@ -342,6 +342,56 @@ namespace agskeys.Controllers
                         return RedirectToAction("Index", "AgskeysSite");
                     }
                 }
+
+                else
+                {
+                    TempData["Message"] = "username or password is wrong";
+                    return RedirectToAction("Index", "AgskeysSite");
+                }
+
+            }
+            else if (form["userlevel"].ToString() == "manager")
+            {
+                string userName = form["userName"].ToString();
+                string passwordfrom = form["password"].ToString();
+                string userlevel = form["userlevel"].ToString();
+                var manager = (from u in ags.admin_table where u.username == userName && u.isActive == true select u).FirstOrDefault();
+                if (manager == null)
+                {
+                    //TempData["Message"] = "<script>alert('username or password is wrong');</script>";
+                    TempData["Message"] = "username or password is wrong";
+                    return RedirectToAction("Index", "AgskeysSite");
+                }
+                else if (manager != null)
+                {
+                    var model = ags.admin_table.Where(x => x.username == userName).SingleOrDefault();
+                    bool result = PasswordStorage.VerifyPassword(passwordfrom, model.password);
+                    var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == userlevel && x.status == "publish").SingleOrDefault();
+
+
+                    if (result)
+                    {
+                        Session["userid"] = manager.id.ToString();
+                        Session["username"] = manager.username.ToString();
+                        FormsAuthentication.SetAuthCookie(manager.username, false);
+                        if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
+                        {
+                            Session["userlevel"] = form["userlevel"].ToString();
+                            return RedirectToAction("Index", "Manager");
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Enter the valid user credentials";
+                            return RedirectToAction("Index", "AgskeysSite");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Enter the valid user credentials";
+                        return RedirectToAction("Index", "AgskeysSite");
+                    }
+                }
+
                 else
                 {
                     TempData["Message"] = "username or password is wrong";
@@ -382,162 +432,45 @@ namespace agskeys.Controllers
         {
             string userName = form["userName"].ToString();
             string password = form["password"].ToString();
-
-            string userlevel = obj.userrole.ToString();
-
             if (obj.userrole == null)
             {
                 TempData["Message"] = "please select userrole";
                 return RedirectToAction("Login", "Account");
             }
-            else if (obj.userrole == "partner")
-            {
-                var vndr = (from u in ags.vendor_table where u.username == userName select u).FirstOrDefault();
-                if (vndr == null)
-                {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
-                    // return View();
-                }
-                else if (vndr != null)
-                {
-                    var model = ags.vendor_table.Where(x => x.username == userName).SingleOrDefault();
-                    bool result = PasswordStorage.VerifyPassword(password, model.password);
-
-                    string usrrole = obj.userrole.ToString();
-                    var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
-                    if (result)
-                    {
-                        Session["userid"] = vndr.id.ToString();
-                        Session["username"] = vndr.username.ToString();
-                        FormsAuthentication.SetAuthCookie(vndr.username, false);
-                        if (emp.emp_category_id == "partner")
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Index", "Partner");
-                        }
-                        else
-                        {
-                            TempData["Message"] = "Enter the valid user credentials";
-                            return RedirectToAction("Login", "Account");
-                        }
-                    }
-                    else
-                    {
-                        TempData["Message"] = "Enter the valid user credentials";
-                        return RedirectToAction("Login", "Account");
-                    }
-                }
-                else
-                {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
-                }
-
-            }
-            else if (obj.userrole == "clientele")
-            {
-                var clientele = (from u in ags.customer_profile_table where u.customerid == userName select u).FirstOrDefault();
-                if (clientele == null)
-                {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
-                    // return View();
-                }
-                else if (clientele != null)
-                {
-                    var model = ags.customer_profile_table.Where(x => x.customerid == userName).SingleOrDefault();
-                    bool result = PasswordStorage.VerifyPassword(password, model.password);
-
-                    string usrrole = obj.userrole.ToString();
-                    var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
-                    if (result)
-                    {
-                        Session["userid"] = clientele.id.ToString();
-                        Session["username"] = clientele.customerid.ToString();
-                        FormsAuthentication.SetAuthCookie(clientele.customerid, false);
-                        if (emp.emp_category_id == "clientele")
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Index", "Clientele");
-                        }
-                        else
-                        {
-                            TempData["Message"] = "Enter the valid user credentials";
-                            return RedirectToAction("Login", "Account");
-                        }
-                    }
-                    else
-                    {
-                        TempData["Message"] = "Enter the valid user credentials";
-                        return RedirectToAction("Login", "Account");
-                    }
-                }
-                else
-                {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
-                }
-
-            }
-
-
             else
             {
-
-                var user = (from u in ags.admin_table where u.username == userName && u.userrole == userlevel && u.isActive == true select u).FirstOrDefault();
-                if (user == null)
+                string userlevel = obj.userrole.ToString();
+                if (obj.userrole == "partner")
                 {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
-                    // return View();
-                }
-                else if (user != null)
-                {
-                    var model = ags.admin_table.Where(x => x.username == userName).SingleOrDefault();
-                    bool result = PasswordStorage.VerifyPassword(password, model.password);
-
-                    string usrrole = obj.userrole.ToString();
-                    var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
-                    if (result)
+                    var vndr = (from u in ags.vendor_table where u.username == userName select u).FirstOrDefault();
+                    if (vndr == null)
                     {
-                        Session["userid"] = user.id.ToString();
-                        Session["username"] = user.username.ToString();
-                        FormsAuthentication.SetAuthCookie(user.username, false);
-                        if (emp.emp_category_id == "super_admin" && emp.emp_category_id == model.userrole)
+                        TempData["Message"] = "username or password is wrong";
+                        return RedirectToAction("Login", "Account");
+                        // return View();
+                    }
+                    else if (vndr != null)
+                    {
+                        var model = ags.vendor_table.Where(x => x.username == userName).SingleOrDefault();
+                        bool result = PasswordStorage.VerifyPassword(password, model.password);
+
+                        string usrrole = obj.userrole.ToString();
+                        var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
+                        if (result)
                         {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Index", "SuperAdmin");
-                        }
-                        else if (emp.emp_category_id == "admin" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Index", "Admin");
-                        }
-                        else if (emp.emp_category_id == "sales_executive" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Customer", "SalesExecutive");
-                        }
-                        else if (emp.emp_category_id == "tele_marketing" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Customer", "TeleMarketing");
-                        }
-                        else if (emp.emp_category_id == "process_team" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Customer", "ProcessTeam");
-                        }
-                        else if (emp.emp_category_id == "process_executive" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Customer", "ProcessExecutive");
-                        }
-                        else if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
-                        {
-                            Session["userlevel"] = obj.userrole.ToString();
-                            return RedirectToAction("Customer", "Manager");
+                            Session["userid"] = vndr.id.ToString();
+                            Session["username"] = vndr.username.ToString();
+                            FormsAuthentication.SetAuthCookie(vndr.username, false);
+                            if (emp.emp_category_id == "partner")
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("Index", "Partner");
+                            }
+                            else
+                            {
+                                TempData["Message"] = "Enter the valid user credentials";
+                                return RedirectToAction("Login", "Account");
+                            }
                         }
                         else
                         {
@@ -547,17 +480,137 @@ namespace agskeys.Controllers
                     }
                     else
                     {
-                        TempData["Message"] = "Enter the valid user credentials";
+                        TempData["Message"] = "username or password is wrong";
                         return RedirectToAction("Login", "Account");
                     }
+
                 }
-                else
+                else if (obj.userrole == "clientele")
                 {
-                    TempData["Message"] = "username or password is wrong";
-                    return RedirectToAction("Login", "Account");
+                    var clientele = (from u in ags.customer_profile_table where u.customerid == userName select u).FirstOrDefault();
+                    if (clientele == null)
+                    {
+                        TempData["Message"] = "username or password is wrong";
+                        return RedirectToAction("Login", "Account");
+                        // return View();
+                    }
+                    else if (clientele != null)
+                    {
+                        var model = ags.customer_profile_table.Where(x => x.customerid == userName).SingleOrDefault();
+                        bool result = PasswordStorage.VerifyPassword(password, model.password);
+
+                        string usrrole = obj.userrole.ToString();
+                        var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
+                        if (result)
+                        {
+                            Session["userid"] = clientele.id.ToString();
+                            Session["username"] = clientele.customerid.ToString();
+                            FormsAuthentication.SetAuthCookie(clientele.customerid, false);
+                            if (emp.emp_category_id == "clientele")
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("Index", "Clientele");
+                            }
+                            else
+                            {
+                                TempData["Message"] = "Enter the valid user credentials";
+                                return RedirectToAction("Login", "Account");
+                            }
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Enter the valid user credentials";
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Message"] = "username or password is wrong";
+                        return RedirectToAction("Login", "Account");
+                    }
+
                 }
 
+
+                else
+                {
+
+                    var user = (from u in ags.admin_table where u.username == userName && u.userrole == userlevel && u.isActive == true select u).FirstOrDefault();
+                    if (user == null)
+                    {
+                        TempData["Message"] = "username or password is wrong";
+                        return RedirectToAction("Login", "Account");
+                        // return View();
+                    }
+                    else if (user != null)
+                    {
+                        var model = ags.admin_table.Where(x => x.username == userName).SingleOrDefault();
+                        bool result = PasswordStorage.VerifyPassword(password, model.password);
+
+                        string usrrole = obj.userrole.ToString();
+                        var emp = ags.emp_category_table.Where(x => x.emp_category_id.ToString() == usrrole && x.status == "publish").SingleOrDefault();
+                        if (result)
+                        {
+                            Session["userid"] = user.id.ToString();
+                            Session["username"] = user.username.ToString();
+                            FormsAuthentication.SetAuthCookie(user.username, false);
+                            if (emp.emp_category_id == "super_admin" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("Index", "SuperAdmin");
+                            }
+                            else if (emp.emp_category_id == "admin" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            else if (emp.emp_category_id == "sales_executive" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("salesloan", "SalesLoan");
+                            }
+                            else if (emp.emp_category_id == "tele_marketing" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("Customer", "TeleMarketing");
+                            }
+                            else if (emp.emp_category_id == "process_team" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("processloan", "ProcessLoan");
+                            }
+                            else if (emp.emp_category_id == "process_executive" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("ProcessExecutiveLoan", "ProcessExecutiveLoan");
+                            }
+                            else if (emp.emp_category_id == "manager" && emp.emp_category_id == model.userrole)
+                            {
+                                Session["userlevel"] = obj.userrole.ToString();
+                                return RedirectToAction("managerloan", "ManagerLoan");
+                            }
+                            else
+                            {
+                                TempData["Message"] = "Enter the valid user credentials";
+                                return RedirectToAction("Login", "Account");
+                            }
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Enter the valid user credentials";
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Message"] = "username or password is wrong";
+                        return RedirectToAction("Login", "Account");
+                    }
+
+                }
             }
+            
+           
 
         }
 
@@ -679,6 +732,64 @@ namespace agskeys.Controllers
         {
             string userlevel = form["userlevel"].ToString();
             if(userlevel == "sales_executive")
+            {
+                string userName = form["userName"].ToString();
+                if (userName != null)
+                {
+                    int EmployeeCount = ags.admin_table.Where(x => x.username == userName).Count();
+                    if (EmployeeCount != 0)
+                    {
+                        admin_table employees = ags.admin_table.Where(x => x.username == userName).FirstOrDefault();
+
+                        string AutoGenPwd = Membership.GeneratePassword(12, 1);
+                        string EmpEmail = employees.email;
+                        if (EmpEmail != null)
+                        {
+                            string EncryptPassword = PasswordStorage.CreateHash(AutoGenPwd);
+                            employees.password = EncryptPassword;
+
+                            //////////////////////////////////
+
+                            MailMessage MyMailMessage = new MailMessage();
+                            MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                            MyMailMessage.To.Add(EmpEmail);
+                            MyMailMessage.Subject = "AGSKEYS - Auto Generated Password";
+                            MyMailMessage.IsBodyHtml = true;
+
+                            MyMailMessage.Body = "<div style='font - family: Arial; font - size: 12px; '>You have requested a password reset, please use this password to open your account.</div><br><table border='0' ><tr><td style='padding:25px;'>Your New Password</td><td style='padding:25px;'>" + AutoGenPwd + "</table></tr></td>";
+
+                            SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                            SMTPServer.Port = 587;
+                            SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                            SMTPServer.EnableSsl = true;
+                            try
+                            {
+                                SMTPServer.Send(MyMailMessage);
+                                ags.SaveChanges();
+                                TempData["mail"] = "New Password Successfully Send to Your Registered Email";
+                                return RedirectToAction("Index", "AgskeysSite");
+                            }
+                            catch (Exception ex)
+                            {
+                                TempData["mail"] = ex.Message;
+                                TempData["mail"] = "Oops.! Somethig Went Wrong.";
+                                return RedirectToAction("Index", "AgskeysSite");
+                            }
+                        }
+                        else
+                        {
+                            TempData["email"] = "Oops.! Somethig Went Wrong.";
+                        }
+                        //////////////////////////////////
+                    }
+                    else
+                    {
+                        TempData["NotExst"] = "Oops.! Something Went Wrong.";
+                    }
+                }
+                return RedirectToAction("Index", "AgskeysSite");
+            }
+            else if (userlevel == "manager")
             {
                 string userName = form["userName"].ToString();
                 if (userName != null)

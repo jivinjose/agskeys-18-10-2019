@@ -16,8 +16,8 @@
 <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" style="display:block;" onclick="closeNav()"><i class="fa fa-angle-left" style="font-size:22px; padding-right: 10px;"></i> back</a>
-        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customer" ? "active" : "")" href="~/MobileSalesExecutive/Customer"><i class="fa fa-bank"></i><span>CUSTOMER</span></a>
-        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loan" ? "active" : "")" href="~/MobileSalesLoan/salesloan"><i class="fa fa-bank"></i><span>LOAN</span></a>
+        @*<a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customer" ? "active" : "")" href="~/MobileSalesExecutive/Customer"><i class="fa fa-bank"></i><span>CUSTOMER</span></a>*@
+        <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "salesloan" ? "active" : "")" href="~/MobileSalesLoan/salesloan"><i class="fa fa-bank"></i><span>LOAN</span></a>
         <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Support" ? "active" : "")" href="~/MobileSalesExecutive/Support"><i class="fa fa-globe"></i><span>SUPPORT</span></a>
     </div>
 
@@ -28,7 +28,7 @@
         <div class="row disp-name11" id="sec1">
 
 
-            <a href="~/MobileSalesExecutive/Customer" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"><i class="fa fa-home"></i><br> HOME </a>
+            <a href="~/MobileSalesLoan/salesloan" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "salesloan" ? "active" : "")"><i class="fa fa-home"></i><br> HOME </a>
 
             <a href="~/MobileSalesExecutive/UserProfile" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "UserProfile" ? "active" : "")"><i class="fa fa-user"></i> <br> PROFILE </a>
 

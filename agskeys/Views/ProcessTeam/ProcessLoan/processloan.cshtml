@@ -86,9 +86,9 @@
                                         <th>
                                             Customer Name (ID)
                                         </th>
-                                        @*<th>
-                                            Partner Id
-                                        </th>*@
+                                        <th>
+                                            Requested Amount
+                                        </th>
                                         <th>
                                             Loan Amount
                                         </th>
@@ -116,9 +116,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.customerid)
                                             </td>
-                                            @*<td>
-                                                @Html.DisplayFor(modelItem => item.partnerid)
-                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.requestloanamt)
+                                            </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.loanamt)
                                             </td>
@@ -146,7 +146,8 @@
                                                     if (loan.loanid == item.id.ToString())
                                                     {
 
-                                                        <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ProcessLoan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>                                                        
+                                                        <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ProcessLoan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
+                                                        <span style="color:green">Not Assigned</span>
                                                     }
                                                 }
                                             </td>
@@ -160,9 +161,9 @@
                                         <th>
                                             Customer Name (ID)
                                         </th>
-                                        @*<th>
-                                            Partner Id
-                                        </th>*@
+                                        <th>
+                                            Requested Amount
+                                        </th>
                                         <th>
                                             Loan Amount
                                         </th>

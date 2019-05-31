@@ -238,30 +238,42 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6" >
                                                 <div class="form-group">
+                                                    <label class="control-label col-md-12">Technical Value</label>
                                                     <div class="col-md-12">
-                                                        <label class="float-label">Technical</label><br />
-                                                        Yes <input id="technical" name="technical" type="radio" value="Yes" @if (ViewBag.technical == "Yes"){<text>checked</text> } />
-                                                        No <input id="technical" name="technical" type="radio" value="No" @if (ViewBag.technical == "No"){<text>checked</text> }  />
+                                                        <input id="technicalValue" class="form-control" value="@ViewBag.comment" name="technicalValue" type="text" required/>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <label class="float-label">Legal</label><br />
-                                                        Yes <input id="legal" name="legal" type="radio" value="Yes" @if (ViewBag.legal == "Yes"){<text>checked</text> }/>
-                                                        No <input id="legal" name="legal" type="radio" value="No" @if (ViewBag.legal == "No"){<text>checked</text> }/>
+                                                    <label class="control-label col-md-12">Technical</label>
+                                                    <div class="col-md-12">                                                       
+                                                        <input id="technical" name="technical" type="radio" value="Yes" @if (ViewBag.technical == "Yes"){<text>checked</text> } /> Yes
+                                                        <input id="technical" name="technical" type="radio" value="No" @if (ViewBag.technical == "No"){<text>checked</text> }  /> No
+                                                        <input id="technical" name="technical" type="radio" value="Pending" @if (ViewBag.technical == "Pending") { <text> checked</text> } /> Pending
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                           
+                                            <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label class="control-label col-md-12">Legal</label>
                                                     <div class="col-md-12">
-                                                        <label class="float-label">RCU</label><br />
-                                                        Yes <input id="rcu" name="rcu" type="radio" value="Yes" @if (ViewBag.rcu == "Yes"){<text>checked</text> }/>
-                                                        No <input id="rcu" name="rcu" type="radio" value="No" @if (ViewBag.rcu == "No"){<text>checked</text> }/>
+                                                        <input id="legal" name="legal" type="radio" value="Yes" @if (ViewBag.legal == "Yes"){<text>checked</text> }/> Yes
+                                                        <input id="legal" name="legal" type="radio" value="No" @if (ViewBag.legal == "No"){<text>checked</text> }/> No
+                                                        <input id="legal" name="legal" type="radio" value="Pending" @if (ViewBag.legal == "Pending") { <text> checked</text> } /> Pending
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-12">RCU</label>
+                                                    <div class="col-md-12">                                                        
+                                                        <input id="rcu" name="rcu" type="radio" value="Yes" @if (ViewBag.rcu == "Yes"){<text>checked</text> }/> Yes
+                                                        <input id="rcu" name="rcu" type="radio" value="No" @if (ViewBag.rcu == "No"){<text>checked</text> }/> No
+                                                        <input id="rcu" name="rcu" type="radio" value="Pending" @if (ViewBag.rcu == "Pending") { <text> checked</text> } /> Pending
                                                     </div>
                                                 </div>
                                             </div>

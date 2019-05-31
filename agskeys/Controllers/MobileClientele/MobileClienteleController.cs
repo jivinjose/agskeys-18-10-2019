@@ -84,7 +84,7 @@ namespace agskeys.Controllers.MobileClientele
             
             if(customer_loans.Count() != 0)
             {
-                ViewData["interest"] = interest / customer_loans.Count();
+                ViewData["interest"] = Math.Round((interest / customer_loans.Count()), 2);                
             }
             else
             {
@@ -386,8 +386,10 @@ namespace agskeys.Controllers.MobileClientele
                     {
                         if (item.employeeid.ToString() == items.id.ToString())
                         {
+                            var employeeType = ags.emp_category_table.Where(x => x.emp_category_id == items.userrole).FirstOrDefault();
                             //string concatenated = items.name + " ( " + items.userrole + " ) ";
-                            employeeid = items.userrole;
+                            employeeid = employeeType.emp_category;
+                            
                             break;
                         }
                         else if (items.id.ToString() != item.employeeid)

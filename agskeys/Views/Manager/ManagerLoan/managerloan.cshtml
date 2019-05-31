@@ -105,7 +105,8 @@
                                                     {
 
                                                         <a href="#" id="edit" onclick="createModal('@Url.Action("Edit", "ManagerLoan" , new {id=item.id })')"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
-                                                        <a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "ManagerLoan" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>
+                                                        @*<a href="#" id="delete" onclick="createModal('@Url.Action("Delete", "ManagerLoan" , new {id=item.id })')"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>*@
+                                                        <span style="color:green">Not Assigned</span>
                                                     }
                                                 }
                                             </td>

@@ -339,6 +339,15 @@ namespace agskeys.Controllers.ProcessTeam
                 ViewBag.technical = process_executive.technical;
                 ViewBag.legal = process_executive.legal;
                 ViewBag.rcu = process_executive.rcu;
+                if (process_executive.comment == null)
+                {
+                    process_executive.comment = "0";
+                    ViewBag.comment = process_executive.comment;
+                }
+                else
+                {
+                    ViewBag.comment = process_executive.comment;
+                }
             }
             return PartialView("~/Views/ProcessTeam/ProcessLoan/Details.cshtml", user);
         }
@@ -368,7 +377,7 @@ namespace agskeys.Controllers.ProcessTeam
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin" && x.emp_category_id != "clientele" && x.emp_category_id != "partner").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -418,7 +427,7 @@ namespace agskeys.Controllers.ProcessTeam
                 SelectList commentlist = new SelectList(ExtComment, "id", "externalcomment");
                 ViewBag.commentList = commentlist;
 
-                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin" && x.emp_category_id != "clientele" && x.emp_category_id != "partner").ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 
@@ -912,7 +921,7 @@ namespace agskeys.Controllers.ProcessTeam
                 return this.RedirectToAction("Logout", "Account");
             }
             string username = Session["username"].ToString();
-            var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
+            var getCustomer = ags.customer_profile_table.ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 
@@ -928,7 +937,7 @@ namespace agskeys.Controllers.ProcessTeam
             SelectList loantp = new SelectList(getloantype, "id", "loan_type");
             ViewBag.loantypeList = loantp;
 
-            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+            var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin" && x.emp_category_id != "clientele" && x.emp_category_id != "partner").ToList();
             SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
             ViewBag.empCategories = empCategories;
 
@@ -960,7 +969,7 @@ namespace agskeys.Controllers.ProcessTeam
             if (ModelState.IsValid)
             {
                 string username = Session["username"].ToString();
-                var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
+                var getCustomer = ags.customer_profile_table.ToList();
                 SelectList customers = new SelectList(getCustomer, "id", "customerid");
                 ViewBag.customerList = customers;
 
@@ -976,7 +985,7 @@ namespace agskeys.Controllers.ProcessTeam
                 SelectList loantp = new SelectList(getloantype, "id", "loan_type");
                 ViewBag.loantypeList = loantp;
 
-                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin").ToList();
+                var empCategory = ags.emp_category_table.Where(x => x.emp_category_id != "admin" && x.emp_category_id != "super_admin" && x.emp_category_id != "clientele" && x.emp_category_id != "partner").ToList();
                 SelectList empCategories = new SelectList(empCategory, "emp_category_id", "emp_category");
                 ViewBag.empCategories = empCategories;
 

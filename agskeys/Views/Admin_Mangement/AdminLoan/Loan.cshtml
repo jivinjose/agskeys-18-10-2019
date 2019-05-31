@@ -4,9 +4,6 @@
     ViewBag.Title = "Loan";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-
-
 <div class="page-header card">
     <div class="row align-items-end">
         <div class="col-lg-7">
@@ -51,9 +48,9 @@
                                         <th>#</th>
                                         <th>
                                             Customer Name (ID)
-                                        </th>
+                                        </th>                                      
                                         <th>
-                                            Partner Id
+                                            Requested Amount
                                         </th>
                                         <th>
                                             Loan Amount
@@ -84,14 +81,14 @@
                                                 @Html.DisplayFor(modelItem => item.employee)
                                             </td>
                                             <td>
+                                                @Html.DisplayFor(modelItem => item.requestloanamt)
+                                            </td>
+                                            <td>
                                                 @Html.DisplayFor(modelItem => item.loanamt)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.disbursementamt)
-                                            </td>
-                                            @*<td>
-                                                @Html.DisplayFor(modelItem => item.addedby)
-                                            </td>*@
+                                            </td>                                            
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.loanstatus)
                                             </td>
@@ -110,9 +107,9 @@
                                         <th>#</th>
                                         <th>
                                             Customer Name (ID)
-                                        </th>
+                                        </th>                                       
                                         <th>
-                                            Partner Id
+                                            Requested Amount
                                         </th>
                                         <th>
                                             Loan Amount
