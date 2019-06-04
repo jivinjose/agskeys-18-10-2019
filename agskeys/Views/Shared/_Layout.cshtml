@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model agskeys.Models.notification_table
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -101,12 +102,13 @@
                                             <h6>Notifications</h6>
                                             <label class="label label-danger">New</label>
                                         </li>
+                                       
                                         <li>
                                             <div class="media">
                                                 <img class="img-radius" src="~/files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                                <div class="media-body">
+                                                <div class="media-body">                                                    
                                                     <h5 class="notification-user">John Doe</h5>
-                                                    <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                    <p class="notification-msg" @*@Html.LabelFor(model => model.notification, htmlAttributes: new { @class = "control-label col-md-12" })*@</p>
                                                     <span class="notification-time">30 minutes ago</span>
                                                 </div>
                                             </div>
@@ -571,6 +573,24 @@
         });
 
 
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#employeetype").change(function () {
+                $.get("/Loan/GetEmployeeList", {
+                    categoryId:
+                    $("#employeetype").val()
+                }, function (data) {
+                    $("#employee").empty();
+                    $("#employee").append("<option>Please Select Employee Name</option> ");
+                    $.each(data, function (create, row) {
+                        $("#employee").append("<option value='" + row.id + "'>" +
+                            row.name + "</option>")
+                        $("#employee").removeAttr("disabled");
+                    });
+                });
+            })
+        });
     </script>
 
 </body>

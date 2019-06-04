@@ -343,6 +343,9 @@
     </Compile>
     <Compile Include="Models\MultipleEmpClass.cs" />
     <Compile Include="Models\Multiple_proofs_customer.cs" />
+    <Compile Include="Models\notification_table.cs">
+      <DependentUpon>agskeys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\partner_customer.cs" />
     <Compile Include="Models\ProcessExecutiveLoan.cs" />
     <Compile Include="Models\process_executive.cs">

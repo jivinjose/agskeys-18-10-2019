@@ -227,6 +227,25 @@ namespace agskeys.Controllers.partner
                     ags.assigned_table.Add(assigned);
                     ags.SaveChanges();
 
+                    var vendorname = ags.vendor_table.Where(x => x.username == Session["username"].ToString()).FirstOrDefault();
+                    // Loan notification to Super admin and Admin
+                    ags.notification_table.Add(new notification_table
+                    {
+                        notification = "New Loan has Created for " + obj.name + " By You.",
+                        seenstatus = 1,
+                        userid = vendorname.username,
+                        addedby = Session["username"].ToString(),
+                        datex = DateTime.Now.ToString(),
+                    });
+                    ags.notification_table.Add(new notification_table
+                    {
+                        notification = "New Customer " + obj.name + " has Created By" + vendor.companyname +"(Vendor)",
+                        seenstatus = 1,
+                        userid = "super_admin",
+                        addedby = Session["username"].ToString(),
+                        datex = DateTime.Now.ToString(),
+                    });
+                    ags.SaveChanges();
                     ////////////////////////////////////
 
                     return RedirectToAction("Index");

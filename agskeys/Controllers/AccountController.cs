@@ -1,6 +1,7 @@
 ﻿using agskeys.Models;
 using PasswordSecurity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
@@ -1218,6 +1219,12 @@ namespace agskeys.Controllers
         public ActionResult privacypolicy()
         {
             return View();
+        }
+        public JsonResult GetNotificationList()
+        {
+            ags.Configuration.ProxyCreationEnabled = false;
+            List<notification_table> notifications = ags.notification_table.Where(x => x.userid.ToString() == "super_admin" && x.seenstatus == 1).ToList();
+            return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
     }

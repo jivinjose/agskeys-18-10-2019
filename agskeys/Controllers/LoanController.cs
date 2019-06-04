@@ -360,7 +360,20 @@ namespace agskeys.Controllers
                 assigned.datex = DateTime.Now.ToString();
                 assigned.addedby = Session["username"].ToString();
                 ags.assigned_table.Add(assigned);
+
+                // Loan notification to Super admin
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "New Loan has Created for " + obj.customerid + " By Super Admin",
+                    seenstatus = 1,
+                    userid = "super_admin",
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
+
                 ags.SaveChanges();
+
+
                 return RedirectToAction("Loan");
 
             }
@@ -874,7 +887,16 @@ namespace agskeys.Controllers
                 else
                 {
                     existing_data.datex = existing_data.datex;
-                }                              
+                }
+                //loan assingned to notification table
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "Loan " + loan_table.id + " Assigned" + "to" + loan_table.employee,
+                    seenstatus = 1,
+                    userid = "super_admin",
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
                 ags.SaveChanges();
 
                 return RedirectToAction("Loan", "Loan");

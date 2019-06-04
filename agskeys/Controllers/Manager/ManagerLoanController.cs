@@ -535,6 +535,27 @@ namespace agskeys.Controllers.Manager
                 {
                     existing_data.datex = existing_data.datex;
                 }
+                //loan assingned to notification table
+                var employeename = ags.admin_table.Where(x => x.id.ToString() == loan_table.employee).FirstOrDefault();
+                if (employeename != null)
+                {
+                    ags.notification_table.Add(new notification_table
+                    {
+                        notification = "Loan " + loan_table.customerid + " Assigned" + " to " + employeename.name,
+                        seenstatus = 1,
+                        userid = "super_admin",
+                        addedby = Session["username"].ToString(),
+                        datex = DateTime.Now.ToString(),
+                    });
+                }
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "Loan (" + loan_table.customerid + ") Assigned" + " to you",
+                    seenstatus = 1,
+                    userid = loan_table.employee,
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
                 ags.SaveChanges();
 
                 return RedirectToAction("managerloan");

@@ -343,6 +343,26 @@ namespace agskeys.Controllers.TeleMarketing
                 assigned.datex = DateTime.Now.ToString();
                 assigned.addedby = Session["username"].ToString();
                 ags.assigned_table.Add(assigned);
+
+                var employeename = ags.admin_table.Where(x => x.username == Session["username"].ToString()).FirstOrDefault();
+                // Loan notification to Super admin and Admin
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "New Loan has Created for " + obj.customerid + " By " + employeename.name + "(Tele Caller)",
+                    seenstatus = 1,
+                    userid = employeename.username,
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
+
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "New Loan has Created for " + obj.customerid + " By You",
+                    seenstatus = 1,
+                    userid = employeename.username,
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
                 ags.SaveChanges();
                 return RedirectToAction("telemarketingloan");
 
@@ -786,6 +806,27 @@ namespace agskeys.Controllers.TeleMarketing
                 {
                     existing_data.datex = existing_data.datex;
                 }
+                //loan assingned to notification table
+                var employeename = ags.admin_table.Where(x => x.id.ToString() == loan_table.employee).FirstOrDefault();
+                if (employeename != null)
+                {
+                    ags.notification_table.Add(new notification_table
+                    {
+                        notification = "Loan " + loan_table.customerid + " Assigned" + " to " + employeename.name,
+                        seenstatus = 1,
+                        userid = "super_admin",
+                        addedby = Session["username"].ToString(),
+                        datex = DateTime.Now.ToString(),
+                    });
+                }
+                ags.notification_table.Add(new notification_table
+                {
+                    notification = "Loan (" + loan_table.customerid + ") Assigned" + " to you",
+                    seenstatus = 1,
+                    userid = loan_table.employee,
+                    addedby = Session["username"].ToString(),
+                    datex = DateTime.Now.ToString(),
+                });
                 ags.SaveChanges();
 
                 return RedirectToAction("telemarketingloan");

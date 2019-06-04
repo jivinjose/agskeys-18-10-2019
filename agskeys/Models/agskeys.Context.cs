@@ -39,5 +39,6 @@ namespace agskeys.Models
         public virtual DbSet<proof_customer_table> proof_customer_table { get; set; }
         public virtual DbSet<external_comment_table> external_comment_table { get; set; }
         public virtual DbSet<process_executive> process_executive { get; set; }
+        public virtual DbSet<notification_table> notification_table { get; set; }
     }
 }

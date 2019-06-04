@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="agsfinancialsModel.assigned_table" Width="1.5" PointX="4.375" PointY="6.625" />
         <EntityTypeShape EntityType="agsfinancialsModel.external_comment_table" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="agsfinancialsModel.process_executive" Width="1.5" PointX="7.875" PointY="3" />
+        <EntityTypeShape EntityType="agsfinancialsModel.notification_table" Width="1.5" PointX="6.125" PointY="7.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

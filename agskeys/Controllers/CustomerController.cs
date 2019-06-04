@@ -93,6 +93,14 @@ namespace agskeys.Controllers
                         datex = DateTime.Now.ToString(),
                         addedby = Session["username"].ToString()
                     });
+                    ags.notification_table.Add(new notification_table
+                    {
+                        notification = "New Customer " + obj.name + " has Created By Super Admin",
+                        seenstatus = 1,
+                        userid = "super_admin",
+                        addedby = Session["username"].ToString(),
+                        datex = DateTime.Now.ToString(),
+                    });
                     ags.SaveChanges();
                     return RedirectToAction("Customer", "Customer");
                 }

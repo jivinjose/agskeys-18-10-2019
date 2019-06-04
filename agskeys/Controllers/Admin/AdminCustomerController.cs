@@ -87,7 +87,19 @@ namespace agskeys.Controllers.Admin
                             datex = DateTime.Now.ToString(),
                             addedby = Session["username"].ToString()
                         });
-                        ags.SaveChanges();
+
+                        var employeename = ags.admin_table.Where(x => x.username == Session["username"].ToString()).FirstOrDefault();
+
+                        ags.notification_table.Add(new notification_table
+                        {
+                            notification = "New Customer " + obj.name + " has Created By"+employeename.name,
+                            seenstatus = 1,
+                            userid = "super_admin",
+                            addedby = Session["username"].ToString(),
+                            datex = DateTime.Now.ToString(),
+                        });
+
+                    ags.SaveChanges();
                         return RedirectToAction("Customer");
                     }
                     else
