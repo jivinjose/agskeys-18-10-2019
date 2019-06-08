@@ -97,6 +97,137 @@ namespace agskeys.Controllers.SaleExecutive
 
             return View("~/Views/SalesExecutive/SalesLoan/salesloan.cshtml", customer_loans);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult salesloan(FormCollection form)
+        {
+            if (Session["username"] == null || Session["userlevel"].ToString() != "sales_executive")
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            string username = Session["username"].ToString();
+            string userid = Session["userid"].ToString();
+            List<assigned_table> assign = ags.assigned_table.Where(x => x.assign_emp_id == userid).ToList();
+            ViewBag.assigned_loan = assign;
+
+
+            // var assigne_id = ags.assigned_table.Where(x => x.assign_emp_id == userid).ToList();
+            var getCustomer = ags.customer_profile_table.ToList();
+            string SearchFor = "";
+            var customer_loans = (from s in ags.loan_table
+                                  join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                  where sa.employeeid == userid
+                                  orderby sa.datex descending
+                                  select s).Distinct().ToList();
+            // var customer_loans = (from loan_table in ags.loan_table orderby loan_table.id descending select loan_table).ToList();
+            if (form != null)
+            {
+                if (form["ongoing"] != null)
+                {
+                    SearchFor = form["ongoing"].ToString();
+                }
+                else if (form["Partialydisbursed"] != null)
+                {
+                    SearchFor = form["Partialydisbursed"].ToString();
+                }
+                else if (form["fullydisbursed"] != null)
+                {
+                    SearchFor = form["fullydisbursed"].ToString();
+                }
+
+                if (SearchFor == "ongoing")
+                {
+                    customer_loans = (from s in ags.loan_table
+                                      join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                      where (s.disbursementamt == "0" && sa.employeeid == userid)
+                                      orderby sa.datex descending
+                                      select s).Distinct().ToList();
+
+                }
+                else if (SearchFor == "Partialydisbursed")
+                {
+                    customer_loans = (from s in ags.loan_table
+                                      join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                      where (s.disbursementamt != s.loanamt && s.disbursementamt != "0" && sa.employeeid == userid)
+                                      orderby sa.datex descending
+                                      select s).Distinct().ToList();
+
+
+                }
+                else if (SearchFor == "fullydisbursed")
+                {
+                    customer_loans = (from s in ags.loan_table
+                                      join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                      where (s.disbursementamt == s.loanamt && s.requestloanamt != "0" && s.loanamt != "0" && sa.employeeid == userid)
+                                      orderby sa.datex descending
+                                      select s).Distinct().ToList();
+                }
+
+            }
+            var customerid = "";
+            foreach (var item in customer_loans)
+            {
+                foreach (var items in getCustomer)
+                {
+                    if (item.customerid.ToString() == items.id.ToString())
+                    {
+                        string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        customerid = concatenated;
+                        break;
+                    }
+                    else if (items.id.ToString() != item.customerid)
+                    {
+                        customerid = "Not Updated";
+                        continue;
+                    }
+                }
+                item.customerid = customerid;
+
+            }
+
+            //var getVendor = ags.vendor_table.ToList();
+            //var partnerid = "";
+            //foreach (var item in customer_loans)
+            //{
+            //    foreach (var items in getVendor)
+            //    {
+            //        if (item.partnerid == items.id.ToString())
+            //        {
+            //            partnerid = items.companyname;
+            //            break;
+            //        }
+            //        else if (items.id.ToString() != item.partnerid)
+            //        {
+            //            partnerid = "Not Updated";
+            //            continue;
+            //        }
+
+            //    }
+            //    item.partnerid = partnerid;
+            //}
+
+            var getloantype = ags.loantype_table.ToList();
+            foreach (var item in customer_loans)
+            {
+                foreach (var items in getloantype)
+                {
+                    if (item.loantype == items.id.ToString())
+                    {
+                        item.loantype = items.loan_type;
+                        break;
+                    }
+                    else if (!ags.loan_table.Any(s => s.loantype.ToString() == items.id.ToString()))
+                    {
+                        item.loantype = "Not Updated";
+                    }
+                }
+            }
+
+
+            return View("~/Views/SalesExecutive/SalesLoan/salesloan.cshtml", customer_loans);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

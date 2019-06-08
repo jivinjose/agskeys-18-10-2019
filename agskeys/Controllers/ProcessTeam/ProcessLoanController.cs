@@ -152,10 +152,10 @@ namespace agskeys.Controllers.ProcessTeam
 
                     }
                     else if (SearchFor == "fullydisbursed")
-                    {
+                    {                        
                         customer_loans = (from s in ags.loan_table
                                               join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
-                                              where (s.disbursementamt == s.loanamt && sa.employeeid == userid)
+                                              where (s.disbursementamt == s.loanamt && s.requestloanamt != "0" && s.loanamt != "0" && sa.employeeid == userid)
                                               orderby sa.datex descending
                                               select s).Distinct().ToList();
                     }
@@ -928,12 +928,6 @@ namespace agskeys.Controllers.ProcessTeam
             return PartialView("~/Views/ProcessTeam/ProcessLoan/Track.cshtml", loan_track);
         }
 
-
-
-
-
-
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -942,7 +936,18 @@ namespace agskeys.Controllers.ProcessTeam
                 return this.RedirectToAction("Logout", "Account");
             }
             string username = Session["username"].ToString();
-            var getCustomer = ags.customer_profile_table.ToList();
+            ////var customersl = (from s in ags.customer_profile_table
+            ////                 join sa in ags.loan_table on s.customerid equals sa.customerid into rd
+            ////                 from rt in rd.DefaultIfEmpty()
+            ////                 join sb in ags.assigned_table on rt.id.ToString() equals sb.loanid into rb
+            ////                 from rc in rb.DefaultIfEmpty()
+            ////                 where s.customerid == username || s.addedby == username
+            ////                 orderby rc.datex
+            ////                 select s).Distinct().OrderByDescending(t => t.id).ToList();
+          
+           // var customer = (from cus in ags.customer_profile_table join loans in ags.loan_table on cus.id.ToString() equals loans.customerid into total from totals in total.DefaultIfEmpty() join assign in ags.assigned_table on totals.id.ToString() equals assign.loanid into rb from rc in rb.DefaultIfEmpty() where cus.customerid == username orderby rc.datex select cus).Distinct().OrderByDescending(t => t.id).ToList();
+
+            var getCustomer = ags.customer_profile_table.Where(x => x.addedby == username).ToList();
             SelectList customers = new SelectList(getCustomer, "id", "customerid");
             ViewBag.customerList = customers;
 

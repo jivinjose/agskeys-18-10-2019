@@ -115,8 +115,11 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.customerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", required = true })
-                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })
+                                                        @*@Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", required = true })
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })*@
+                                                        @Html.DropDownListFor(model => model.customerid, ViewBag.customerList as SelectList, "Please select customer id", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.customerid)
+                                                        @Html.ValidationMessageFor(model => model.customerid, "", new { @class = "text-danger" })  
                                                     </div>
                                                 </div>
                                             </div>

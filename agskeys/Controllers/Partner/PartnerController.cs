@@ -227,7 +227,8 @@ namespace agskeys.Controllers.partner
                     ags.assigned_table.Add(assigned);
                     ags.SaveChanges();
 
-                    var vendorname = ags.vendor_table.Where(x => x.username == Session["username"].ToString()).FirstOrDefault();
+                    var userVendor = Session["username"].ToString();
+                    var vendorname = ags.vendor_table.Where(x => x.username == userVendor).FirstOrDefault();
                     // Loan notification to Super admin and Admin
                     ags.notification_table.Add(new notification_table
                     {

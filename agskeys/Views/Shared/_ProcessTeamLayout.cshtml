@@ -313,22 +313,22 @@
                             <div class="pcoded-inner-navbar main-menu">
                                 <div class="pcoded-navigation-label">Navigation</div>
                                 <ul class="pcoded-item pcoded-left-item">
-                                    @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                                         <a href="~/ProcessTeam/Index" class="waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="feather icon-home"></i>
                                             </span>
                                             <span class="pcoded-mtext">Dashboard</span>
                                         </a>
-                                    </li>*@
-                                    @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customer" ? "active" : "")">
+                                    </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customer" ? "active" : "")">
                                         <a href="~/ProcessTeam/Customer" class="waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="fa fa-users" aria-hidden="true"></i>
                                             </span>
                                             <span class="pcoded-mtext">Customer Management</span>
                                         </a>
-                                    </li>*@
+                                    </li>
 
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "processloan" ? "active" : "")">
                                         <a href="~/ProcessLoan/processloan" class="waves-dark">

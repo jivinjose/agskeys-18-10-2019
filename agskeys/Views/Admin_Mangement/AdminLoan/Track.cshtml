@@ -206,10 +206,7 @@
                                                     </th>
                                                     <th>
                                                         Track Time
-                                                    </th>
-                                                    <th>
-                                                        Internal Comment
-                                                    </th>
+                                                    </th>                                                   
                                                     <th>
                                                         External Comment
                                                     </th>
@@ -226,12 +223,24 @@
                                                         <td>@i</td>
                                                         <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.internalcomment)</td>
                                                         <td>
                                                             @Html.DisplayFor(modelItem => item.externalcomment)<br />
                                                         <p style="margin-top:8px;">@Html.DisplayFor(modelItem => item.followupdate)<br /><span style="margin-top:6px;">(Follow up Date)</span></p>
                                                     </td>
 
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <h5 style="margin-bottom:5px;"><u><b>Internal Comment</b></u></h5>
+                                                        @if (!string.IsNullOrEmpty(item.internalcomment))
+                                                        {
+                                                            @Html.DisplayFor(modelItem => item.internalcomment)
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>Not Updated</p>
+                                                        }
+                                                    </td>
                                                 </tr>
                                                 }
                                             </tbody>
@@ -243,9 +252,6 @@
                                                     </th>
                                                     <th>
                                                         Track Time
-                                                    </th>
-                                                    <th>
-                                                        Internal Comment
                                                     </th>
                                                     <th>
                                                         External Comment

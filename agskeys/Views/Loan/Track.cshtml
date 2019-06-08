@@ -203,14 +203,11 @@
                                                     </th>
                                                     <th>
                                                         Track Time
-                                                    </th>
-                                                    <th>
-                                                        Internal Comment
-                                                    </th>
+                                                    </th>                                                    
                                                     <th>
                                                         External Comment
                                                     </th>
-                                                </tr>
+                                                </tr>                                               
                                             </thead>
                                             <tbody>
                                                 @{
@@ -223,16 +220,7 @@
                                                         <td>@i</td>
                                                         <td>@Html.DisplayFor(modelItem => item.employeeid)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.tracktime)</td>
-                                                        <td>
-                                                        @if (!string.IsNullOrEmpty(item.internalcomment))
-                                                        {
-                                                            @Html.DisplayFor(modelItem => item.internalcomment)
-                                                        }
-                                                        else
-                                                        {
-                                                            <p>Not Updated</p>
-                                                        }
-                                                        </td>
+                                                       
                                                         <td>
                                                             @if (!string.IsNullOrEmpty(item.externalcomment))
                                                             {
@@ -253,6 +241,19 @@
                                                         </td>
                                                         
                                                     </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <h5 style="margin-bottom:5px;"><u><b>Internal Comment</b></u></h5>
+                                                            @if (!string.IsNullOrEmpty(item.internalcomment))
+                                                            {
+                                                                @Html.DisplayFor(modelItem => item.internalcomment)
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>Not Updated</p>
+                                                            }
+                                                        </td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                             <tfoot>
@@ -264,13 +265,12 @@
                                                     <th>
                                                         Track Time
                                                     </th>
-                                                    <th>
-                                                        Internal Comment
-                                                    </th>
+                                                    
                                                     <th>
                                                         External Comment
                                                     </th>
                                                 </tr>
+                                               
                                             </tfoot>
                                         </table>
                                     </div>
