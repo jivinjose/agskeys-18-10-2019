@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using static agskeys.Controllers.AccountController;
 
 namespace agskeys.Controllers.Clientele
@@ -643,11 +645,88 @@ namespace agskeys.Controllers.Clientele
         }
 
 
+        [HttpPost]
+        public ActionResult SendEnquiry(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                int customerCount = ags.customer_profile_table.Where(x => x.id.ToString() == userid).Count();
+                if (customerCount != 0)
+                {
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+                    string customerMessage = "";
 
+                    if (form["customerName"] != null)
+                    {
+                        customerName = form["customerName"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["customerEmail"] != null)
+                    {
+                        customerEmail = form["customerEmail"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["customerPhone"] != null)
+                    {
+                        customerPhone = form["customerPhone"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }
+                    if (form["customerMessage"] != null)
+                    {
+                        customerMessage = form["customerMessage"].ToString();
+                    }
+                    else
+                    {
+                        customerMessage = "Not Updated";
+                    }
 
+                    string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
 
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Enquiry From Customer";
+                    MyMailMessage.IsBodyHtml = true;
 
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Customer Enquiry Details.</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr><tr><td style='padding:25px;'>Message</td><td>" + customerMessage + "</td></tr></table>";
 
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);                        
+                        TempData["customerSuccessMsg"] = "Your New Enquiry Successfully send to AGSKEYS";
+                        return RedirectToAction("Index", "Clientele");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Index", "Clientele");
+                    }
+
+                }
+               
+            }
+            return RedirectToAction("Index", "AgskeysSite");
+
+        }
     }
 
 }

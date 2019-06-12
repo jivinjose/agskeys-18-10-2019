@@ -65,13 +65,14 @@
 
     <div id="wrapper">
         <!-- header begin -->
-        <header class="header-light autoshow">
+        @*<header class="header-light autoshow">*@
+        <header class="header-light">
             <div class="info">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col">Working Hours Monday - Friday <span class="id-color"><strong>08:00-16:00</strong></span></div>
-                            <div class="col">Toll Free <span class="id-color"><strong>1800.899.900</strong></span></div>
+                            @*<div class="col">Working Hours Monday - Friday <span class="id-color"><strong>08:00-16:00</strong></span></div>
+                            <div class="col">Toll Free <span class="id-color"><strong>1800.899.900</strong></span></div>*@
                             <!-- social icons -->
                             <div class="col social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -102,7 +103,8 @@
                         <nav class="header-mobile">
                             <ul id="mainmenu">
                                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                                    <a href="~/AgskeysSite/Index">HOME</a>
+                                    <a href="~/AgskeysSite/Index">
+                                    </a>
                                 </li>
                                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "about" ? "active" : "")">
                                     <a href="~/AgskeysSite/about">OUR TEAM</a>
@@ -166,7 +168,7 @@
                         <div class="col-md-10 box-div">
                             <div class="row">
                                 <div class="col-md-3 box-1">
-                                    <a href="home_loan.html"><p class="box-para-1">HOME LOAN</p></a>
+                                    <a href="~/AgskeysSite/home_loan"><p class="box-para-1">HOME LOAN</p></a>
                                     <p class="box-para-2">One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/home.svg">
@@ -180,14 +182,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 box-1">
-                                    <a href="business_loan.html"><p class="box-para-1">BUSINESS LOAN</p></a>
+                                    <a href="~/AgskeysSite/business_loan"><p class="box-para-1">BUSINESS LOAN</p></a>
                                     <p class="box-para-2">One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/portfolio.svg">
                                     </div>
                                 </div>
                                 <div class="col-md-3 box-2">
-                                    <a href="lap.html"><p class="box-para-1">LAP</p></a>
+                                    <a href="~/AgskeysSite/lap"><p class="box-para-1">LAP</p></a>
                                     <p class="box-para-2">One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/property.svg">
@@ -220,7 +222,8 @@
                                             <div class="col-md-6">
                                             </div>
                                             <div class="col-md-6 button-div">
-                                                <button class="styled">MORE DETAILS</button>
+                                                <a class="styled" href="~/AgskeysSite/about">MORE DETAILS</a>
+                                                @*<button class="styled">MORE DETAILS</button>*@
                                             </div>
                                         </div>
                                     </div>
@@ -309,26 +312,46 @@
             <!-- section service begin -->
             <div class="messages" data-bgcolor="#eeeeee">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     </div>
-                    <div class="col-md-4">
-                        <p class="message-para para-align"><i>Lorem Ipsum is simply dummy text of the printing and typesetting industry</i></p>
-                        <p class="message-para"><i>Lorem Ipsum has been the industry's standard dummy</i> </p>
+                    <div class="col-md-6">                       
+                        <h4 style="color:#ffffff; text-align:center;" class="para-align">SUBSCRIBE US</h4>
+                        <p style="color:#ffffff; text-align:center;"><i>Receive updates and latest news direct from our team. Simply enter your email below :</i> </p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     </div>
-                    <div class="col-md-4 mail-div">
-                        <p class="mail-para">
-                            <input class="message-txt" type="text" name="">
-                            <button class="bookbtn-1">SEND MAIL</button>
-                        </p>
+                    <div class="col-md-6" >
+                        <div class="mail-para row justify-content-center" style="text-align:center;">
+                            @if (TempData["customerSuccessMsg"] != null)
+                            {
+
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    @*<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>*@
+                                    @TempData["customerSuccessMsg"].ToString()
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="mail-div" style="padding:5px;">
+                                    <form id="main" method="post" action="@Url.Content("/Account/Subscription/")">
+                                        <input class="message-txt" type="email" id="subscriptionEmail" name="subscriptionEmail">
+                                        <button type="submit" class="bookbtn-1">SEND MAIL</button>
+                                    </form>
+                                </div>
+                               
+                            }
+                            @*onsubmit="alertSubscription()"*@
+                           
+
+                        </div>                       
                     </div>
                    
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     </div>
                 </div>
             </div>
@@ -432,10 +455,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-agile">
-                    <form id="client-login-form" method="post" action='@Url.Content("/Account/ClientLogin/")' onsubmit="return validateform()">
+                    <form id="client-login-form" method="post" action='@Url.Content("/Account/ClientLogin/")'>
                         <input type="text" class="uname"  id="userName" name="userName" placeholder="User name" required>
                         <input type="password" id="password" name="password" placeholder="Password" required>
-                        <select class="ddl-bg" id="userlevel" name="userlevel">
+                        <select class="ddl-bg" id="userlevel" name="userlevel" required>
                             <option class="opt-1" value="">User type</option>
                             <option class="opt-1" value="partner">Partner</option>
                             <option class="opt-1" value="clientele">Customer</option>
@@ -552,8 +575,32 @@
             $('.de').modal('show');
         }
     </script>
+    @*<script>
+        function alertSubscription() {
+            alert("You Subscribed to AGSKEYS");
+        }
+    </script>*@
+
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+    @*@if (ViewBag.customerSuccessMsg != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@ViewBag.customerSuccessMsg');
+                alert("hai");
+            };
+        </script>
+    }*@
+    @*<script type="text/javascript">
+
+            $(document).ready(function () {
+                alert('@ViewBag.customerSuccessMsg');
+                alert("hai da");
+            });
 
 
+
+    </script>*@
 </body >
-
 </html >

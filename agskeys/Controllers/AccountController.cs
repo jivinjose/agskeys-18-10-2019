@@ -1227,5 +1227,48 @@ namespace agskeys.Controllers
             return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult Subscription(FormCollection form)
+        {            
+            if (form["subscriptionEmail"] != null)
+            {
+
+                string EmailId = "";
+                EmailId = form["subscriptionEmail"].ToString();
+
+                //string CusEmail = "info@agskeys.com";
+                string CusEmail = "santhosh@techvegas.in";
+                //////////////////////////////////
+
+                MailMessage MyMailMessage = new MailMessage();
+                MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                MyMailMessage.To.Add(CusEmail);
+                MyMailMessage.Subject = "AGSKEYS - Subcription Email";
+                MyMailMessage.IsBodyHtml = true;
+
+                MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Subscriber.</div><br><table border='0' ><tr><td style='padding:25px;'>Subcriber Email Id</td><td>" + EmailId + "</td></tr></table>";
+
+                SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                SMTPServer.Port = 587;
+                SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                SMTPServer.EnableSsl = true;
+                try
+                {
+                    SMTPServer.Send(MyMailMessage);
+                    TempData["customerSuccessMsg"] =  "Your Successfully Subscribed to AGSKEYS";
+                    return RedirectToAction("Index", "AgskeysSite");
+                }
+                catch (Exception ex)
+                {
+                    TempData["customerSuccessMsg"] = ex.Message;
+                    TempData["customerSuccessMsg"] += "Oops.! Somethig Went Wrong.";
+                    return RedirectToAction("Index", "AgskeysSite");
+                }
+
+            }
+            return RedirectToAction("Index", "AgskeysSite");
+
+        }
+
     }
 }

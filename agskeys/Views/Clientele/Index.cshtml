@@ -296,37 +296,59 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5>Send Enquiry</h5>
+                               
                                 <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
                             </div>
+                            
                             <div class="card-block">
-                                <form id="main" method="post" action="#" novalidate>
+                                <div>
+                                    @if (TempData["customerSuccessMsg"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["customerSuccessMsg"].ToString()
+                                        </div>
+
+                                    }
+                                    @if (TempData["customerFailedMsg"] != null)
+                                    {
+
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["customerFailedMsg"].ToString()
+                                        </div>
+
+                                    }
+                                </div>
+                                <form id="main" method="post" action="@Url.Content("/Clientele/SendEnquiry/")" >
                                     @foreach (var custprf in ViewBag.customer_profile_table)
                                     {
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name" id="name" placeholder="Text Input Validation" value="@custprf.name">
+                                            <input type="text" class="form-control" name="customerName" id="customerName" placeholder="Text Input Validation" value="@custprf.name">
                                             <span class="messages"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter valid e-mail address" value="@custprf.email">
+                                            <input type="email" class="form-control" id="customerEmail" name="customerEmail" placeholder="Enter valid e-mail address" value="@custprf.email">
                                             <span class="messages"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Mobile</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="numeric" id="numeric" placeholder="Mobile Numbers Only" value="@custprf.phoneno">
+                                            <input type="text" class="form-control" name="customerPhone" id="customerPhone" placeholder="Mobile Numbers Only" value="@custprf.phoneno">
                                             <span class="messages"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Message</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Message"></textarea>
+                                            <textarea class="form-control" id="customerMessage" name="customerMessage" placeholder="Message"></textarea>
                                             <span class="messages"></span>
                                         </div>
                                     </div>
