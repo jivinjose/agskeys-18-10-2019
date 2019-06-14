@@ -1270,5 +1270,57 @@ namespace agskeys.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult SendEnquiry(FormCollection form)
+        {
+            if (form["name"] != null && form["email"] != null && form["phone"] != null && form["message"] != null)
+            {
+
+                string name = "";
+                string email = "";
+                string phone = "";
+                string message = "";
+                name = form["name"].ToString();
+                email = form["email"].ToString();
+                phone = form["phone"].ToString();
+                message = form["message"].ToString();
+
+                //string CusEmail = "info@agskeys.com";
+                string CusEmail = "santhosh@techvegas.in";
+                //////////////////////////////////
+
+                MailMessage MyMailMessage = new MailMessage();
+                MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                MyMailMessage.To.Add(CusEmail);
+                MyMailMessage.Subject = "AGSKEYS - Contact Enquiry Form";
+                MyMailMessage.IsBodyHtml = true;
+
+                MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Enquiry from AGSKEYS.COM Website.</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + name + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + email + "</td></tr><tr><td style='padding:25px;'>Phone Number</td><td>" + phone + "</td></tr><tr><td style='padding:25px;'>Message</td><td>" + message + "</td></tr></table>";
+
+                SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                SMTPServer.Port = 587;
+                SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                SMTPServer.EnableSsl = true;
+                try
+                {
+                    SMTPServer.Send(MyMailMessage);
+                    TempData["EnquirySuccessMsg"] = "Your Successfully Send Enquiry Message to AGSKEYS";
+                    return RedirectToAction("contact_us", "AgskeysSite");
+                    //return View();
+                }
+                catch (Exception ex)
+                {
+                    TempData["EnquirySuccessMsg"] = ex.Message;
+                    TempData["EnquirySuccessMsg"] += "Oops.! Somethig Went Wrong.";
+                    return RedirectToAction("contact_us", "AgskeysSite");
+                    //return View();
+                }
+
+            }
+            return RedirectToAction("contact_us", "AgskeysSite");
+
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
-
     
         <!-- subheader -->
         <section id="subheader" class="subheaderl" data-speed="8" data-type="background">
@@ -26,7 +25,7 @@
                     <div class="container">
                         <div class="row align-items-center justify-content-center mar-top-3">
                             <div class="col-lg-12 about-video-right justify-content-center align-items-center d-flex relative">
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="margin-top: -38px;">
                                     <p class="home-loan-header">LOAN AGAINST PROPERTY</p>
                                     <p class="home-loan-para">Loan against property is a cheaper loan option as compared to other loan option in the market, whether it is a personal loan or a loan against security such as shares, jewellery. Come to think of it, even on the face of it-you see your house as an investment. So, first-take a loan to buy a house and then take a loan against it a few years later to meet your other needs. Use our convenient booking engine to take a detailed look at the various loans against property referred by our team and choose the most suitable one.</p>
                                     <p class="home-loan-para">Aggressive sales and services can help you research various loans and schemes available in Bangalore. We know how difficult it is to make a choice between satisfying your business requirements and your personal ones. And so, we offer you a loan which makes it easy for you to give your business the priority it truly deserves.</p>
@@ -119,10 +118,19 @@
         <!-- subheader -->
         <!-- footer begin -->
         <footer>
-            <div class="footer-class-1">
-                <p><span>©&nbsp;</span><span class="copyright-year">2019</span><span>&nbsp;</span><span>www.agskeys.com</span></p>
+    <div class="footer-class-1">
+        <div class="row">
+            <div class="col-md-8">
+                <div style="padding-bottom:10px;float:left; padding-left:10px;"><span>©&nbsp;</span><span class="copyright-year">@DateTime.Now.Year</span><span>&nbsp;</span><a href="http://www.agskeys.com/" target="_blank">www.agskeys.com</a>. All Rights Reserved.<p></p></div>
             </div>
-        </footer>
+            <div class="col-md-4">
+                <a href="http://techvegas.in" target="_blank">Developed By Techvegas LLP</a>
+            </div>
+        </div>
+
+        <!--  <p>Developed by Techvegas LLP</p>  -->
+    </div>
+</footer>
         <!-- footer close -->
     </div>
   

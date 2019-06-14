@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/frontend/css/owl.transitions.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/style-bg.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/demo/demo.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/vendor.min.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/dashcore.min.css" type="text/css">
@@ -37,7 +38,7 @@
     <link rel="stylesheet" href="~/frontend/fonts/et-line-font/style.css" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <script src="~/frontend/js/jquery.min.js"></script>
-    @*<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>*@
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <!-- revolution slider -->
     <link rel="stylesheet" href="~/frontend/rs-plugin/css/settings.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/rev-settings.css" type="text/css">
@@ -91,7 +92,7 @@
                     <div class="col-md-12">
                         <!-- logo begin -->
                         <div id="logo">
-                            <a href="index.html">
+                            <a href="~/AgskeysSite/Index">
                                 <img class="logo" src="~/frontend/images/edit/logo.png" alt="">
                             </a>
                         </div>
@@ -169,28 +170,28 @@
                             <div class="row">
                                 <div class="col-md-3 box-1">
                                     <a href="~/AgskeysSite/home_loan"><p class="box-para-1">HOME LOAN</p></a>
-                                    <p class="box-para-2">One stop solutions for your financial needs .</p>
+                                    <p class="box-para-2"><br />One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/home.svg">
                                     </div>
                                 </div>
                                 <div class="col-md-3 box-2">
                                     <a href="#"><p class="box-para-1">PERSONAL LOAN</p></a>
-                                    <p class="box-para-2">One stop solutions for your financial needs .</p>
+                                    <p class="box-para-2"><br />One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/man-user.svg">
                                     </div>
                                 </div>
                                 <div class="col-md-3 box-1">
                                     <a href="~/AgskeysSite/business_loan"><p class="box-para-1">BUSINESS LOAN</p></a>
-                                    <p class="box-para-2">One stop solutions for your financial needs .</p>
+                                    <p class="box-para-2"><br />One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/portfolio.svg">
                                     </div>
                                 </div>
                                 <div class="col-md-3 box-2">
                                     <a href="~/AgskeysSite/lap"><p class="box-para-1">LAP</p></a>
-                                    <p class="box-para-2">One stop solutions for your financial needs .</p>
+                                    <p class="box-para-2"><br />One stop solutions for your financial needs .</p>
                                     <div class="col-md-12 box-img-1">
                                         <img class="box-image" src="~/frontend/images/edit/property.svg">
                                     </div>
@@ -388,8 +389,17 @@
 
 
             <footer>
-                <div class="footer-class">
-                    <p><span>©&nbsp;</span><span class="copyright-year">2019</span><span>&nbsp;</span><span>www.agskeys.com</span></p>
+                <div class="footer-class-1">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="padding-bottom:10px;float:left; padding-left:10px;"><span>©&nbsp;</span><span class="copyright-year">@DateTime.Now.Year</span><span>&nbsp;</span><a href="http://www.agskeys.com/" target="_blank">www.agskeys.com</a>. All Rights Reserved.<p></p></div>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="http://techvegas.in" target="_blank">Developed By Techvegas LLP</a>
+                        </div>
+                    </div>
+
+                    <!--  <p>Developed by Techvegas LLP</p>  -->
                 </div>
             </footer>
             <!-- footer close -->

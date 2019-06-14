@@ -28,8 +28,7 @@
 	* list
 	* map
 	* package
-	* page heading
-	* pagination
+	* page heading* pagination888
 	* pricing
 	* progress bar
 	* social icons
@@ -1268,6 +1267,8 @@ border:solid 1px #ddd;
 /* contact form */
 /* ================================================== */
 	.error {
+        margin:10px;
+        margin-left:40px;
 	padding:20px;
 	border:none;
 	display: none;
@@ -8187,8 +8188,8 @@ margin-top: -11px;
 }
 .txt-box{
 	width: 341px;
-	height: 36px;
-    border-radius: 19px;
+	height: 36px !important;
+    border-radius: 19px !important;
    /* background: transparent;
     color: #fff;*/
 }
@@ -8225,7 +8226,7 @@ margin-top: -11px;
     height: 458px;
 }
 .block-2{
-	height: 378px;
+	height: 440px;
 }
 
 
@@ -8273,7 +8274,6 @@ margin-top: -11px;
     font-size: 28px;
     font-family: sans-serif;
     font-weight: 700;
-    padding-top: 28px;
 }
 .home-loan-para{
 	font-size: 14px;
