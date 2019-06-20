@@ -692,8 +692,8 @@ namespace agskeys.Controllers.Clientele
                         customerMessage = "Not Updated";
                     }
 
-                    //string CusEmail = "info@agskeys.com";
-                    string CusEmail = "santhosh@techvegas.in";
+                    string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "santhosh@techvegas.in";
                     //////////////////////////////////
 
                     MailMessage MyMailMessage = new MailMessage();
