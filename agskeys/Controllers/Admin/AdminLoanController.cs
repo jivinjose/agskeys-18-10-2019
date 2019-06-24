@@ -538,6 +538,15 @@ namespace agskeys.Controllers.Admin
                 ViewBag.technical = process_executive.technical;
                 ViewBag.legal = process_executive.legal;
                 ViewBag.rcu = process_executive.rcu;
+                if (process_executive.comment == null)
+                {
+                    process_executive.comment = "0";
+                    ViewBag.comment = process_executive.comment;
+                }
+                else
+                {
+                    ViewBag.comment = process_executive.comment;
+                }
             }
 
             return PartialView("~/Views/Admin_Mangement/AdminLoan/Details.cshtml",user);

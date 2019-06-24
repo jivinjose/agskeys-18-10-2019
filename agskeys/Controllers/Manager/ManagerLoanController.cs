@@ -334,6 +334,26 @@ namespace agskeys.Controllers.Manager
                 }
             }
             user.loantype = loan;
+            string loanid = Id.ToString();
+            int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
+            if (loan_count == 1)
+            {
+                process_executive process_executive = ags.process_executive.Where(x => x.loanid == loanid).FirstOrDefault();
+
+                ViewBag.loan_count = loan_count;
+                ViewBag.technical = process_executive.technical;
+                ViewBag.legal = process_executive.legal;
+                ViewBag.rcu = process_executive.rcu;
+                if (process_executive.comment == null)
+                {
+                    process_executive.comment = "0";
+                    ViewBag.comment = process_executive.comment;
+                }
+                else
+                {
+                    ViewBag.comment = process_executive.comment;
+                }
+            }
 
             return PartialView("~/Views/Manager/ManagerLoan/Details.cshtml", user);
         }

@@ -655,6 +655,13 @@ namespace agskeys.Controllers.ProcessExecutive
                     }
                 }
                 string loanid =  latestloanid.ToString();
+                int loan_counts = ags.process_executive.Where(x => x.loanid == loanid).Count();
+                if (loan_counts > 1)
+                {
+                    var process = ags.process_executive.Where(x => x.loanid == loanid);
+                    ags.process_executive.RemoveRange(process);
+                    ags.SaveChanges();
+                }
                 int loan_count = ags.process_executive.Where(x => x.loanid == loanid).Count();
                 if (loan_count == 1)
                 {
@@ -674,7 +681,7 @@ namespace agskeys.Controllers.ProcessExecutive
                         ags.SaveChanges();
                     }
                 }
-                else
+                else if(loan_count == 0)
                 {
                     process_executive process_executive = new process_executive();
                     process_executive.loanid = latestloanid.ToString();
@@ -682,16 +689,12 @@ namespace agskeys.Controllers.ProcessExecutive
                     process_executive.technical = form["technical"].ToString();
                     process_executive.legal = form["legal"].ToString();
                     process_executive.rcu = form["rcu"].ToString();
-                    process_executive.comment = loan_table.internalcomment;
+                    process_executive.comment = form["technicalValue"].ToString(); ;
                     process_executive.datex = DateTime.Now.ToString();
                     process_executive.addedby = Session["username"].ToString();
                     ags.process_executive.Add(process_executive);
                     ags.SaveChanges();
                 }
-                
-
-
-
                 //assigned table
                 assigned_table existing_data = ags.assigned_table.Where(x => x.loanid == loan_table.id.ToString()).FirstOrDefault();
 

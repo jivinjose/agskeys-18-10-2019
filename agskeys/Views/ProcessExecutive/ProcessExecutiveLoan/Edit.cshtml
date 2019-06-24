@@ -107,7 +107,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.partnerid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.partnerid, ViewBag.vendorList as SelectList, "Please select vendor", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.partnerid, ViewBag.vendorList as SelectList, "Please select vendor", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.partnerid, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.partnerid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -116,7 +117,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.bankid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.bankid, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.bankid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -125,7 +127,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.loantype, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.loantype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -134,7 +137,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                                        @Html.HiddenFor(model => model.requestloanamt, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.requestloanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -143,7 +147,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.loanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.loanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.loanamt, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                                        @Html.HiddenFor(model => model.loanamt, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.loanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -152,7 +157,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.disbursementamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.disbursementamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.disbursementamt, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                                        @Html.HiddenFor(model => model.disbursementamt, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.disbursementamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -161,7 +167,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.rateofinterest, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.rateofinterest, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.rateofinterest, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                                        @Html.HiddenFor(model => model.rateofinterest, new { @class = "text-danger" })
                                                         @Html.ValidationMessageFor(model => model.rateofinterest, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -298,7 +305,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 a-div">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
