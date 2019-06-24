@@ -63,7 +63,7 @@
                                         <h6 class="m-b-5 text-white">Vendors</h6>
                                         <h3 class="m-b-0 f-w-700 text-white">@if (!string.IsNullOrEmpty(@ViewData["partnerCount"].ToString()))
                                         {
-                                            @ViewData["partnerCount"]
+                                            <span>@ViewData["partnerCount"]</span>
                                         }
                                         else
                                         {
@@ -85,7 +85,8 @@
                                         <h6 class="m-b-5 text-white">Employees</h6>
                                         <h3 class="m-b-0 f-w-700 text-white">@if (!string.IsNullOrEmpty(@ViewData["employeeCount"].ToString()))
                                         {
-                                            @ViewData["employeeCount"]
+                                            <span>@ViewData["employeeCount"]</span>
+                                            
                                         }
                                         else
                                         {
@@ -107,7 +108,8 @@
                                         <h6 class="m-b-5 text-white">Super Admins</h6>
                                         <h3 class="m-b-0 f-w-700 text-white">@if (!string.IsNullOrEmpty(@ViewData["partnerCount"].ToString()))
                                         {
-                                            @ViewData["superAdminCount"]
+                                            <span>@ViewData["superAdminCount"]</span>
+                                            
                                         }
                                         else
                                         {
@@ -203,7 +205,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{int Totallmt = 0;}
+                            @*@{int Totallmt = 0;}
                             @{int Totaldmt = 0;}
                             @foreach (var currentmonth in ViewBag.currentmonth)
                             {
@@ -216,11 +218,11 @@
                                 Totaldmt = Totaldmt + Convert.ToInt32(@currentmonth.disbursementamt);
                                 //Totallmt = @currentmonth.loanamt;
                                 //Totaldmt = @currentmonth.disbursementamt;                                
-                            }
+                            }*@
 
                         </tbody>
                         <tfoot>
-                            @if(Totallmt > 0 && Totaldmt > 0){
+                            @*@if(Totallmt > 0 && Totaldmt > 0){
                                 int Totaldpmt = (Totaldmt * 100) / Totallmt;
                                 int Totalbpmt = 100 - Totaldpmt;
                                 <tr>
@@ -228,12 +230,12 @@
                                     <td id="disbursementamt">@Totaldpmt</td>
 
                                 </tr>
-                            }
+                            }*@
                         </tfoot>
                     </table>  
 
 
-                    @{int fulllmt = 0;}
+                    @*@{int fulllmt = 0;}
                     @{int fulldmt = 0;}
                     @foreach (var fulltrans in ViewBag.fulltrans)
                     {
@@ -243,7 +245,7 @@
                         fulldmt = fulldmt + Convert.ToInt32(@fulltrans.disbursementamt);
                         //Totallmt = @currentmonth.loanamt;
                         //Totaldmt = @currentmonth.disbursementamt;
-                    }
+                    }*@
 
 
 
@@ -253,12 +255,12 @@
                             <div class="card-header" style="margin-bottom:12px;">
                                 <h5>Total Transaction</h5>
                             </div><br />
-                            <div class="card prod-p-card card-red">
+                            <div class="card prod-p-card card-red" style="margin-left:10px;margin-right:10px;">
                                 <div class="card-body">
                                     <div class="row align-items-center m-b-30">
                                         <div class="col">
                                             <h6 class="m-b-5 text-white">Total Loan Amount</h6>
-                                            <h3 class="m-b-0 f-w-700 text-white">@fulllmt /-</h3>
+                                            <h3 class="m-b-0 f-w-700 text-white"@*>@fulllmt*@ /-</h3>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa-money text-c-red f-18"></i>
@@ -267,12 +269,12 @@
                                     <p class="m-b-0 text-white"><span class="label label-danger m-r-10"></span>Full Loan Amount</p>
                                 </div>
                             </div>
-                            <div class="card prod-p-card card-blue">
+                            <div class="card prod-p-card card-blue"  style="margin-left:10px;margin-right:10px;">
                                 <div class="card-body">
                                     <div class="row align-items-center m-b-30">
                                         <div class="col">
                                             <h6 class="m-b-5 text-white">Total Disbursement Amount</h6>
-                                            <h3 class="m-b-0 f-w-700 text-white">@fulldmt /-</h3>
+                                            <h3 class="m-b-0 f-w-700 text-white">@*@fulldmt*@ /-</h3>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa-rupee text-c-blue f-18"></i>

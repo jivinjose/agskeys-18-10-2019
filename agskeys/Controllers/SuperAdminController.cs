@@ -43,27 +43,27 @@ namespace agskeys.Controllers
 
 
 
-            // Current Month Transaction //
+            //// Current Month Transaction //
           
-            DateTime now = DateTime.Now;
-            var startDate = new DateTime(now.Year, now.Month, 1);
+            //DateTime now = DateTime.Now;
+            //var startDate = new DateTime(now.Year, now.Month, 1);
 
-            List<loan_table> currentmonth = new List<loan_table>();
+            //List<loan_table> currentmonth = new List<loan_table>();
 
 
-            // Full  Transaction //
-            var fulltrans = currentmonth;
-            ViewBag.fulltrans = fulltrans;
+            //// Full  Transaction //
+            //var fulltrans = currentmonth;
+            //ViewBag.fulltrans = fulltrans;
 
-            foreach (var items in ags.loan_table)
-            {
-                DateTime dueDate = DateTime.Parse(items.datex);
-                if ((dueDate >= startDate) && (dueDate <= now))
-                {
-                    currentmonth.Add(items);
-                }
-            }
-            ViewBag.currentmonth = currentmonth;
+            //foreach (var items in ags.loan_table)
+            //{
+            //    DateTime dueDate = DateTime.Parse(items.datex);
+            //    if ((dueDate >= startDate) && (dueDate <= now))
+            //    {
+            //        currentmonth.Add(items);
+            //    }
+            //}
+            //ViewBag.currentmonth = currentmonth;
 
             // Current Month Transaction end //
             return View();

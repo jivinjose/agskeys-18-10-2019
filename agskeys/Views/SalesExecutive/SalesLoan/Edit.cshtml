@@ -174,7 +174,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control", required = true } })
 
                                                         @Html.ValidationMessageFor(model => model.internalcomment, "", new { @class = "text-danger" })
                                                     </div>
@@ -184,17 +184,17 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control", required = true })
 
                                                         @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 a-div">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker" } })
+                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker", required = true } })
                                                         @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
