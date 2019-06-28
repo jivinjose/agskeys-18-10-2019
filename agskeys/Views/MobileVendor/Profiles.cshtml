@@ -48,6 +48,24 @@
                             <div class="row" style="padding-top: 20px;">
                              
                                 <div class="col-sm-6 col-md-6">
+                                    @if (TempData["PswdSuccess"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["PswdSuccess"].ToString()
+                                        </div>
+
+                                    }
+                                    @if (TempData["updateSuccess"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["updateSuccess"].ToString()
+                                        </div>
+
+                                    }
                                     <h4 style="margin-bottom:25px;">Additional Information</h4>
                                     <table class="table">
                                         <tr>

@@ -78,6 +78,16 @@ namespace agskeys.Controllers.MobileSalesExecutive
                 var intId = Session["userid"].ToString();
                 var Id = Convert.ToInt32(intId);
                 var user = ags.admin_table.Where(x => x.id == Id).FirstOrDefault();
+                if(user.userrole!=null)
+                {
+                    var employeeType = ags.emp_category_table.Where(x => x.emp_category_id == user.userrole).FirstOrDefault();
+                    user.userrole = employeeType.emp_category;
+                }
+                else
+                {
+                    user.userrole = "Not Assigned";
+                }
+                
                 return PartialView("~/Views/MobileSalesExecutive/MobileSalesExecutive/UserProfile.cshtml", user);
             }            
 
@@ -154,7 +164,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Customer", "MobileSalesExecutive");
+                        return RedirectToAction("EditProfile", "MobileSalesExecutive");
                     }
                 }
 
@@ -183,7 +193,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Customer", "MobileSalesExecutive");
+                            return RedirectToAction("EditProfile", "MobileSalesExecutive");
                         }
 
                     }
@@ -215,9 +225,9 @@ namespace agskeys.Controllers.MobileSalesExecutive
                     else
                     {
                         //existing.username = admin_table.username;
-                        TempData["AE"] = "This user name is already exist";
+                        TempData["Message"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Customer", "MobileSalesExecutive");
+                        return RedirectToAction("EditProfile", "MobileSalesExecutive");
                     }
                 }
 
@@ -251,9 +261,10 @@ namespace agskeys.Controllers.MobileSalesExecutive
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Customer", "MobileSalesExecutive");
+                TempData["updateSuccess"] = "Your Profile Updated Successfully.!";
+                return RedirectToAction("UserProfile", "MobileSalesExecutive");
             }
-            return RedirectToAction("Customer", "MobileSalesExecutive");
+            return RedirectToAction("UserProfile", "MobileSalesExecutive");
         }
 
         //public JsonResult passwordmatch(string password)
@@ -289,7 +300,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
 
         public ActionResult Password()
         {
-            if (Session["username"] == null && Session["userid"] == null)
+            if (Session["username"] == null && Session["userid"] == null && Session["userlevel"].ToString() != "sales_executive")
             {
                 return this.RedirectToAction("MobileLogout", "Account");
             }
@@ -324,7 +335,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
                         else
                         {
                             TempData["NotEqual"] = "<script>alert('password dosen't match');</script>";
-                            return RedirectToAction("Customer", "MobileSalesExecutive");
+                            return RedirectToAction("UserProfile", "MobileSalesExecutive");
                         }
                     }
                     else
@@ -333,10 +344,8 @@ namespace agskeys.Controllers.MobileSalesExecutive
                         return this.RedirectToAction("MobileLogout", "Account");
                     }
                     ags.SaveChanges();
-
-
-
-                    return RedirectToAction("Customer", "MobileSalesExecutive");
+                    TempData["PswdSuccess"] = "Your Password Reset Successfully";
+                    return RedirectToAction("UserProfile", "MobileSalesExecutive");
 
 
                 }
@@ -346,7 +355,7 @@ namespace agskeys.Controllers.MobileSalesExecutive
                     return this.RedirectToAction("MobileLogout", "Account");
                 }
             }
-            return RedirectToAction("Customer", "MobileSalesExecutive");
+            return RedirectToAction("UserProfile", "MobileSalesExecutive");
         }
     }
 }

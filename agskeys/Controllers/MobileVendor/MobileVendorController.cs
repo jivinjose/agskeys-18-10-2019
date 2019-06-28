@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using static agskeys.Controllers.AccountController;
@@ -410,6 +411,82 @@ namespace agskeys.Controllers.MobileVendor
 
             return View("~/Views/MobileVendor/Refer.cshtml");
         }
+        [HttpPost]
+        public ActionResult Refer(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                var vendor = ags.vendor_table.Where(x => x.id.ToString() == userid).FirstOrDefault();
+                int vendorCount = vendor.ToString().Count();
+                if (vendorCount != 0)
+                {
+                    var vendorUserName = vendor.name + "(" + vendor.username + ")";
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+
+                    if (form["referName"] != null)
+                    {
+                        customerName = form["referName"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["referemail"] != null)
+                    {
+                        customerEmail = form["referemail"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["referNumber"] != null)
+                    {
+                        customerPhone = form["referNumber"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }                    
+
+                    //string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "info@agsfinancials.com";
+                    string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
+
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Referal From Vendor";
+                    MyMailMessage.IsBodyHtml = true;
+
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Referal Details ( " + vendorUserName + " ).</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr></table>";
+
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);
+                        TempData["customerSuccessMsg"] = "Your Referal Details Successfully send to AGSKEYS";
+                        return RedirectToAction("Refer", "MobileVendor");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Refer", "MobileVendor");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index", "MobileVendor");
+
+        }
         public ActionResult Support()
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "partner")
@@ -436,6 +513,90 @@ namespace agskeys.Controllers.MobileVendor
                 return HttpNotFound();
             }
             return View("~/Views/MobileVendor/Enquiry.cshtml", user);
+        }
+
+        [HttpPost]
+        public ActionResult SendEnquiry(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                int customerCount = ags.vendor_table.Where(x => x.id.ToString() == userid).Count();
+                if (customerCount != 0)
+                {
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+                    string customerMessage = "";
+
+                    if (form["vendorName"] != null)
+                    {
+                        customerName = form["vendorName"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["vendorEmail"] != null)
+                    {
+                        customerEmail = form["vendorEmail"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["vendorPhone"] != null)
+                    {
+                        customerPhone = form["vendorPhone"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }
+                    if (form["vendorMessage"] != null)
+                    {
+                        customerMessage = form["vendorMessage"].ToString();
+                    }
+                    else
+                    {
+                        customerMessage = "Not Updated";
+                    }
+
+                    //string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "info@agsfinancials.com";
+                    string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
+
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Enquiry From Vendor";
+                    MyMailMessage.IsBodyHtml = true;
+
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Customer Enquiry Details.</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr><tr><td style='padding:25px;'>Message</td><td>" + customerMessage + "</td></tr></table>";
+
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);
+                        TempData["customerSuccessMsg"] = "Your New Enquiry Successfully send to AGSKEYS";
+                        return RedirectToAction("Enquiry", "MobileVendor");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Enquiry", "MobileVendor");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index", "MobileVendor");
+
         }
 
         public ActionResult EditProfile(int? Id)
@@ -489,9 +650,9 @@ namespace agskeys.Controllers.MobileVendor
                     else
                     {
                         //existing.username = admin_table.username;
-                        TempData["AE"] = "This user name is already exist";
+                        TempData["Message"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Index", "MobileVendor");
+                        return RedirectToAction("EditProfile", "MobileVendor");
                     }
                 }
 
@@ -516,9 +677,10 @@ namespace agskeys.Controllers.MobileVendor
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Index", "MobileVendor");
+                TempData["updateSuccess"] = "Your Profile Updated Successfully.!";
+                return RedirectToAction("Profiles", "MobileVendor");
             }
-            return RedirectToAction("Index", "MobileVendor");
+            return RedirectToAction("Profiles", "MobileVendor");
         }
 
         public ActionResult Password()
@@ -566,13 +728,9 @@ namespace agskeys.Controllers.MobileVendor
                         TempData["logAgain"] = "Oops.! Please Provide Valid Credentials.";
                         return RedirectToAction("MobileLogout", "Account");
                     }
+                    TempData["PswdSuccess"] = "Your Password Reset Successfully";
                     ags.SaveChanges();
-
-
-
-                    return RedirectToAction("Index", "MobileVendor");
-
-
+                    return RedirectToAction("Profiles", "MobileVendor");
                 }
                 else
                 {

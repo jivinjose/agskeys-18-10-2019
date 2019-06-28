@@ -40,34 +40,43 @@
         <div class="row">
             <div class="col-sm-12" style="min-height:100vh;">
                 <!-- Authentication card start -->
-                <form class="form-horizontal f1" id="login-form" method="post" action="@Url.Content("/Account/Login/")">
+                <form class="form-horizontal f1" id="login-form" method="post" action="@Url.Content("/MobileVendor/Refer/")">
                     <div class="auth-box card">
                         <div class="card-block">
-                            @if (TempData["Message"] != null)
+                            @if (TempData["customerSuccessMsg"] != null)
+                            {
+
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    @TempData["customerSuccessMsg"].ToString()
+                                </div>
+
+                            }
+                            @if (TempData["customerFailedMsg"] != null)
                             {
 
                                 <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                    @TempData["Message"].ToString()
+                                    @TempData["customerFailedMsg"].ToString()
                                 </div>
 
                             }
                             <div class="form-group form-primary">
                                 <label class="float-label">Person Name</label>
-                                <input type="text" id="name" name="name" class="form-control formenquiry" placeholder="Referring Person name" required="required" autofocus="autofocus">
+                                <input type="text" id="referName" name="referName" class="form-control" placeholder="Referring Person name" required >
                                 <span class="form-bar"></span>
 
                             </div>
                             <div class="form-group form-primary">
 
                                 <label class="float-label">Contact Number</label>
-                                <input type="text" id="contatnumber" name="contatnumber" class="form-control formenquiry" placeholder="Contact number" required="required">
+                                <input type="text" id="referNumber" name="referNumber" class="form-control" placeholder="Contact number" required>
                                 <span class="form-bar"></span>
                             </div>
                             <div class="form-group form-primary">
 
                                 <label class="float-label">Email Address</label>
-                                <input type="text" id="emailaddress" name="emailaddress" class="form-control formenquiry" placeholder="Email Address">
+                                <input type="text" id="referemail" name="referemail" class="form-control" placeholder="Email Address" required>
                                 <span class="form-bar"></span>
                             </div>
 

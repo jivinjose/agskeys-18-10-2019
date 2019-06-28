@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using static agskeys.Controllers.AccountController;
@@ -206,7 +207,89 @@ namespace agskeys.Controllers.MobileClientele
             }
             return View("~/Views/MobileClientele/Enquiry.cshtml", user);
         }
-       
+        [HttpPost]
+        public ActionResult SendEnquiry(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                int customerCount = ags.customer_profile_table.Where(x => x.id.ToString() == userid).Count();
+                if (customerCount != 0)
+                {
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+                    string customerMessage = "";
+
+                    if (form["name"] != null)
+                    {
+                        customerName = form["name"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["email"] != null)
+                    {
+                        customerEmail = form["email"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["mobile"] != null)
+                    {
+                        customerPhone = form["mobile"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }
+                    if (form["message"] != null)
+                    {
+                        customerMessage = form["message"].ToString();
+                    }
+                    else
+                    {
+                        customerMessage = "Not Updated";
+                    }
+
+                    //string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "info@agsfinancials.com";
+                    string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
+
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Enquiry From Customer";
+                    MyMailMessage.IsBodyHtml = true;
+
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Customer Enquiry Details.</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr><tr><td style='padding:25px;'>Message</td><td>" + customerMessage + "</td></tr></table>";
+
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);
+                        TempData["customerSuccessMsg"] = "Your New Enquiry Successfully send to AGSKEYS";
+                        return RedirectToAction("Enquiry", "MobileClientele");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Enquiry", "MobileClientele");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index", "MobileClientle");
+
+        }
         public ActionResult RequestLoan()
         {
             if (Session["username"] == null || Session["userlevel"].ToString() != "clientele")
@@ -241,6 +324,82 @@ namespace agskeys.Controllers.MobileClientele
             string userid = Session["userid"].ToString();
 
             return View("~/Views/MobileClientele/Refer.cshtml");
+        }
+        [HttpPost]
+        public ActionResult Refer(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                var customer = ags.customer_profile_table.Where(x => x.id.ToString() == userid).FirstOrDefault();
+                int customerCount = customer.ToString().Count();
+                if (customerCount != 0)
+                {
+                    var customerUserName = customer.name + "(" + customer.email + ")";
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+
+                    if (form["referName"] != null)
+                    {
+                        customerName = form["referName"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["referemail"] != null)
+                    {
+                        customerEmail = form["referemail"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["referNumber"] != null)
+                    {
+                        customerPhone = form["referNumber"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }
+
+                    //string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "info@agsfinancials.com";
+                    string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
+
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Referal From Customer";
+                    MyMailMessage.IsBodyHtml = true;
+
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Referal Details ( " + customerUserName + " ).</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr></table>";
+
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);
+                        TempData["customerSuccessMsg"] = "Your Referal Details Successfully send to AGSKEYS";
+                        return RedirectToAction("Refer", "MobileClientele");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Refer", "MobileClientele");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index", "MobileClientele");
+
         }
         public ActionResult Support()
         {
@@ -457,7 +616,7 @@ namespace agskeys.Controllers.MobileClientele
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Index", "MobileClientele");
+                        return RedirectToAction("EditProfile", "MobileClientele");
                     }
                 }
 
@@ -486,7 +645,7 @@ namespace agskeys.Controllers.MobileClientele
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Index", "MobileClientele");
+                            return RedirectToAction("EditProfile", "MobileClientele");
                         }
 
                     }
@@ -509,7 +668,7 @@ namespace agskeys.Controllers.MobileClientele
 
                 if (existing.customerid != customer_profile_table.customerid)
                 {
-                    var userCount = (from u in ags.admin_table where u.username == customer_profile_table.customerid select u).Count();
+                    var userCount = (from u in ags.customer_profile_table where u.customerid == customer_profile_table.customerid select u).Count();
                     if (userCount == 0)
                     {
                         existing.customerid = customer_profile_table.customerid;
@@ -517,9 +676,9 @@ namespace agskeys.Controllers.MobileClientele
                     else
                     {
                         //existing.username = admin_table.username;
-                        TempData["AE"] = "This user name is already exist";
+                        TempData["Message"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Index", "MobileClientele");
+                        return RedirectToAction("EditProfile", "MobileClientele");
                     }
                 }
 
@@ -546,9 +705,10 @@ namespace agskeys.Controllers.MobileClientele
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Index", "MobileClientele");
+                TempData["updateSuccess"] = "Your Profile Updated Successfully.!";
+                return RedirectToAction("Profile", "MobileClientele");
             }
-            return RedirectToAction("Index", "MobileClientele");
+            return RedirectToAction("EditProfile", "MobileClientele");
         }
 
 
@@ -601,8 +761,8 @@ namespace agskeys.Controllers.MobileClientele
                     ags.SaveChanges();
 
 
-
-                    return RedirectToAction("Index", "MobileClientele");
+                    TempData["PswdSuccess"] = "Your Password Reset Successfully";
+                    return RedirectToAction("profile", "MobileClientele");
 
 
                 }
@@ -612,7 +772,7 @@ namespace agskeys.Controllers.MobileClientele
                     return this.RedirectToAction("MobileLogout", "Account");
                 }
             }
-            return RedirectToAction("Index", "MobileClientele");
+            return RedirectToAction("profile", "MobileClientele");
         }
 
     }

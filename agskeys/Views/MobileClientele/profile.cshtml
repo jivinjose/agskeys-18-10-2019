@@ -38,10 +38,21 @@
             </div>
 
             <div class="col-sm-12 col-xs-12 disp-name">
-
                 @if (!string.IsNullOrEmpty(Model.profileimg))
                 {
-                    <img class="img-circle" width="104" height="104" src="@Url.Content(Model.profileimg)" style="margin-top: 20px;">
+
+
+                    if (System.IO.File.Exists(Server.MapPath(Model.profileimg)) == true)
+                    {
+
+                        <img class="img-circle" width="104" height="104" src="@Url.Content(Model.profileimg)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                    }
+                    else
+                    {
+
+                        <img class="img-circle" width="104" height="104" src="~/customerImage/customer_dummy.png" style="margin-top: 20px;">
+                    }
+
                 }
                 else
                 {
@@ -58,19 +69,26 @@
                         <div class="card-block ">
 
                             <div class="row" >
-                                
-                                    @*<div class="col-sm-6 col-md-6 col-xs-6" >
-                                        <button id="edit" class="btn btn-out waves-effect waves-light btn-info btn-square" onclick="createModal('@Url.Action("EditProfile", "Clientele" , new {id=Model.id })')">
-                                            <i class="fa fa-edit" style="padding-right: 4px;"></i>Edit Profile
-                                        </button>
-                                        </div>
-                                  <div class="col-sm-6 col-md-6 col-xs-6">
-                                        <button  class="btn btn-out waves-effect waves-light btn-danger btn-square" onclick="createModal('@Url.Action("Password","Clientele")')">
-                                            <i class="fa fa-lock" style="padding-right: 4px;"></i>Change Password
-                                        </button>
-                                    </div>*@
                                                                
                                 <div class="col-sm-12 col-md-12 col-xs-12" style="padding-top: 20px;">
+                                    @if (TempData["PswdSuccess"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["PswdSuccess"].ToString()
+                                        </div>
+
+                                    }
+                                    @if (TempData["updateSuccess"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["updateSuccess"].ToString()
+                                        </div>
+
+                                    }
                                     <h4 style="margin-bottom:25px;">Additional Information</h4>
                                     <table class="table">
                                         <tr>

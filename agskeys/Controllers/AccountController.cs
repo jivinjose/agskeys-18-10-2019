@@ -36,7 +36,7 @@ namespace agskeys.Controllers
         {
             if (form["userlevel"].ToString() == "")
             {
-                TempData["Message"] = "please select userrole";
+                TempData["userRoleMissing"] = "please select userrole";
                 return RedirectToAction("Index", "AgskeysMobile");
             }
             else if (form["userlevel"].ToString() == "partner")
@@ -1230,14 +1230,15 @@ namespace agskeys.Controllers
         [HttpPost]
         public ActionResult Subscription(FormCollection form)
         {            
-            if (form["subscriptionEmail"] != null)
+            if (form["subscriptionEmail"] != null && form["subscriptionEmail"] != "")
             {
 
                 string EmailId = "";
                 EmailId = form["subscriptionEmail"].ToString();
 
-                string CusEmail = "info@agskeys.com";
-                //string CusEmail = "santhosh@techvegas.in";
+                //string CusEmail = "info@agskeys.com";
+                //string CusEmail = "info@agsfinancials.com";
+                string CusEmail = "santhosh@techvegas.in";
                 //////////////////////////////////
 
                 MailMessage MyMailMessage = new MailMessage();
@@ -1286,7 +1287,8 @@ namespace agskeys.Controllers
                 message = form["message"].ToString();
 
                 //string CusEmail = "info@agskeys.com";
-                string CusEmail = "santhosh@techvegas.in";
+                //string CusEmail = "info@agsfinancials.com";
+                string CusEmail = "santhosh @techvegas.in";
                 //////////////////////////////////
 
                 MailMessage MyMailMessage = new MailMessage();

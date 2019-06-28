@@ -38,12 +38,26 @@
             <div class="col-sm-12 col-xs-12 disp-name">
                 @if (!string.IsNullOrEmpty(Model.photo))
                 {
-                    <img class="img-circle" width="104" height="104" src="@Url.Content(Model.photo)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+
+
+                    if (System.IO.File.Exists(Server.MapPath(Model.photo)) == true)
+                    {
+
+                        <img class="img-circle" width="104" height="104" src="@Url.Content(Model.photo)" style="border-radius: 6.25rem!important;box-shadow: 0 0 55px 0 rgba(43,43,43,0.1),0 11px 6px -7px rgba(43,43,43,0.1);">
+                    }
+                    else
+                    {
+
+                        <img class="img-circle" width="104" height="104" src="~/customerImage/customer_dummy.png" style="margin-top: 20px;">
+                    }
+                
                 }
                 else
                 {
-                    <img class="img-circle" width="104" height="104" src="~/customerImage/customer_dummy.png" style="margin-top: 20px;">
+                <img class="img-circle" width="104" height="104" src="~/customerImage/customer_dummy.png" style="margin-top: 20px;">
                 }
+
+
             </div>
             <div class="col-sm-12 col-xs-12 disp-name">
                 <p>@Html.DisplayFor(model => model.name)</p>
@@ -77,6 +91,24 @@
                 <div class="row" style="padding-top: 20px;">
 
                     <div class="col-sm-6 col-md-6">
+                        @if (TempData["PswdSuccess"] != null)
+                        {
+
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                @TempData["PswdSuccess"].ToString()
+                            </div>
+
+                        }
+                        @if (TempData["updateSuccess"] != null)
+                        {
+
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                @TempData["updateSuccess"].ToString()
+                            </div>
+
+                        }
                         <h4 style="margin-bottom:25px;">Additional Information</h4>
                         <table class="table">
                             <tr>

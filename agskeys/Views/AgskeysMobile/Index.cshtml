@@ -30,10 +30,45 @@
                 </div>
              
                 <div class="col-sm-12 col-xs-12 L11">
-                   
+                  
 
                     <form class="form-horizontal f1" id="login-form" action="@Url.Content("/Account/MobileLogin/")" method="POST">
                         <h2><img src="~/ags-mobile/images/keys.png"></h2>
+                        @if (TempData["userRoleMissing"] != null)
+                        {
+
+                            <div class="alert alert-danger alert-dismissible" role="alert" style="width: 100%;">
+                                @TempData["userRoleMissing"].ToString()
+                                <button type="button" class="close" style="width:auto;height:auto;  padding: 0px 0px; background-image: none;
+top: -6px !important;" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                             
+                            </div>
+
+                        }
+                        @if (TempData["Message"] != null)
+                        {
+
+                            <div class="alert alert-danger alert-dismissible" role="alert" style="width: 100%;">
+                                @TempData["Message"].ToString()
+                                <button type="button" class="close" data-dismiss="alert" style="width:auto; height:auto; padding: 0px 0px;background-image: none;
+top: -6px !important;"><span aria-hidden="true" style="font-size:30px;">×</span><span class="sr-only">Close</span></button>
+                             
+                            </div>
+
+                        }
+                        @if (TempData["logAgain"] != null)
+                        {
+
+                            <div class="alert alert-danger alert-dismissible" role="alert" style="width: 100%;">
+                                @TempData["logAgain"].ToString()
+                                <button type="button" class="close" data-dismiss="alert" style="width:auto; height:auto; padding: 0px 0px;background-image: none;
+top: -6px !important;">
+                                    <span aria-hidden="true" style="font-size:30px;">×</span><span class="sr-only">Close</span>
+                                </button>
+
+                            </div>
+
+                        }
                         <div class="form-group">
                             <div class="col-sm-12 col-xs-12 ">
                                 <!-- <i class="fa fa-user" aria-hidden="true"></i> --><label class="lbl">USERNAME</label>
@@ -56,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12 col-xs-12 gly utype">
-                                <select name="userlevel" id="userlevel" class="form-control" style="height: 44px;border-radius: 3px;border-color: #333c4a;color: #9a9a9a;background: transparent !important;" required="">
+                                <select name="userlevel" class="fc1 pd1"  id="userlevel" style="height: 44px;border-radius: 3px;border-color: #333c4a;color: #9a9a9a;background: transparent !important;" required>
                                     <option value="">Select user type</option>
                                     <option value="partner">Vendors</option>
                                     <option value="clientele">Customers</option>

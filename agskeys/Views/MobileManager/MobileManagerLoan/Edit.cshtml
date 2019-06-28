@@ -62,7 +62,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.bankid, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.bankid, ViewBag.bankList as SelectList, "Please select bank", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.bankid)
                                                         @Html.ValidationMessageFor(model => model.bankid, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -71,7 +72,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.loantype, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.loantype, ViewBag.loantypeList as SelectList, "Please select Loan Type", new { @class = "form-control", disabled = "disabled" })
+                                                        @Html.HiddenFor(model => model.loantype)
                                                         @Html.ValidationMessageFor(model => model.loantype, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -80,7 +82,8 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.requestloanamt, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.requestloanamt, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                                        @Html.HiddenFor(model => model.requestloanamt)
                                                         @Html.ValidationMessageFor(model => model.requestloanamt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -120,7 +123,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.internalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.internalcomment, new { htmlAttributes = new { @class = "form-control", required = true } })
 
                                                         @Html.ValidationMessageFor(model => model.internalcomment, "", new { @class = "text-danger" })
                                                     </div>
@@ -130,17 +133,17 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.externalcomment, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(model => model.externalcomment, ViewBag.commentList as SelectList, "Please select External Comment", new { @class = "form-control", required = true })
 
                                                         @Html.ValidationMessageFor(model => model.externalcomment, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 a-div">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.followupdate, htmlAttributes: new { @class = "control-label col-md-12" })
                                                     <div class="col-md-12">
-                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker" } })
+                                                        @Html.EditorFor(model => model.followupdate, new { htmlAttributes = new { type = "datetime", @class = "form-control datetimepicker", required = true } })
                                                         @Html.ValidationMessageFor(model => model.followupdate, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -178,19 +181,19 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
 <script type="text/javascript">
-                                    $('.datetimepicker').datetimepicker({
-                                        showAnim: 'slideDown',
-                                        dateFormat: 'dd/mm/yy',
-                                    });
+    $('.datetimepicker').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'dd/mm/yy',
+    });
 
 
 </script>
 <script type="text/javascript">
 
-                                    $(".datetimepicker").click(function (event) {
-                                        event.preventDefault();
-                                        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
-                                    });
+    $(".datetimepicker").click(function (event) {
+        event.preventDefault();
+        $('.ui_tpicker_time_input').prop("disabled", false); // Element(s) are now enabled.
+    });
 
 </script>
 

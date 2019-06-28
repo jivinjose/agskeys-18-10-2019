@@ -74,6 +74,15 @@ namespace agskeys.Controllers.MobileManager
                 var intId = Session["userid"].ToString();
                 var Id = Convert.ToInt32(intId);
                 var user = ags.admin_table.Where(x => x.id == Id).FirstOrDefault();
+                if (user.userrole != null)
+                {
+                    var employeeType = ags.emp_category_table.Where(x => x.emp_category_id == user.userrole).FirstOrDefault();
+                    user.userrole = employeeType.emp_category;
+                }
+                else
+                {
+                    user.userrole = "Not Assigned";
+                }
                 return PartialView("~/Views/MobileManager/MobileManager/UserProfile.cshtml", user);
             }
 
@@ -147,7 +156,7 @@ namespace agskeys.Controllers.MobileManager
                     else
                     {
                         TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                        return RedirectToAction("Customer", "MobileManager");
+                        return RedirectToAction("EditProfile", "MobileManager");
                     }
                 }
 
@@ -176,7 +185,7 @@ namespace agskeys.Controllers.MobileManager
                         else
                         {
                             TempData["Message"] = "Only 'Jpg', 'png','jpeg' images formats are alllowed..!";
-                            return RedirectToAction("Customer", "MobileManager");
+                            return RedirectToAction("EditProfile", "MobileManager");
                         }
 
                     }
@@ -208,9 +217,9 @@ namespace agskeys.Controllers.MobileManager
                     else
                     {
                         //existing.username = admin_table.username;
-                        TempData["AE"] = "This user name is already exist";
+                        TempData["Message"] = "This user name is already exist";
                         //return PartialView("Edit", "SuperAdmin");
-                        return RedirectToAction("Customer", "MobileManager");
+                        return RedirectToAction("EditProfile", "MobileManager");
                     }
                 }
 
@@ -244,42 +253,11 @@ namespace agskeys.Controllers.MobileManager
                 }
 
                 ags.SaveChanges();
-                return RedirectToAction("Customer", "MobileManager");
+                TempData["updateSuccess"] = "Your Profile Updated Successfully.!";
+                return RedirectToAction("UserProfile", "MobileManager");
             }
-            return RedirectToAction("Customer", "MobileManager");
+            return RedirectToAction("UserProfile", "MobileManager");
         }
-
-        //public JsonResult passwordmatch(string password)
-        //{
-
-        //    string username = Session["username"].ToString();
-
-        //    var admin_table = ags.admin_table.Where(x => x.username.ToString() == username).FirstOrDefault();
-
-
-        //    bool result = PasswordStorage.VerifyPassword(password, admin_table.password);
-        //    if (result)
-        //    {
-        //        return Json(true, JsonRequestBehavior.AllowGet);
-        //    }
-        //    else
-        //    {
-        //        return Json("Sorry, this password is not correct", JsonRequestBehavior.AllowGet);
-        //    }
-
-
-
-
-
-
-        //}
-
-
-
-
-
-
-
         public ActionResult Password()
         {
             if (Session["username"] == null && Session["userid"] == null)
@@ -289,9 +267,6 @@ namespace agskeys.Controllers.MobileManager
             var model = new agskeys.Models.ChangePassword();
             return PartialView("~/Views/MobileManager/MobileManager/Password.cshtml", model);
         }
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Password(ChangePassword changePwd)
@@ -317,7 +292,7 @@ namespace agskeys.Controllers.MobileManager
                         else
                         {
                             TempData["NotEqual"] = "<script>alert('password dosen't match');</script>";
-                            return RedirectToAction("Customer", "MobileManager");
+                            return RedirectToAction("UserProfile", "MobileManager");
                         }
                     }
                     else
@@ -326,11 +301,8 @@ namespace agskeys.Controllers.MobileManager
                         return this.RedirectToAction("MobileLogout", "Account");
                     }
                     ags.SaveChanges();
-
-
-
-                    return RedirectToAction("Customer", "MobileManager");
-
+                    TempData["PswdSuccess"] = "Your Password Reset Successfully";
+                    return RedirectToAction("UserProfile", "MobileManager");
 
                 }
                 else
@@ -339,7 +311,7 @@ namespace agskeys.Controllers.MobileManager
                     return this.RedirectToAction("MobileLogout", "Account");
                 }
             }
-            return RedirectToAction("Customer", "MobileManager");
+            return RedirectToAction("UserProfile", "MobileManager");
         }
 
     }

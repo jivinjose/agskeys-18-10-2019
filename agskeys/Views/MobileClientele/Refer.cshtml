@@ -38,39 +38,85 @@
 
 
         </div>
-        <div class="row">
-            <div class="col-sm-12" style="min-height:100vh;">
-                <!-- Authentication card start -->
+        <div class="row" style="min-height:100vh;">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <form class="form-horizontal f1" id="login-form" method="post" action="@Url.Content("/Account/Login/")">
+                    <div class="card proj-progress-card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-3"  style="float:left"><img src="~/additionalimages/membership.png" width="58" height="58" /></div>
+                                <div class="col-sm-9"><h4 style="color:#d92027" class="head">LAUCHED NEW MEMBERSHIP CARDS FOR CUSTOMERS</h4></div>
+                                
+                                
+                                <h5 style="color:#0a55ab">Existing / New Customer will get three types of Membership Card from AGSKEYS</h5>
+                                <table>
+                                    <tr class="col">
+                                        <td style="color:#d27f07">TYPE A - GOLD Membership Card - Reference up to 10 friends</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#d27f07">TYPE B - PLATINUM Membership Card - Reference 11 - 20 friends</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#d27f07">TYPE C - SIGNATURE Membership Card - Reference above 21 friends</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#d92027">By reference of one loan Customer to AGSKEYS the Memeber and friend will earn 2000 points Each</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#0c1c93">1.Gold Card Member 1 point is equal to 1/-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#0c1c93">2.Platinum Card Member 1 point is equal to 2/-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#0c1c93">3.Signature Card Member 1 point is equal to 3/-</td>
+                                    </tr>
+                                    <tr><td style="color:#034a0e">*** Conditions Applied</td></tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                        <form class="form-horizontal f1" id="login-form" method="post" action="@Url.Content("/MobileClientele/Refer/")">
                             <div class="auth-box card">
                                 <div class="card-block">
-                                    @if (TempData["Message"] != null)
+                                    @if (TempData["customerSuccessMsg"] != null)
+                                    {
+
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            @TempData["customerSuccessMsg"].ToString()
+                                        </div>
+
+                                    }
+                                    @if (TempData["customerFailedMsg"] != null)
                                     {
 
                                         <div class="alert alert-danger alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                            @TempData["Message"].ToString()
+                                            @TempData["customerFailedMsg"].ToString()
                                         </div>
 
                                     }
                                     <div class="form-group form-primary">
                                         <label class="float-label">Person Name</label>
-                                        <input type="text" id="name" name="name" class="form-control formenquiry" placeholder="Referring Person name" required="required" autofocus="autofocus">
+                                        <input type="text" id="referName" name="referName" class="form-control formenquiry" placeholder="Referring Person name" required="required" autofocus="autofocus">
                                         <span class="form-bar"></span>
 
                                     </div>
                                     <div class="form-group form-primary">
 
                                         <label class="float-label">Contact Number</label>
-                                        <input type="text" id="contatnumber" name="contatnumber" class="form-control formenquiry" placeholder="Contact number" required="required">
+                                        <input type="text" id="referNumber" name="referNumber" class="form-control formenquiry" placeholder="Contact number" required="required">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary">
 
                                         <label class="float-label">Email Address</label>
-                                        <input type="text" id="emailaddress" name="emailaddress" class="form-control formenquiry" placeholder="Email Address">
+                                        <input type="text" id="referemail" name="referemail" class="form-control formenquiry" placeholder="Email Address">
                                         <span class="form-bar"></span>
                                     </div>
 
@@ -85,12 +131,16 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
-
-
             </div>
-
+            <!--<div class="col-sm-12" >
+                <!-- Authentication card start 
+                <div class="card">
+                    <div class="card-body">                        
+                    </div>
+                </div>
+            </div>-->
+            
         </div>
     </div>
 </div>

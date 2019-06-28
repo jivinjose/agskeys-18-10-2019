@@ -7,6 +7,8 @@
 
     <!-- Bootstrap -->
     <link href="~/ags-mobile/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome -->
     <link href="~/ags-mobile/vendors/font-awesome/css/font-awesome.min1.css" rel="stylesheet">
 
@@ -28,7 +30,7 @@
         <div class="row disp-name11" id="sec1">
 
 
-            <a href="~/MobileManagerLoan/managerloan" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "managerloan" ? "active" : "")"><i class="fa fa-home"></i><br> CUSTOMER </a>
+            <a href="~/MobileManagerLoan/managerloan" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "managerloan" ? "active" : "")"><i class="fa fa-home"></i><br> HOME </a>
 
             <a href="~/MobileManager/UserProfile" class="col-sm-4 col-xs-4 @(ViewContext.RouteData.Values["Action"].ToString() == "UserProfile" ? "active" : "")"><i class="fa fa-user"></i> <br> PROFILE </a>
 
@@ -71,6 +73,7 @@
     <script src="~/ags-mobile/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/ags-mobile/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/files/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
 
 
     <!-- Custom Theme Scripts -->
