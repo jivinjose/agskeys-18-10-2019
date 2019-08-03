@@ -49,7 +49,7 @@
                                     <div class="col">
                                         <h6 class="m-b-25">Total Loans</h6>
                                         <h3 class="f-w-700 text-c-blue">@Model.Count()</h3>
-                                        <p class="m-b-0">@DateTime.Now.ToString()</p>
+                                        <p class="m-b-0">@DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-eye bg-c-blue"></i>
@@ -65,7 +65,7 @@
                                     <div class="col">
                                         <h6 class="m-b-25">Santioned Amount</h6>
                                         <h3 class="f-w-700 text-c-green">@ViewData["loanamnt"]</h3>
-                                        <p class="m-b-0">@DateTime.Now.ToString()</p>
+                                        <p class="m-b-0">@DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-university bg-c-green"></i>
@@ -81,7 +81,7 @@
                                     <div class="col">
                                         <h6 class="m-b-25">Avg Rate Of Interest</h6>
                                         <h3 class="f-w-700 text-c-yellow">@ViewData["interest"]%</h3>
-                                        <p class="m-b-0">@DateTime.Now.ToString()</p>
+                                        <p class="m-b-0">@DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-bank bg-c-yellow"></i>

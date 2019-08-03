@@ -22,8 +22,33 @@ namespace agskeys.Controllers.TeleMarketing
                 return this.RedirectToAction("Logout", "Account");
             }
             var name = Session["username"].ToString();
+            var userid = Session["userid"].ToString();
             var photo = ags.admin_table.Where(t => t.userrole == "tele_marketing" && t.username == name).ToList();
             ViewData["photo"] = photo.FirstOrDefault().photo;
+            if (userid != null)
+            {
+                int assigned_customer_loans = (from s in ags.loan_table
+                                               join sa in ags.assigned_table on s.id.ToString() equals sa.loanid
+                                               where sa.assign_emp_id == userid
+                                               orderby sa.datex
+                                               select s).Distinct().OrderByDescending(t => t.id).Count();
+
+                ViewData["assignedLoanCount"] = assigned_customer_loans;
+                var customers = (from s in ags.customer_profile_table
+                                 join sa in ags.loan_table on s.id.ToString() equals sa.customerid into rd
+                                 from rt in rd.DefaultIfEmpty()
+                                 join sb in ags.loan_track_table on rt.id.ToString() equals sb.loanid into rb
+                                 from rc in rb.DefaultIfEmpty()
+                                 where rc.employeeid == userid || s.addedby == name
+                                 orderby rc.datex
+                                 select s).Distinct().OrderByDescending(t => t.id).Count();
+                ViewData["customer_loans"] = customers;
+            }
+            else
+            {
+                ViewData["assignedLoanCount"] = "0";
+                ViewData["customer_loans"] = "0";
+            }
             return View("~/Views/TeleMarketing/TeleMarketing/Index.cshtml");
         }
         public ActionResult Customer()

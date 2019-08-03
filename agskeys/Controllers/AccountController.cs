@@ -1237,8 +1237,8 @@ namespace agskeys.Controllers
                 EmailId = form["subscriptionEmail"].ToString();
 
                 //string CusEmail = "info@agskeys.com";
-                //string CusEmail = "info@agsfinancials.com";
-                string CusEmail = "santhosh@techvegas.in";
+                string CusEmail = "info@agsfinancials.com";
+                //string CusEmail = "santhosh@techvegas.in";
                 //////////////////////////////////
 
                 MailMessage MyMailMessage = new MailMessage();
@@ -1287,8 +1287,8 @@ namespace agskeys.Controllers
                 message = form["message"].ToString();
 
                 //string CusEmail = "info@agskeys.com";
-                //string CusEmail = "info@agsfinancials.com";
-                string CusEmail = "santhosh @techvegas.in";
+                string CusEmail = "info@agsfinancials.com";
+                //string CusEmail = "santhosh @techvegas.in";
                 //////////////////////////////////
 
                 MailMessage MyMailMessage = new MailMessage();

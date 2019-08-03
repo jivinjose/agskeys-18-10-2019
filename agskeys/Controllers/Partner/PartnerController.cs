@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -81,7 +82,23 @@ namespace agskeys.Controllers.partner
                 item.employeetype = customerid;
 
             }
+            List<vendor_table> custprf = ags.vendor_table.Where(x => x.id.ToString() == userid).ToList();
+            ViewBag.vendor_table = custprf;
 
+            if (userid != null)
+            {
+                int assigned_customer_loans = (from s in ags.loan_table
+                                               join sa in ags.assigned_table on s.id.ToString() equals sa.loanid
+                                               where sa.assign_vendor_id == userid
+                                               orderby sa.datex
+                                               select s).Distinct().OrderByDescending(t => t.id).Count();
+
+                ViewData["assignedLoanCount"] = assigned_customer_loans;               
+            }
+            else
+            {
+                ViewData["assignedLoanCount"] = "0";               
+            }
 
             return View("~/Views/Partner/Index.cshtml", customer_loans);
         }
@@ -525,6 +542,90 @@ namespace agskeys.Controllers.partner
                 }
             }
             return RedirectToAction("Index", "Partner");
+        }
+
+        [HttpPost]
+        public ActionResult SendEnquiry(FormCollection form)
+        {
+            string userid = Session["userid"].ToString();
+            if (userid != null)
+            {
+                int customerCount = ags.vendor_table.Where(x => x.id.ToString() == userid).Count();
+                if (customerCount != 0)
+                {
+                    string customerName = "";
+                    string customerEmail = "";
+                    string customerPhone = "";
+                    string customerMessage = "";
+
+                    if (form["vendorName"] != null)
+                    {
+                        customerName = form["vendorName"].ToString();
+                    }
+                    else
+                    {
+                        customerName = "Not Updated";
+                    }
+                    if (form["vendorEmail"] != null)
+                    {
+                        customerEmail = form["vendorEmail"].ToString();
+                    }
+                    else
+                    {
+                        customerEmail = "Not Updated";
+                    }
+                    if (form["vendorPhone"] != null)
+                    {
+                        customerPhone = form["vendorPhone"].ToString();
+                    }
+                    else
+                    {
+                        customerPhone = "Not Updated";
+                    }
+                    if (form["vendorMessage"] != null)
+                    {
+                        customerMessage = form["vendorMessage"].ToString();
+                    }
+                    else
+                    {
+                        customerMessage = "Not Updated";
+                    }
+
+                    //string CusEmail = "info@agskeys.com";
+                    //string CusEmail = "info@agsfinancials.com";
+                    string CusEmail = "santhosh@techvegas.in";
+                    //////////////////////////////////
+
+                    MailMessage MyMailMessage = new MailMessage();
+                    MyMailMessage.From = new MailAddress("auxinstore@gmail.com");
+                    MyMailMessage.To.Add(CusEmail);
+                    MyMailMessage.Subject = "AGSKEYS - Enquiry From Vendor";
+                    MyMailMessage.IsBodyHtml = true;
+
+                    MyMailMessage.Body = "<div style='font-family:Arial; font-size:16px; font-color:#d92027 '>Agskeys having New Customer Enquiry Details.</div><br><table border='0' ><tr><td style='padding:25px;'>Name</td><td>" + customerName + "</td></tr><tr><td style='padding:25px;'>Email</td><td>" + customerEmail + "</td></tr><tr><td style='padding:25px;'>Phone</td><td>" + customerPhone + "</td></tr><tr><td style='padding:25px;'>Message</td><td>" + customerMessage + "</td></tr></table>";
+
+                    SmtpClient SMTPServer = new SmtpClient("smtp.gmail.com");
+                    SMTPServer.Port = 587;
+                    SMTPServer.Credentials = new System.Net.NetworkCredential("auxinstore@gmail.com", "auxin12345");
+                    SMTPServer.EnableSsl = true;
+                    try
+                    {
+                        SMTPServer.Send(MyMailMessage);
+                        TempData["customerSuccessMsg"] = "Your New Enquiry Successfully send to AGSKEYS";
+                        return RedirectToAction("Index", "Partner");
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["customerFailedMsg"] = ex.Message;
+                        TempData["customerFailedMsg"] += "Oops.! Somethig Went Wrong.";
+                        return RedirectToAction("Index", "Partner");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index", "Partner");
+
         }
     }
 }

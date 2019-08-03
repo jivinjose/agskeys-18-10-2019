@@ -205,24 +205,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @*@{int Totallmt = 0;}
+                            @{int Totallmt = 0;}
                             @{int Totaldmt = 0;}
-                            @foreach (var currentmonth in ViewBag.currentmonth)
-                            {
-                                //var Totallmt = currentmonth.loanamt.ToString();
-                                <tr>
-                                    <td>@currentmonth.loanamt</td>
-                                    <td>@currentmonth.disbursementamt</td>
-                                </tr>
-                                Totallmt = Totallmt + Convert.ToInt32(@currentmonth.loanamt);
-                                Totaldmt = Totaldmt + Convert.ToInt32(@currentmonth.disbursementamt);
-                                //Totallmt = @currentmonth.loanamt;
-                                //Totaldmt = @currentmonth.disbursementamt;                                
-                            }*@
+                            <tr>
+                                <td>@ViewBag.lastmonth</td>
+                                <td>@ViewBag.currentmonthdisbursed</td>
+                                                            </tr>
+                                @{
+                                    Totallmt = Totallmt + Convert.ToInt32(@ViewBag.lastmonth);
+                                    Totaldmt = Totaldmt + Convert.ToInt32(@ViewBag.currentmonthdisbursed);
+                                }
 
                         </tbody>
                         <tfoot>
-                            @*@if(Totallmt > 0 && Totaldmt > 0){
+                            @if(Totallmt > 0 && Totaldmt > 0){
                                 int Totaldpmt = (Totaldmt * 100) / Totallmt;
                                 int Totalbpmt = 100 - Totaldpmt;
                                 <tr>
@@ -230,23 +226,9 @@
                                     <td id="disbursementamt">@Totaldpmt</td>
 
                                 </tr>
-                            }*@
+                            }
                         </tfoot>
                     </table>  
-
-
-                    @*@{int fulllmt = 0;}
-                    @{int fulldmt = 0;}
-                    @foreach (var fulltrans in ViewBag.fulltrans)
-                    {
-                        //var Totallmt = currentmonth.loanamt.ToString();
-
-                        fulllmt = fulllmt + Convert.ToInt32(@fulltrans.loanamt);
-                        fulldmt = fulldmt + Convert.ToInt32(@fulltrans.disbursementamt);
-                        //Totallmt = @currentmonth.loanamt;
-                        //Totaldmt = @currentmonth.disbursementamt;
-                    }*@
-
 
 
 
@@ -260,13 +242,12 @@
                                     <div class="row align-items-center m-b-30">
                                         <div class="col">
                                             <h6 class="m-b-5 text-white">Total Loan Amount</h6>
-                                            <h3 class="m-b-0 f-w-700 text-white"@*>@fulllmt*@ /-</h3>
+                                            <h3 class="m-b-0 f-w-700 text-white"> @ViewBag.loanTotalAmt /-</h3>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-money text-c-red f-18"></i>
+                                            <i class="fa fa-rupee text-c-red f-18"></i>
                                         </div>
                                     </div>
-                                    <p class="m-b-0 text-white"><span class="label label-danger m-r-10"></span>Full Loan Amount</p>
                                 </div>
                             </div>
                             <div class="card prod-p-card card-blue"  style="margin-left:10px;margin-right:10px;">
@@ -274,13 +255,13 @@
                                     <div class="row align-items-center m-b-30">
                                         <div class="col">
                                             <h6 class="m-b-5 text-white">Total Disbursement Amount</h6>
-                                            <h3 class="m-b-0 f-w-700 text-white">@*@fulldmt*@ /-</h3>
+                                            <h3 class="m-b-0 f-w-700 text-white"> @ViewBag.loanTotalAmtDisbursed /-</h3>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa-rupee text-c-blue f-18"></i>
                                         </div>
                                     </div>
-                                    <p class="m-b-0 text-white"><span class="label label-primary m-r-10"></span>Full Disbursed Amount</p>
+                                    
                                 </div>
                             </div>
 

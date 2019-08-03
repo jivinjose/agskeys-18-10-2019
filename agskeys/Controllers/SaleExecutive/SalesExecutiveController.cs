@@ -22,8 +22,30 @@ namespace agskeys.Controllers.SaleExecutive
                 return this.RedirectToAction("Logout", "Account");
             }
             var name = Session["username"].ToString();
+            var userid = Session["userid"].ToString();
             var photo = ags.admin_table.Where(t => t.userrole == "sales_executive" && t.username == name).ToList();
             ViewData["photo"] = photo.FirstOrDefault().photo;
+            if (userid != null)
+            {
+                int assigned_customer_loans = (from s in ags.loan_table
+                                               join sa in ags.assigned_table on s.id.ToString() equals sa.loanid
+                                               where sa.assign_emp_id == userid
+                                               orderby sa.datex
+                                               select s).Distinct().OrderByDescending(t => t.id).Count();
+
+                ViewData["assignedLoanCount"] = assigned_customer_loans;
+                int customer_loans = (from s in ags.loan_table
+                                      join sa in ags.loan_track_table on s.id.ToString() equals sa.loanid
+                                      where sa.employeeid == userid
+                                      orderby sa.datex descending
+                                      select s).Distinct().Count();
+                ViewData["customer_loans"] = customer_loans;
+            }
+            else
+            {
+                ViewData["assignedLoanCount"] = "0";
+                ViewData["customer_loans"] = "0";
+            }
             return View("~/Views/SalesExecutive/SalesExecutive/Index.cshtml");
         }
         public ActionResult Customer()
