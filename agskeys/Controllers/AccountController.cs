@@ -13,7 +13,7 @@ namespace agskeys.Controllers
     public class AccountController : Controller
     {
         agsfinancialsEntities ags = new agsfinancialsEntities();
-        // GET: Account
+        // GET: Account//
         public ActionResult Index()
         {
             return RedirectToAction("Login");
