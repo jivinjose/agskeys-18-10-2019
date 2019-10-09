@@ -63,7 +63,8 @@ namespace agskeys.Controllers.MobileVendor
                 {
                     if (item.customerid.ToString() == items.id.ToString())
                     {
-                        string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        //string concatenated = items.name.ToString() + " ( " + items.customerid + " ) ";
+                        string concatenated = items.name.ToString();
                         customerid = concatenated;
                         break;
                     }

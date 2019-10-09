@@ -68,46 +68,46 @@ namespace agskeys.Controllers
 
 
             // Current Month Transaction end //
-            int currentmonth = 0;
-            int currentmonthdisbursed = 0;
-            var lasttotalloanamt = ags.loan_table.ToList();
+            //////
 
-            //CultureInfo invC = CultureInfo.InvariantCulture;
-            //DateTime now = DateTime.Now;
-            //string datecheck = "12/30/1899 07:50:00:AM";
-            string datecheck = "5/17/2019 7:29:59 AM";
-            CultureInfo culture = new CultureInfo("en-US");
-            DateTime dateTimeObj = Convert.ToDateTime(datecheck, culture);
-            string firstWord = dateTimeObj.ToString();
-            firstWord = firstWord.Split(' ').First();
-            //firstWord = firstWord + " 00:00:00:AM";
-            //DateTime now = DateTime.ParseExact(firstWord, "MM/dd/yyyy hh:mm:ss:tt", CultureInfo.InvariantCulture);
-            DateTime now = DateTime.Parse(firstWord);
-            var startDate = new DateTime(now.Year, now.Month, 1);
-            foreach (var items in lasttotalloanamt)
-            {
-                if(items.datex != null)
-                {
-                    string datex = items.datex;
-                    DateTime dateTimeObj2 = Convert.ToDateTime(datex, culture);
-                    string firstWordloan = dateTimeObj2.ToString();
-                    firstWordloan = firstWordloan.Split(' ').First();
-                    //firstWordloan = firstWordloan + " 00:00:00:AM";
-                    //DateTime dueDate = DateTime.ParseExact(firstWordloan, "MM/dd/yyyy hh:mm:ss:tt", CultureInfo.InvariantCulture);
-                    DateTime dueDate = DateTime.Parse(firstWordloan);
-                    if ((dueDate >= startDate) && (dueDate <= now))
-                    {
-                        currentmonth = currentmonth + int.Parse(items.loanamt);
-                        currentmonthdisbursed = currentmonthdisbursed + int.Parse(items.disbursementamt);
+            //int currentmonth = 0;
+            //int currentmonthdisbursed = 0;
+            //var lasttotalloanamt = ags.loan_table.ToList();
 
-                    }
+           
+            //DateTime now2 = DateTime.Now;
+           
+            //string datecheck = now2.ToString();
+            //CultureInfo culture = new CultureInfo("en-US");
+            //DateTime dateTimeObj = Convert.ToDateTime(datecheck, culture);
+            //string firstWord = dateTimeObj.ToString();
+            //firstWord = firstWord.Split(' ').First();
+            
+            //DateTime now = DateTime.Parse(firstWord);
+            //var startDate = new DateTime(now.Year, now.Month, 1);
+            //foreach (var items in lasttotalloanamt)
+            //{
+            //    if(items.datex != null)
+            //    {
+            //        string datex = items.datex;
+            //        DateTime dateTimeObj2 = Convert.ToDateTime(datex, culture);
+            //        string firstWordloan = dateTimeObj2.ToString();
+            //        firstWordloan = firstWordloan.Split(' ').First();
+                  
+            //        DateTime dueDate = DateTime.Parse(firstWordloan);
+            //        if ((dueDate >= startDate) && (dueDate <= now))
+            //        {
+            //            currentmonth = currentmonth + int.Parse(items.loanamt);
+            //            currentmonthdisbursed = currentmonthdisbursed + int.Parse(items.disbursementamt);
 
-                }
+            //        }
 
-            }
-            ViewBag.lastmonth = currentmonth;
-            ViewBag.currentmonthdisbursed = currentmonthdisbursed;
+            //    }
 
+            //}
+            //ViewBag.lastmonth = currentmonth;
+            //ViewBag.currentmonthdisbursed = currentmonthdisbursed;
+            ////////////////
             // total loan amount
             int loantotal = 0;
             var totalloanamt = ags.loan_table.ToList();
